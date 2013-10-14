@@ -144,8 +144,6 @@
     <resources>
         <image name="login_button_normal.png" width="322" height="48"/>
         <image name="login_checkbox_checked.png" width="20" height="20"/>
-        <image name="login_checkbox_checked.png" width="20" height="20"/>
-        <image name="login_checkbox_normal.png" width="20" height="20"/>
         <image name="login_checkbox_normal.png" width="20" height="20"/>
         <image name="login_default_avatar.png" width="214" height="214"/>
         <image name="login_input_bg.png" width="18" height="102"/>

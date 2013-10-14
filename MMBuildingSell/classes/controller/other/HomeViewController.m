@@ -23,6 +23,17 @@
 @end
 
 @implementation HomeViewController
+
+- (void) viewDidLayoutSubviews {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect viewBounds = self.view.bounds;
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        viewBounds.origin.y = topBarOffset * -1;
+        self.view.bounds = viewBounds;
+    }
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,7 +61,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"logout" object:nil];
     
     // 4.默认选中全部状态
-    [home selectChildWithItem:[DockItem itemWithIcon:nil className:@"ProfileViewController"]];
+    [home selectChildWithItem:[DockItem itemWithIcon:nil className:@"ItemShowViewController"]];
 }
 
 - (void)logout

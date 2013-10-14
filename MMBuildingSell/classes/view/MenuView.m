@@ -44,11 +44,11 @@
 - (void)addDockItems
 {
     _dockItems = @[
-                   [DockItem itemWithIcon:@"tab_bar_feed_icon.png" title:@"全部动态" className:@"AllStatusViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_passive_feed_icon.png" title:@"与我相关" className:@"AboutMeViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_pic_wall_icon.png" title:@"照片墙" className:@"PhotoViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_friend_icon.png" title:@"好友" className:@"FriendViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_app_icon.png" title:@"应用" className:@"AppViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_feed_icon.png" title:@"项目展示" className:@"ItemShowViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_passive_feed_icon.png" title:@"选房计价" className:@"SelectViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_pic_wall_icon.png" title:@"客户管理" className:@"ManageCustomerViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_friend_icon.png" title:@"客户分析" className:@"AnalyseCustomerViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_app_icon.png" title:@"业务查看" className:@"BusinessViewController"],
                    [DockItem itemWithIcon:@"tab_bar_pic_setting_icon.png" title:@"设置" className:@"SettingViewController" modal:YES]
                    ];
 }

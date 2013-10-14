@@ -158,6 +158,11 @@
 		3D84C4BC180C1C8800B2311E /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C432180C1C8700B2311E /* SettingCell.m */; };
 		3D84C4BE180C1CC400B2311E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D84C4BD180C1CC400B2311E /* QuartzCore.framework */; };
 		3D84C4C1180C1DBA00B2311E /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4BF180C1DBA00B2311E /* MainStoryboard.storyboard */; };
+		3D84C4C9180C1FBC00B2311E /* ItemShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4C8180C1FBC00B2311E /* ItemShowViewController.m */; };
+		3D84C4CC180C205A00B2311E /* BusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4CB180C205A00B2311E /* BusinessViewController.m */; };
+		3D84C4CF180C206E00B2311E /* AnalyseCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4CE180C206E00B2311E /* AnalyseCustomerViewController.m */; };
+		3D84C4D2180C208400B2311E /* ManageCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4D1180C208400B2311E /* ManageCustomerViewController.m */; };
+		3D84C4D5180C209000B2311E /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4D4180C209000B2311E /* SelectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +352,16 @@
 		3D84C432180C1C8700B2311E /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
 		3D84C4BD180C1CC400B2311E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3D84C4C0180C1DBA00B2311E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		3D84C4C7180C1FBC00B2311E /* ItemShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemShowViewController.h; sourceTree = "<group>"; };
+		3D84C4C8180C1FBC00B2311E /* ItemShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemShowViewController.m; sourceTree = "<group>"; };
+		3D84C4CA180C205A00B2311E /* BusinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessViewController.h; sourceTree = "<group>"; };
+		3D84C4CB180C205A00B2311E /* BusinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessViewController.m; sourceTree = "<group>"; };
+		3D84C4CD180C206E00B2311E /* AnalyseCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyseCustomerViewController.h; sourceTree = "<group>"; };
+		3D84C4CE180C206E00B2311E /* AnalyseCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyseCustomerViewController.m; sourceTree = "<group>"; };
+		3D84C4D0180C208400B2311E /* ManageCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageCustomerViewController.h; sourceTree = "<group>"; };
+		3D84C4D1180C208400B2311E /* ManageCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageCustomerViewController.m; sourceTree = "<group>"; };
+		3D84C4D3180C209000B2311E /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
+		3D84C4D4180C209000B2311E /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -681,6 +696,11 @@
 		3D84C3FB180C1C8700B2311E /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				3D84C4C2180C1F9800B2311E /* analyse_customer */,
+				3D84C4C3180C1F9800B2311E /* business */,
+				3D84C4C4180C1F9800B2311E /* item_show */,
+				3D84C4C5180C1F9800B2311E /* manage_customer */,
+				3D84C4C6180C1F9800B2311E /* select */,
 				3D84C3FC180C1C8700B2311E /* about_me */,
 				3D84C3FF180C1C8700B2311E /* all_status */,
 				3D84C402180C1C8700B2311E /* app */,
@@ -810,6 +830,51 @@
 				3D84C432180C1C8700B2311E /* SettingCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		3D84C4C2180C1F9800B2311E /* analyse_customer */ = {
+			isa = PBXGroup;
+			children = (
+				3D84C4CD180C206E00B2311E /* AnalyseCustomerViewController.h */,
+				3D84C4CE180C206E00B2311E /* AnalyseCustomerViewController.m */,
+			);
+			path = analyse_customer;
+			sourceTree = "<group>";
+		};
+		3D84C4C3180C1F9800B2311E /* business */ = {
+			isa = PBXGroup;
+			children = (
+				3D84C4CA180C205A00B2311E /* BusinessViewController.h */,
+				3D84C4CB180C205A00B2311E /* BusinessViewController.m */,
+			);
+			path = business;
+			sourceTree = "<group>";
+		};
+		3D84C4C4180C1F9800B2311E /* item_show */ = {
+			isa = PBXGroup;
+			children = (
+				3D84C4C7180C1FBC00B2311E /* ItemShowViewController.h */,
+				3D84C4C8180C1FBC00B2311E /* ItemShowViewController.m */,
+			);
+			path = item_show;
+			sourceTree = "<group>";
+		};
+		3D84C4C5180C1F9800B2311E /* manage_customer */ = {
+			isa = PBXGroup;
+			children = (
+				3D84C4D0180C208400B2311E /* ManageCustomerViewController.h */,
+				3D84C4D1180C208400B2311E /* ManageCustomerViewController.m */,
+			);
+			path = manage_customer;
+			sourceTree = "<group>";
+		};
+		3D84C4C6180C1F9800B2311E /* select */ = {
+			isa = PBXGroup;
+			children = (
+				3D84C4D3180C209000B2311E /* SelectViewController.h */,
+				3D84C4D4180C209000B2311E /* SelectViewController.m */,
+			);
+			path = select;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1024,14 +1089,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D84C4D5180C209000B2311E /* SelectViewController.m in Sources */,
 				3D84C4A5180C1C8800B2311E /* UIImage+Fit.m in Sources */,
 				3D84C1221808E16A00B2311E /* AppDelegate.m in Sources */,
+				3D84C4C9180C1FBC00B2311E /* ItemShowViewController.m in Sources */,
 				3D84C4B9180C1C8800B2311E /* MenuItemView.m in Sources */,
 				3D84C4B3180C1C8800B2311E /* CellItem.m in Sources */,
+				3D84C4D2180C208400B2311E /* ManageCustomerViewController.m in Sources */,
 				3D84C4B0180C1C8800B2311E /* SettingViewController.m in Sources */,
 				3D84C4A7180C1C8800B2311E /* AllStatusViewController.m in Sources */,
 				3D84C4B4180C1C8800B2311E /* DockItem.m in Sources */,
 				3D84C4A6180C1C8800B2311E /* AboutMeViewController.m in Sources */,
+				3D84C4CC180C205A00B2311E /* BusinessViewController.m in Sources */,
 				3D84C4B7180C1C8800B2311E /* Dock.m in Sources */,
 				3D84C4A9180C1C8800B2311E /* FriendViewController.m in Sources */,
 				3D84C4AB180C1C8800B2311E /* LoginViewController.m in Sources */,
@@ -1040,6 +1109,7 @@
 				3D84C4A8180C1C8800B2311E /* AppViewController.m in Sources */,
 				3D84C4BC180C1C8800B2311E /* SettingCell.m in Sources */,
 				3D84C4B8180C1C8800B2311E /* IconView.m in Sources */,
+				3D84C4CF180C206E00B2311E /* AnalyseCustomerViewController.m in Sources */,
 				3D84C4BB180C1C8800B2311E /* SegmentView.m in Sources */,
 				3D84C11E1808E16A00B2311E /* main.m in Sources */,
 				3D84C4B6180C1C8800B2311E /* ComposeView.m in Sources */,
