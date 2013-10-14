@@ -12,11 +12,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    application.statusBarHidden = NO;
+    
+    // 2.设置主题
+    [self setNavTheme];
     return YES;
+}
+
+#pragma mark 初始化导航栏主题
+- (void)setNavTheme
+{
+    // 1.设置导航栏背景
+    UINavigationBar *bar = [UINavigationBar appearance];
+    [bar setBackgroundImage:[UIImage resizeImage:@"NavigationBar_Background.png"] forBarMetrics:UIBarMetricsDefault];
+    // 状态栏
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
+    
+    // 2.设置导航栏文字属性
+    NSMutableDictionary *barAttrs = [NSMutableDictionary dictionary];
+    [barAttrs setObject:[UIColor darkGrayColor] forKey:UITextAttributeTextColor];
+    [barAttrs setObject:[NSValue valueWithUIOffset:UIOffsetMake(0, 0)] forKey:UITextAttributeTextShadowOffset];
+    [bar setTitleTextAttributes:barAttrs];
+    
+    // 3.按钮
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    [item setBackgroundImage:[UIImage resizeImage:@"BarButtonItem_Normal.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [item setBackgroundImage:[UIImage resizeImage:@"BarButtonItem_Pressed.png"] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
+    NSMutableDictionary *itemAttrs = [NSMutableDictionary dictionaryWithDictionary:barAttrs];
+    [itemAttrs setObject:[UIFont boldSystemFontOfSize:13] forKey:UITextAttributeFont];
+    [item setTitleTextAttributes:itemAttrs forState:UIControlStateNormal];
+    [item setTitleTextAttributes:itemAttrs forState:UIControlStateHighlighted];
+    [item setTitleTextAttributes:itemAttrs forState:UIControlStateDisabled];
+    
+    // 4.返回按钮
+    [item setBackButtonBackgroundImage:[UIImage resizeImage:@"BarButtonItem_Back_Normal.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [item setBackButtonBackgroundImage:[UIImage resizeImage:@"BarButtonItem_Back_Pressed.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -27,7 +58,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
