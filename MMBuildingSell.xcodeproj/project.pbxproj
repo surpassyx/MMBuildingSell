@@ -163,6 +163,16 @@
 		3D84C4CF180C206E00B2311E /* AnalyseCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4CE180C206E00B2311E /* AnalyseCustomerViewController.m */; };
 		3D84C4D2180C208400B2311E /* ManageCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4D1180C208400B2311E /* ManageCustomerViewController.m */; };
 		3D84C4D5180C209000B2311E /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4D4180C209000B2311E /* SelectViewController.m */; };
+		3D84C4D8180C244900B2311E /* Palette.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D84C4D7180C244900B2311E /* Palette.m */; };
+		3D84C4EB180D1F6600B2311E /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E2180D1F6600B2311E /* 8.jpg */; };
+		3D84C4EC180D1F6600B2311E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E3180D1F6600B2311E /* 0.jpg */; };
+		3D84C4ED180D1F6600B2311E /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E4180D1F6600B2311E /* 1.jpg */; };
+		3D84C4EE180D1F6600B2311E /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E5180D1F6600B2311E /* 2.jpg */; };
+		3D84C4EF180D1F6600B2311E /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E6180D1F6600B2311E /* 3.jpg */; };
+		3D84C4F0180D1F6600B2311E /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E7180D1F6600B2311E /* 4.jpg */; };
+		3D84C4F1180D1F6600B2311E /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E8180D1F6600B2311E /* 5.jpg */; };
+		3D84C4F2180D1F6600B2311E /* 6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4E9180D1F6600B2311E /* 6.jpg */; };
+		3D84C4F3180D1F6600B2311E /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D84C4EA180D1F6600B2311E /* 7.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,6 +372,17 @@
 		3D84C4D1180C208400B2311E /* ManageCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageCustomerViewController.m; sourceTree = "<group>"; };
 		3D84C4D3180C209000B2311E /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		3D84C4D4180C209000B2311E /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
+		3D84C4D6180C244900B2311E /* Palette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palette.h; sourceTree = "<group>"; };
+		3D84C4D7180C244900B2311E /* Palette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Palette.m; sourceTree = "<group>"; };
+		3D84C4E2180D1F6600B2311E /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
+		3D84C4E3180D1F6600B2311E /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpg; sourceTree = "<group>"; };
+		3D84C4E4180D1F6600B2311E /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		3D84C4E5180D1F6600B2311E /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		3D84C4E6180D1F6600B2311E /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		3D84C4E7180D1F6600B2311E /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		3D84C4E8180D1F6600B2311E /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		3D84C4E9180D1F6600B2311E /* 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.jpg; sourceTree = "<group>"; };
+		3D84C4EA180D1F6600B2311E /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,6 +488,15 @@
 		3D84C37A180C1C8700B2311E /* image */ = {
 			isa = PBXGroup;
 			children = (
+				3D84C4E2180D1F6600B2311E /* 8.jpg */,
+				3D84C4E3180D1F6600B2311E /* 0.jpg */,
+				3D84C4E4180D1F6600B2311E /* 1.jpg */,
+				3D84C4E5180D1F6600B2311E /* 2.jpg */,
+				3D84C4E6180D1F6600B2311E /* 3.jpg */,
+				3D84C4E7180D1F6600B2311E /* 4.jpg */,
+				3D84C4E8180D1F6600B2311E /* 5.jpg */,
+				3D84C4E9180D1F6600B2311E /* 6.jpg */,
+				3D84C4EA180D1F6600B2311E /* 7.jpg */,
 				3D84C37B180C1C8700B2311E /* BarButtonItem */,
 				3D84C384180C1C8700B2311E /* bg */,
 				3D84C385180C1C8700B2311E /* btn */,
@@ -687,6 +717,8 @@
 		3D84C3F8180C1C8700B2311E /* category */ = {
 			isa = PBXGroup;
 			children = (
+				3D84C4D6180C244900B2311E /* Palette.h */,
+				3D84C4D7180C244900B2311E /* Palette.m */,
 				3D84C3F9180C1C8700B2311E /* UIImage+Fit.h */,
 				3D84C3FA180C1C8700B2311E /* UIImage+Fit.m */,
 			);
@@ -963,6 +995,8 @@
 				3D84C440180C1C8700B2311E /* btn_permission.png in Resources */,
 				3D84C46D180C1C8700B2311E /* logout_btn_bg@2x.png in Resources */,
 				3D84C47A180C1C8700B2311E /* SegmentedControl_Left_Selected@2x.png in Resources */,
+				3D84C4F3180D1F6600B2311E /* 7.jpg in Resources */,
+				3D84C4EF180D1F6600B2311E /* 3.jpg in Resources */,
 				3D84C441180C1C8700B2311E /* btn_permission@2x.png in Resources */,
 				3D84C454180C1C8700B2311E /* Default-Landscape.png in Resources */,
 				3D84C492180C1C8700B2311E /* tabbar_blog@2x.png in Resources */,
@@ -990,6 +1024,7 @@
 				3D84C44D180C1C8700B2311E /* common_card_middle_background@2x.png in Resources */,
 				3D84C4A4180C1C8800B2311E /* tabbar_separate_ugc_line_v@2x.png in Resources */,
 				3D84C479180C1C8700B2311E /* SegmentedControl_Left_Selected.png in Resources */,
+				3D84C4F1180D1F6600B2311E /* 5.jpg in Resources */,
 				3D84C469180C1C8700B2311E /* login_separator.png in Resources */,
 				3D84C43B180C1C8700B2311E /* BarButtonItem_Pressed@2x.png in Resources */,
 				3D84C449180C1C8700B2311E /* common_card_bottom_background@2x.png in Resources */,
@@ -1012,15 +1047,19 @@
 				3D84C49D180C1C8800B2311E /* tabbar_separate_selected_bg.png in Resources */,
 				3D84C462180C1C8700B2311E /* login_checkbox_checked@2x.png in Resources */,
 				3D84C48F180C1C8700B2311E /* tabbar_badge_new.png in Resources */,
+				3D84C4EE180D1F6600B2311E /* 2.jpg in Resources */,
+				3D84C4EB180D1F6600B2311E /* 8.jpg in Resources */,
 				3D84C49F180C1C8800B2311E /* tabbar_separate_ugc_bg.png in Resources */,
 				3D84C43D180C1C8700B2311E /* btn_addfriend_add@2x.png in Resources */,
 				3D84C471180C1C8700B2311E /* navbar_btn_back_bg.png in Resources */,
 				3D84C4A1180C1C8800B2311E /* tabbar_separate_ugc_bg_v.png in Resources */,
 				3D84C447180C1C8700B2311E /* common_card_background_highlighted@2x.png in Resources */,
+				3D84C4EC180D1F6600B2311E /* 0.jpg in Resources */,
 				3D84C43A180C1C8700B2311E /* BarButtonItem_Pressed.png in Resources */,
 				3D84C45C180C1C8700B2311E /* login_add_account@2x.png in Resources */,
 				3D84C4A2180C1C8800B2311E /* tabbar_separate_ugc_bg_v@2x.png in Resources */,
 				3D84C446180C1C8700B2311E /* common_card_background_highlighted.png in Resources */,
+				3D84C4F2180D1F6600B2311E /* 6.jpg in Resources */,
 				3D84C457180C1C8700B2311E /* Default-Portrait@2x.png in Resources */,
 				3D84C49C180C1C8800B2311E /* tabbar_separate_line@2x.png in Resources */,
 				3D84C48E180C1C8700B2311E /* tab_bar_pic_wall_icon@2x.png in Resources */,
@@ -1061,8 +1100,10 @@
 				3D84C47B180C1C8700B2311E /* SegmentedControl_Normal.png in Resources */,
 				3D84C46B180C1C8700B2311E /* login_stack_bg.png in Resources */,
 				3D84C47C180C1C8700B2311E /* SegmentedControl_Normal@2x.png in Resources */,
+				3D84C4F0180D1F6600B2311E /* 4.jpg in Resources */,
 				3D84C44F180C1C8700B2311E /* common_card_middle_background_highlighted@2x.png in Resources */,
 				3D84C11C1808E16A00B2311E /* InfoPlist.strings in Resources */,
+				3D84C4ED180D1F6600B2311E /* 1.jpg in Resources */,
 				3D84C442180C1C8700B2311E /* btn_permission_click.png in Resources */,
 				3D84C489180C1C8700B2311E /* tab_bar_passive_feed_icon.png in Resources */,
 				3D84C47E180C1C8700B2311E /* SegmentedControl_Right_Normal@2x.png in Resources */,
@@ -1108,6 +1149,7 @@
 				3D84C4AE180C1C8800B2311E /* AboutViewController.m in Sources */,
 				3D84C4A8180C1C8800B2311E /* AppViewController.m in Sources */,
 				3D84C4BC180C1C8800B2311E /* SettingCell.m in Sources */,
+				3D84C4D8180C244900B2311E /* Palette.m in Sources */,
 				3D84C4B8180C1C8800B2311E /* IconView.m in Sources */,
 				3D84C4CF180C206E00B2311E /* AnalyseCustomerViewController.m in Sources */,
 				3D84C4BB180C1C8800B2311E /* SegmentView.m in Sources */,

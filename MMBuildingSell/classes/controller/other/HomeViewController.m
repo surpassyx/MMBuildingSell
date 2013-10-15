@@ -126,14 +126,14 @@
 #pragma mark 监听拖拽手势
 - (void)dragNavView:(UIPanGestureRecognizer *)pan
 {
-    if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {// 手势结束
-        [UIView animateWithDuration:0.2 animations:^{
-            pan.view.transform = CGAffineTransformIdentity;
-        }];
-    } else {
-        CGFloat tx = [pan translationInView:pan.view].x;
-        pan.view.transform = CGAffineTransformMakeTranslation(tx * 0.5, 0);
-    }
+//    if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {// 手势结束
+//        [UIView animateWithDuration:0.2 animations:^{
+//            pan.view.transform = CGAffineTransformIdentity;
+//        }];
+//    } else {
+//        CGFloat tx = [pan translationInView:pan.view].x;
+//        pan.view.transform = CGAffineTransformMakeTranslation(tx * 0.5, 0);
+//    }
 }
 
 - (void)dealloc

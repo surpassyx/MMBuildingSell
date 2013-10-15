@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Palette.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface ItemShowViewController : UIViewController
+@interface ItemShowViewController : UIViewController<UINavigationControllerDelegate>
+{
+    Palette * myPlalette;
+    CGPoint MyBeganpoint;
+	CGPoint MyMovepoint;
+    
+    UIImageView *imageView;
+    
+    UIImage * imageBk;
+}
 
 @end
