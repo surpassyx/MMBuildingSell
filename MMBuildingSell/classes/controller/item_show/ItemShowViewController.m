@@ -53,7 +53,8 @@ static NSMutableArray *colors;
 
 - (void)segmentView:(SegmentView *)segmentView didSelectedSegmentAtIndex:(int)index
 {
-   [imageView setHidden:NO];
+   [myPlalette myalllineclear];
+    [imageView setHidden:NO];
     NSLog(@"点击了哪个位置---%d", index);
     switch (index) {
         case 0:
@@ -106,12 +107,14 @@ static NSMutableArray *colors;
 	[myPlalette Introductionpoint1];
 	[myPlalette Introductionpoint3:MyBeganpoint];
 	
-	NSLog(@"======================================");
-	NSLog(@"MyPalette Segment=%i",1);
+//	NSLog(@"======================================");
+//	NSLog(@"MyPalette Segment=%i",1);
 }
 //手指移动时候发出
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+//    NSLog(@"》》》》》》》》》》》》");
+
 	NSArray* MovePointArray=[touches allObjects];
 	MyMovepoint=[[MovePointArray objectAtIndex:0] locationInView:myPlalette];
 	[myPlalette Introductionpoint3:MyMovepoint];
@@ -120,6 +123,7 @@ static NSMutableArray *colors;
 //当手指离开屏幕时候
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+//    NSLog(@"++++++++++++");
 	[myPlalette Introductionpoint2];
 	[myPlalette setNeedsDisplay];
 }

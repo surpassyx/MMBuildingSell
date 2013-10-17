@@ -103,7 +103,7 @@
         }
         
         // 添加手势监听器
-        [nav.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragNavView:)]];
+//        [nav.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragNavView:)]];
         
         // 建立控制器之间的父子关系
         // 建议：两个控制器互为父子关系，那么它们的view也应该互为父子关系
@@ -126,14 +126,14 @@
 #pragma mark 监听拖拽手势
 - (void)dragNavView:(UIPanGestureRecognizer *)pan
 {
-//    if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {// 手势结束
-//        [UIView animateWithDuration:0.2 animations:^{
-//            pan.view.transform = CGAffineTransformIdentity;
-//        }];
-//    } else {
-//        CGFloat tx = [pan translationInView:pan.view].x;
-//        pan.view.transform = CGAffineTransformMakeTranslation(tx * 0.5, 0);
-//    }
+    if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {// 手势结束
+        [UIView animateWithDuration:0.2 animations:^{
+            pan.view.transform = CGAffineTransformIdentity;
+        }];
+    } else {
+        CGFloat tx = [pan translationInView:pan.view].x;
+        pan.view.transform = CGAffineTransformMakeTranslation(tx * 0.5, 0);
+    }
 }
 
 - (void)dealloc

@@ -24,6 +24,16 @@
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    _qq.text = [userDefaults objectForKey:@"account"];
+    _pwd.text = [userDefaults objectForKey:@"password"];
+    NSString * strIsSelected =[userDefaults objectForKey:@"isselected"];
+    if ([@"1" isEqualToString:strIsSelected]) {
+        [_rmbPwd setSelected:YES];
+    }else{
+        [_rmbPwd setSelected:NO];
+    }
 }
 
 #pragma mark 弹出错误提示
@@ -71,10 +81,24 @@
     // 1.停止动画
     [_indicator stopAnimating];
     
-    // 2.让登录界面可以跟用户交互
+    // 2.保存账号密码
+     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([_rmbPwd isSelected]) {
+        [userDefaults setValue:@"1" forKey:@"isselected"];
+        [userDefaults setValue:_qq.text forKey:@"account"];
+        [userDefaults setValue:_pwd.text forKey:@"password"];
+    }else{
+        [userDefaults setValue:@"0" forKey:@"isselected"];
+        [userDefaults setValue:@"" forKey:@"account"];
+        [userDefaults setValue:@"" forKey:@"password"];
+    }
+    [userDefaults synchronize];
+
+    
+    // 3.让登录界面可以跟用户交互
     self.view.userInteractionEnabled = YES;
     
-    // 3.跳到主界面
+    // 4.跳到主界面
     [self performSegueWithIdentifier:@"home" sender:nil];
 }
 
