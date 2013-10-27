@@ -1,6 +1,6 @@
 //
 //  AllStatusViewController.h
-//  QZone-HD
+//  业务状态查看
 //
 //  Created by mj on 13-9-10.
 //  Copyright (c) 2013年 itcast. All rights reserved.
