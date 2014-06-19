@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NIDropDown.h"
-#import <TCBlobDownload/TCBlobDownload.h>
+//#import <TCBlobDownload/TCBlobDownload.h>
 //#import <TCBlobDownload/TCBlobDownloadManager.h>
 
 @interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NIDropDownDelegate>{
