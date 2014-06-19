@@ -7,7 +7,7 @@
 //
 
 #define kBtnWidth 90
-#define kBtnHeight 35
+#define kBtnHeight 46
 
 #import "SegmentView.h"
 
@@ -71,16 +71,18 @@
         // 设置按钮图片
         NSString *normal = nil;
         NSString *selected = nil;
-        if (i == 0) { // 左边
-            normal = @"SegmentedControl_Left_Normal.png";
-            selected = @"SegmentedControl_Left_Selected.png";
-        } else if (i == count - 1) { // 右边
-            normal = @"SegmentedControl_Right_Normal.png";
-            selected = @"SegmentedControl_Right_Selected.png";
-        } else { // 中间
-            normal = @"SegmentedControl_Normal.png";
-            selected = @"SegmentedControl_Selected.png";
-        }
+        normal = @"SegmentedButton_Normal";
+        selected = @"SegmentedButton_Selected@2x";
+//        if (i == 0) { // 左边
+//            normal = @"SegmentedControl_Left_Normal.png";
+//            selected = @"SegmentedControl_Left_Selected.png";
+//        } else if (i == count - 1) { // 右边
+//            normal = @"SegmentedControl_Right_Normal.png";
+//            selected = @"SegmentedControl_Right_Selected.png";
+//        } else { // 中间
+//            normal = @"SegmentedControl_Normal.png";
+//            selected = @"SegmentedControl_Selected.png";
+//        }
         [btn setBackgroundImage:[UIImage resizeImage:normal] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage resizeImage:selected] forState:UIControlStateSelected];
         

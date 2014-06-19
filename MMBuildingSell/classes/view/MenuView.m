@@ -36,6 +36,10 @@
         divider.frame = CGRectMake(0, 0, frame.size.width, 2);
         divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:divider];
+        
+        //设置背景
+//        [self setBackgroundColor:[UIColor whiteColor]];
+        
     }
     return self;
 }
@@ -44,12 +48,14 @@
 - (void)addDockItems
 {
     _dockItems = @[
-                   [DockItem itemWithIcon:@"tab_bar_feed_icon.png" title:@"项目展示" className:@"ItemShowViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_passive_feed_icon.png" title:@"选房计价" className:@"SelectViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_pic_wall_icon.png" title:@"客户管理" className:@"ManageCustomerViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_friend_icon.png" title:@"客户分析" className:@"AnalyseCustomerViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_app_icon.png" title:@"业务查看" className:@"BusinessViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_pic_setting_icon.png" title:@"设置" className:@"SettingViewController" modal:YES]
+                   [DockItem itemWithIcon:@"tab_bar_itemshow_icon.png" title:@"项目展示" className:@"ItemShowViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_all360_icon.png" title:@"全景展示" className:@"PanoramaViewController"],
+//                   [DockItem itemWithIcon:@"tab_bar_map_icon.png" title:@"周边地图" className:@"MapViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_select_icon.png" title:@"选房计价" className:@"SelectViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_managecustomer_icon.png" title:@"客户管理" className:@"ManageCustomerViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_analysecustomer_icon.png" title:@"客户分析" className:@"AnalyseCustomerViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_allstatus_icon.png" title:@"业务查看" className:@"AllStatusViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_setting_icon.png" title:@"设置" className:@"SettingViewController" modal:YES]
                    ];
 }
 

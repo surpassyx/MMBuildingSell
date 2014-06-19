@@ -96,28 +96,24 @@
 {
     CellItem *note = [CellItem itemWithTitle:@"通知设置" cellItemType:CellItemTypeDisclosureIndicator];
     
-    CellItem *upload = [CellItem itemWithTitle:@"上传高清图片" cellItemType:CellItemTypeSwitch];
-    CellItem *photo = [CellItem itemWithTitle:@"照片水印" cellItemType:CellItemTypeSwitch];
+//    CellItem *upload = [CellItem itemWithTitle:@"上传高清图片" cellItemType:CellItemTypeSwitch];
+//    CellItem *photo = [CellItem itemWithTitle:@"照片水印" cellItemType:CellItemTypeSwitch];
+//    
+//    CellItem *power = [CellItem itemWithTitle:@"权限设置" cellItemType:CellItemTypeDisclosureIndicator];
+//    
+//    CellItem *skin = [CellItem itemWithTitle:@"皮肤" cellItemType:CellItemTypeDisclosureIndicator];
+//    
+//    CellItem *voice = [CellItem itemWithTitle:@"提示音" cellItemType:CellItemTypeSwitch];
+//    
+//    CellItem *suggest = [CellItem itemWithTitle:@"意见反馈" cellItemType:CellItemTypeDisclosureIndicator];
+//    suggest.className = @"SuggestViewController";
     
-    CellItem *power = [CellItem itemWithTitle:@"权限设置" cellItemType:CellItemTypeDisclosureIndicator];
-    
-    CellItem *skin = [CellItem itemWithTitle:@"皮肤" cellItemType:CellItemTypeDisclosureIndicator];
-    
-    CellItem *voice = [CellItem itemWithTitle:@"提示音" cellItemType:CellItemTypeSwitch];
-    
-    CellItem *suggest = [CellItem itemWithTitle:@"意见反馈" cellItemType:CellItemTypeDisclosureIndicator];
-    suggest.className = @"SuggestViewController";
-    
-    CellItem *about = [CellItem itemWithTitle:@"关于" cellItemType:CellItemTypeDisclosureIndicator];
-    about.className = @"AboutViewController";
+//    CellItem *about = [CellItem itemWithTitle:@"关于" cellItemType:CellItemTypeDisclosureIndicator];
+//    about.className = @"AboutViewController";
     
     NSArray *array = @[
-                    @[note],
-                    @[upload, photo],
-                    @[power],
-                    @[skin],
-                    @[voice],
-                    @[suggest, about]
+                    @[note]
+                    
                    ];
     _cellItems = [NSMutableArray arrayWithArray:array];
 }

@@ -21,11 +21,16 @@
         self.imageView.layer.cornerRadius = 5;
         self.imageView.layer.masksToBounds = YES;
         
-        [self setImage:[UIImage imageNamed:@"default_person_lit.png"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageNamed:@"head_icon.jpg"] forState:UIControlStateNormal];
         
-        [self setTitle:@"哈哈" forState:UIControlStateNormal];
+        [self setTitle:@"赵四" forState:UIControlStateNormal];
         
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        
+        //设置背景
+//        [self setBackgroundColor:[UIColor whiteColor]];
+        //设置字体颜色
+        [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     return self;
 }
@@ -37,7 +42,7 @@
     self.frame = CGRectMake(0, 0, width, width);
     
     // 2.根据方向隐藏文字
-    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:@"哈哈";
+    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:@"赵四";
     [self setTitle:title forState:UIControlStateNormal];
 }
 

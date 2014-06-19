@@ -61,14 +61,14 @@
 #pragma mark 点击了头像
 - (void)iconClick
 {
-    // 1.清除MenuView内部选中的Item
-    [_menuView unselectAll];
-    
-    // 2.通知block
-    if (_dockItemClickBlock) {
-        DockItem *item = [DockItem itemWithIcon:nil className:@"ProfileViewController"];
-        _dockItemClickBlock(item);
-    }
+//    // 1.清除MenuView内部选中的Item
+//    [_menuView unselectAll];
+//    
+//    // 2.通知block
+//    if (_dockItemClickBlock) {
+//        DockItem *item = [DockItem itemWithIcon:nil className:@"ProfileViewController"];
+//        _dockItemClickBlock(item);
+//    }
 }
 
 #pragma mark 旋转到某个方向

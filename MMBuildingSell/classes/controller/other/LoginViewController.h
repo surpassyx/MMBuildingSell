@@ -7,8 +7,15 @@
 //  登录界面
 
 #import <UIKit/UIKit.h>
+#import "NIDropDown.h"
+#import <TCBlobDownload/TCBlobDownload.h>
+//#import <TCBlobDownload/TCBlobDownloadManager.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NIDropDownDelegate>{
+    NIDropDown *dropDown;
+}
+//@property (nonatomic , unsafe_unretained) TCBlobDownloadManager *sharedDownloadManager;
+
 @property (weak, nonatomic) IBOutlet UIView *loginView;
 - (IBAction)login;
 @property (weak, nonatomic) IBOutlet UITextField *qq;
@@ -18,4 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *autoLogin;
 @property (weak, nonatomic) IBOutlet UIButton *rmbPwd;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
+- (IBAction)settingAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *qibieBtn;
+- (IBAction)selectQiBie;
 @end

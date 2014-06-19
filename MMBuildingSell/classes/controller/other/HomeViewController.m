@@ -19,6 +19,9 @@
     
     // 当前正在显示的子控制器
     UINavigationController *_currentChild;
+    
+    UIImageView *_divider;
+    UIImageView *_divider2;
 }
 @end
 
@@ -38,6 +41,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.translucent = NO;
+    
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
 
@@ -56,12 +61,28 @@
     
     // 2.设置背景
     self.view.backgroundColor = kGlobalBg;
+//    self.view.backgroundColor = [UIColor whiteColor];
     
     // 3.监听通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"logout" object:nil];
     
     // 4.默认选中全部状态
     [home selectChildWithItem:[DockItem itemWithIcon:nil className:@"ItemShowViewController"]];
+    
+    // 4.分隔线
+    _divider = [[UIImageView alloc] init];
+    _divider.frame = CGRectMake(_dock.frame.size.width, 0, 2, self.view.frame.size.height);
+    _divider.image = [UIImage resizeImage:@"tabbar_separate_ugc_line_v.png"];
+    [self.view  addSubview:_divider];
+    
+    _divider2 = [[UIImageView alloc] init];
+    _divider2.frame = CGRectMake(0, 0, _dock.frame.size.width, 2);
+    _divider2.image = [UIImage resizeImage:@"tabbar_separate_line"];
+    
+    [self.view  addSubview:_divider2];
+    
+//    NSLog(@"----%f,%f,%f,%f---",_dock.frame.size.width,0.0, 1024 - _dock.frame.size.width, _dock.frame.size.height);
+    
 }
 
 - (void)logout
@@ -77,9 +98,11 @@
         [_dock rotateToOrientation:toInterfaceOrientation];
         
         // 调整当前选中控制器view的frame
-        CGFloat width = 768 - kDockMenuItemHeight;
-        _currentChild.view.frame = CGRectMake(_dock.frame.size.width, 0, width, _dock.frame.size.height);
+//        CGFloat width = 768 - kDockMenuItemHeight;
+        CGFloat width = 1024 - _dock.frame.size.width - 2;
+        _currentChild.view.frame = CGRectMake(_dock.frame.size.width + 2, 2, width, _dock.frame.size.height - 2);
     }];
+   
 }
 
 #pragma mark 切换控制器
@@ -99,6 +122,7 @@
         if (item.modal) {
             nav.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentViewController:nav animated:YES completion:nil];
+            nav.view.superview.frame = CGRectMake(0, 0, 750, 650);
             return;
         }
         
@@ -115,9 +139,10 @@
     
     // 2.移除旧控制器的view
     [_currentChild.view removeFromSuperview];
-    
-    CGFloat width = 768 - kDockMenuItemHeight;
-    nav.view.frame = CGRectMake(_dock.frame.size.width, 0, width, _dock.frame.size.height);
+//    CGFloat width = 768 - kDockMenuItemHeight;
+    CGFloat width = 1024 - _dock.frame.size.width - 2;
+    nav.view.frame = CGRectMake(_dock.frame.size.width + 2, 2, width, _dock.frame.size.height - 2);
+    NSLog(@"%f,%f",width,_dock.frame.size.height);
     [self.view addSubview:nav.view];
     
     _currentChild = nav;

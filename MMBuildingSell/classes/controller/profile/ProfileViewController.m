@@ -7,6 +7,8 @@
 //
 
 #import "ProfileViewController.h"
+#import "AFNetworking.h"
+#import "ProfileCell.h"
 
 @interface ProfileViewController ()
 
@@ -18,8 +20,96 @@
 {
     [super viewDidLoad];
     
-    self.title = @"个人主页";
+    self.title = @"楼盘期别选择";
+    
+    self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 720, 700)];
+    
+    self.myTableView.delegate = self;
+    self.myTableView.dataSource = self;
+    
+    [self.view addSubview:self.myTableView];
+    
 }
+
+-(void)analysisJson:(NSDictionary *)jsonDic
+{
+    //    NSError *error;
+    //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
+    NSString * strSign = [jsonDic objectForKey:@"sign"];
+    int intString = [strSign intValue];
+    if (intString == 1) {
+        NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
+        for (int i = 0; i < arrInfo.count ; i++) {
+            NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+            NSString * strName = [dicInfo objectForKey:@"name"];
+            NSString * strTel =[dicInfo objectForKey:@"tel"];
+            NSString * strType = [dicInfo objectForKey:@"type"];
+            NSString * strGetway = [dicInfo objectForKey:@"getway"];
+            NSString * strPurpose = [dicInfo objectForKey:@"purpose"];
+            NSString * strWorkplace =[dicInfo objectForKey:@"workplace"];
+            NSString * strTrade = [dicInfo objectForKey:@"trade"];
+            
+            NSMutableArray *arrRemarkTemp = [dicInfo objectForKey:@"arr"];
+            
+            NSMutableArray *arrRemark = [[NSMutableArray alloc]init];
+            for (int j = 0; j < arrRemarkTemp.count; j++) {
+                NSMutableDictionary *arrRemarkDic = [[NSMutableDictionary alloc]init];
+                NSDictionary *dicInfo = [arrRemarkTemp objectAtIndex:i];
+                NSString * strRemark = [dicInfo objectForKey:@"remark"];
+                NSString * strDate =[dicInfo objectForKey:@"date"];
+                [arrRemarkDic setValue:strRemark forKey:@"remark"];
+                [arrRemarkDic setValue:strDate forKey:@"date"];
+                [arrRemark addObject:arrRemarkDic];
+            }
+            
+            NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+            [rowData setValue:strName forKey:@"name"];
+            [rowData setValue:strTel forKey:@"tel"];
+            [rowData setValue:strType forKey:@"type"];
+            [rowData setValue:strGetway forKey:@"getway"];
+            [rowData setValue:strPurpose forKey:@"purpose"];
+            [rowData setValue:strWorkplace forKey:@"workplace"];
+            [rowData setValue:strTrade forKey:@"trade"];
+            [rowData setValue:arrRemark forKey:@"remark"];
+            
+            //            [arrAd addObject:rowData];
+        }
+        
+    }else{
+        NSLog(@"服务端返回错误");
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
+        
+        //        [self setADScrollView];
+    });
+}
+
+- (void)getInfoSuccess
+{
+    
+}
+
+-(void)getHttpInfo
+{
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://erp.lncct.com/Mobile/Interface.aspx?no=%@&enterpriseCode=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        [self analysisJson:(NSDictionary *)responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -40,17 +130,27 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    ProfileCell *cell = (ProfileCell*) [tableView dequeueReusableCellWithIdentifier:@"ProfileCell"];
+    if(cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProfileCell" owner:[ProfileCell class] options:nil];
+        cell = (ProfileCell *)[nib objectAtIndex:0];
+        cell.contentView.backgroundColor = [UIColor clearColor];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"第%d期",[indexPath row]];
+    
+    //    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[dict objectForKey:@"Image"]]];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+
 }
 
 /*
@@ -98,11 +198,14 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:@"Nib name" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    AppDelegate *delegate=(AppDelegate*)[[UIApplication sharedApplication]delegate];
+    delegate.nPhase = indexPath.row;
+    
 }
 
 @end

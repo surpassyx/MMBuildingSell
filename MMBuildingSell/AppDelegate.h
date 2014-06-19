@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "BMapKit.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+//    BMKMapManager* _mapManager;
+}
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property int nPhase;
+
+-(NSMutableArray *)searchFileInDocumentDirctory:(NSString *)path;
 
 @end

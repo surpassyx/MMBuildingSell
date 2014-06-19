@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="paper.js">
+    
+</script>
+
+</head>
+<body>
+    <canvas id="myCanvas" resize>unsupport</canvas>
+</body>
+<script type='text/paperscript' canvas='myCanvas'>
+    var data = window.getUsername();//down to top
+    var txt = ['多次来访', '回访', '初次来访', '初次接触', '多次来电'];
+    var g = 1;
+    var c = new Path.Circle(new Point(0, 0), 10);
+    c.bounds.left -= 15;
+    c.bounds.top += 5;
+    var i = 0;
+    for(var count = 0; count < data.length; count++){
+        var bound = 0;
+        for(var j = 0; j <= count; j++){
+            bound += data[j];
+        }
+        var start = new Point(view.center + [0, -100] + [0, -2 * g * i] + [0, -g * data[count]]);
+        var end = start.clone();
+        end.x += 200;
+        var line = new Path();
+        line.strokeColor = 'black';
+        line.add(start);
+        line.add(end);
+        var randomColor = Color.random();
+        var text = new PointText(end + [g * 8, g * 4]);
+        text.fillColor = randomColor;
+        text.content = txt[count] + '[' + data[count] + ']';
+        var clone = c.clone();
+        var color = {
+            gradient : {stops:['#fff', randomColor], radial:true}, 
+            origin: clone.position, 
+            destination: clone.bounds.left
+        }
+//        var color = Color.random();
+        clone.strokeColor = color;
+        clone.fillColor = color;
+        clone.fillColor.alpha = 0.05;
+        var symbol = new Symbol(clone);
+        
+        for(; i < bound; i++){
+            var p = symbol.place(view.center + [0, -100]);
+            p.bounds.left -= g * i;
+            p.bounds.right += g * i;
+            p.position += [0, -2 * g * i];
+        }
+    }
+</script>
+</html>

@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ServiceSettingViewController.h"
+#import "UIViewController+CWPopup.h"
 
 @interface LoginViewController ()
 
@@ -15,15 +17,77 @@
 
 @implementation LoginViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+//        self.sharedDownloadManager = [TCBlobDownloadManager sharedInstance];
+    }
+    
+    return self;
+}
+
+/**
+ * 输入文本结束后，关闭键盘，并恢复视图位置
+ */
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[textField resignFirstResponder];
+
+    self.view.frame =CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+/**
+ * 开始输入文本时，将当前视图向上移动，以显示键盘
+ */
+- (void)textFieldDidStartEditing:(UITextField *)textField	 {
+
+    CGRect frame = textField.frame;
+    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);//键盘高度216
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
+    if(offset > 0)
+        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+    
+    [UIView commitAnimations];
+	
+}
+
+//当用户按下return键或者按回车键，keyboard消失
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.delegate = self;
+    [self.view addGestureRecognizer:tapRecognizer];
+    self.useBlurForPopup = YES;
+    
     // 设置背景颜色
-    self.view.backgroundColor = kGlobalBg;
+    self.view.backgroundColor = kSegmentBg;
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    //添加事件处理方法
+    [_qq addTarget:self action:@selector(textFieldDidEndEditing:)
+        forControlEvents:UIControlEventEditingDidEndOnExit];
+    [_qq addTarget:self action:@selector(textFieldDidStartEditing:)
+        forControlEvents:UIControlEventEditingDidBegin];
+    [_pwd addTarget:self action:@selector(textFieldDidEndEditing:)
+        forControlEvents:UIControlEventEditingDidEndOnExit];
+    [_pwd addTarget:self action:@selector(textFieldDidStartEditing:)
+        forControlEvents:UIControlEventEditingDidBegin];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _qq.text = [userDefaults objectForKey:@"account"];
@@ -35,6 +99,60 @@
         [_rmbPwd setSelected:NO];
     }
 }
+
+-(void)analysisJson:(NSDictionary *)jsonDic
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
+        
+        //        [self setADScrollView];
+    });
+    return ;
+    //    NSError *error;
+    //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
+    NSString * strSign = [jsonDic objectForKey:@"sign"];
+    int intString = [strSign intValue];
+    if (intString == 1) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setValue:[jsonDic objectForKey:@"username"] forKey:@"username"];
+        [userDefaults setValue:[jsonDic objectForKey:@"usercode"] forKey:@"usercode"];
+        [userDefaults setValue:[jsonDic objectForKey:@"enterpriseCode"] forKey:@"enterpriseCode"];
+        [userDefaults synchronize];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 3.2.让整个登录界面停止跟用户交互
+            self.view.userInteractionEnabled = NO;
+            
+            // 3.3.通过定时器跳到主界面
+            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
+            
+            //        [self setADScrollView];
+        });
+
+        
+    }else if (intString == 0) {
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(alertError:) userInfo:[jsonDic objectForKey:@"error"] repeats:NO];
+    }else{
+        NSLog(@"服务端返回错误");
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(alertError:) userInfo:@"服务端返回错误" repeats:NO];
+    }
+    
+    
+    
+}
+
 
 #pragma mark 弹出错误提示
 - (void)alertError:(NSString *)error
@@ -50,6 +168,12 @@
     [_loginView.layer addAnimation:anim forKey:nil];
 }
 
+- (IBAction)selectQiBie
+{
+    [self selectClicked:self.qibieBtn];
+}
+
+
 #pragma mark 登录
 - (IBAction)login {
     // 1.QQ
@@ -64,15 +188,38 @@
         return;
     }
     
+    
+    
     // 3.登录成功
     // 3.1.开始动画
     [_indicator startAnimating];
     
-    // 3.2.让整个登录界面停止跟用户交互
-    self.view.userInteractionEnabled = NO;
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
+    [myDefaults setObject:@"01" forKey:@"installment"];
+    [myDefaults synchronize];
     
-    // 3.3.通过定时器跳到主界面
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/login.php?loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+    NSLog(@"loginUrl=%@",strUrl);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Login - %@",responseObject);
+        [self analysisJson:(NSDictionary *)responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        //
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(alertError:) userInfo:error repeats:NO];
+    }];
+
+
+    //http://www.ykhome.cn/myhome/login.php?loginname=lgh&loginpassword=123&enterpriseCode=P0001&installment=01
+    
+
+    
 }
 
 #pragma mark 登录成功
@@ -122,4 +269,192 @@
         _rmbPwd.selected = YES;
     }
 }
+- (IBAction)settingAction:(id)sender {
+    
+    ServiceSettingViewController *samplePopupViewController = [[ServiceSettingViewController alloc] initWithNibName:@"ServiceSettingViewController" bundle:nil];
+    [self presentPopupViewController:samplePopupViewController animated:YES completion:^(void) {
+        NSLog(@"popup view presented");
+    }];
+
+    
+}
+
+- (void)dismissPopup {
+    if (self.popupViewController != nil) {
+        [self dismissPopupViewControllerAnimated:YES completion:^{
+            NSLog(@"popup view dismissed");
+        }];
+    }
+}
+
+#pragma mark - gesture recognizer delegate functions
+
+// so that tapping popup view doesnt dismiss it
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return touch.view == self.view;
+}
+
+- (void)selectClicked:(id)sender {
+    NSArray * arr = [[NSArray alloc] init];
+    arr = [NSArray arrayWithObjects:@"1期", @"2期", @"3期", @"4期",nil];
+    NSArray * arrImage = [[NSArray alloc] init];
+    arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], [UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], nil];
+    if(dropDown == nil) {
+        CGFloat f = 200;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :arrImage :@"down"];
+        dropDown.delegate = self;
+    }
+    else {
+        [dropDown hideDropDown:sender];
+        [self rel];
+    }
+}
+
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+    
+    NSString *temp = [[NSString alloc]init];
+    if([sender.animationDirection isEqualToString:@"1期"]){
+        temp = @"1";
+    }else if ([sender.animationDirection isEqualToString:@"2期"]){
+        temp = @"2";
+    }else if ([sender.animationDirection isEqualToString:@"3期"]){
+        temp = @"3";
+    }else if ([sender.animationDirection isEqualToString:@"4期"]){
+        temp = @"4";
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:temp forKey:@"qibie"];
+    [defaults synchronize];
+    [self rel];
+}
+
+-(void)rel{
+    //    [dropDown release];
+    dropDown = nil;
+}
+
+
+-(void)initPicResources
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *qibie = [defaults objectForKey:@"qibie"];
+    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *path = [[NSString alloc]initWithFormat:@"%@%@%@%@/",documentsDirectory,@"/",@"MMBuilding/",qibie];
+    
+    //item文件夹
+    NSString *itemPath = [[NSString alloc]initWithFormat:@"%@/%@/",path,@"item"];
+    if ([self fileSizeForDir:itemPath] <= 0 ) {
+        //0 - 5
+        
+    }
+    //panorama文件夹
+    NSString *panoramaPath = [[NSString alloc]initWithFormat:@"%@/%@/",path,@"panorama"];
+    if ([self fileSizeForDir:panoramaPath] <= 0 ) {
+        //0 - 3
+        
+    }
+    
+}
+
+-(void)downloadResources
+{
+    
+}
+-(BOOL)copyBundleToDocuments:(NSString *)fileName filePath:(NSString *)filePath
+{
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSString *fileFullName = [[NSString alloc]initWithFormat:@"/%@",filePath];
+
+    NSString *dataPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:fileFullName];//获取程序包中相应文件的路径
+    if([fileManager copyItemAtPath:dataPath toPath:filePath error:&error]) //拷贝
+    {
+        NSLog(@"copy xxx.txt success");
+        return YES;
+    }
+    else
+    {
+        NSLog(@"%@",error);
+        return NO;
+    }
+
+}
+
+-(long)fileSizeForDir:(NSString*)path//计算文件夹下文件的总大小
+{
+    long size = 0;
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    
+    NSArray* array = [fileManager contentsOfDirectoryAtPath:path error:nil];
+    for(int i = 0; i<[array count]; i++)
+    {
+        NSString *fullPath = [path stringByAppendingPathComponent:[array objectAtIndex:i]];
+        
+        BOOL isDir;
+        if ( !([fileManager fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) )
+        {
+            NSDictionary *fileAttributeDic=[fileManager attributesOfItemAtPath:fullPath error:nil];
+            size+= fileAttributeDic.fileSize;
+        }
+        else
+        {
+            [self fileSizeForDir:fullPath];
+        }
+    }
+    return size;
+    
+}
+-(void)synchronizedFileInfoFromHttp
+{
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
+    [myDefaults setObject:@"01" forKey:@"installment"];
+    [myDefaults synchronize];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://erp.lncct.com/Mobile/Interface.aspx?username=%@&password=%@&enterpriseCode=%@installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+    NSLog(@"loginUrl=%@",strUrl);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Login JSON: %@", responseObject);
+        [self analysisFileJson:(NSDictionary *)responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
+    }];
+
+}
+
+-(void)analysisFileJson:(NSDictionary *)jsonDic
+{
+    //    NSError *error;
+    //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
+    NSString * strSign = [jsonDic objectForKey:@"sign"];
+    int intString = [strSign intValue];
+    if (intString == 1) {
+        
+    }else{
+        NSLog(@"服务端返回错误");
+    }
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 3.2.让整个登录界面停止跟用户交互
+        self.view.userInteractionEnabled = NO;
+        
+        // 3.3.通过定时器跳到主界面
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
+        
+        //        [self setADScrollView];
+    });
+    
+    
+    
+}
+
 @end

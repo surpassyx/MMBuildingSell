@@ -7,7 +7,57 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSGridView.h"
+#import "QCheckBox.h"
+#import "PrintPurchasingViewController.h"
+#import "NIDropDown.h"
 
-@interface SelectViewController : UIViewController
+@interface SelectViewController : UIViewController<MSGridViewDataSource,MSGridViewDelegate,NIDropDownDelegate,UIGestureRecognizerDelegate>{
+    MSGridView *gridView;
+
+    UIImageView  *imageView;
+    
+    UILabel *showLabel;
+    
+    UILabel *danjiaLabel;
+    
+    UILabel *totalLabel;
+    
+    UILabel *freeLabel;
+    
+    UITextField *freeFieldText;
+    
+    UILabel *freeLabel2;
+    
+    UIButton *freeJisuanBtn;
+    
+    UILabel *freeTotalLabel;
+    
+    UITextField *freeTotalFieldText;
+    
+    UILabel *freeTotalLabel2;
+    
+    UIButton *freeTotalJisuanBtn;
+    
+//    UILabel *okLabel;
+//    
+//    UILabel *okLabel2;
+
+    
+//    QCheckBox * check1;
+//    QCheckBox * check2;
+//    QCheckBox * check3;
+    
+//    UIButton * jisuanBtn;
+    UIButton * nextBtn;
+    
+    UIButton * selectBtn;
+    NIDropDown *dropDown;
+    
+    UIImageView  *imageViewLeftBk;
+    UIImageView  *imageViewRightBk;
+}
+
+@property (nonatomic, retain) NSMutableArray *dataList;
 
 @end

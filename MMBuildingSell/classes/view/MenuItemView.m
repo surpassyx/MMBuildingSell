@@ -57,16 +57,20 @@
     
     // 2.设置文字
     [self setTitle:dockItem.title forState:UIControlStateNormal];
+    
+    //设置字体颜色
+    [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
 }
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    return CGRectMake(0, 0, kDockMenuItemHeight, kDockMenuItemHeight);
+    return CGRectMake(30, 0, kDockMenuItemHeight, kDockMenuItemHeight);
 }
 
 - (CGRect)titleRectForContentRect:(CGRect)contentRect
 {
-    CGFloat width = contentRect.size.width - kDockMenuItemHeight;
-    return CGRectMake(kDockMenuItemHeight, 0, width, kDockMenuItemHeight);
+    CGFloat width = contentRect.size.width - kDockMenuItemHeight - 30;
+    return CGRectMake(kDockMenuItemHeight + 30, 0, width, kDockMenuItemHeight);
 }
 @end

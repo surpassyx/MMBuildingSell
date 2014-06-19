@@ -33,6 +33,9 @@
         
         // 2.添加所有的按钮
         [self addBtns];
+        
+        //设置背景
+//        [self setBackgroundColor:[UIColor whiteColor]];
     }
     return self;
 }
@@ -41,9 +44,9 @@
 - (void)addDockItems
 {
     _dockItems = @[
-       [DockItem itemWithIcon:@"tabbar_mood.png" className:nil modal:YES],
-       [DockItem itemWithIcon:@"tabbar_photo.png" className:nil modal:YES],
-       [DockItem itemWithIcon:@"tabbar_blog.png" className:nil modal:YES]
+       [DockItem itemWithIcon:@"tabbar_tasksend.png" className:@"TaskSendViewController" modal:YES],
+       [DockItem itemWithIcon:@"tabbar_tasklist.png" className:@"TaskListViewController" modal:YES],
+       [DockItem itemWithIcon:@"tabbar_ring.png" className:@"TaskListViewController" modal:YES]
                    ];
 }
 
@@ -81,6 +84,14 @@
     if (_composeItemClickBlock) {
         _composeItemClickBlock(_dockItems[btn.tag]);
     }
+//    if(btn.tag == 0){
+//        NSLog(@"OOOOOO");
+//    }else if(btn.tag == 1){
+//        NSLog(@"111111");
+//    }else{
+//        NSLog(@"222222");
+//    }
+    
 }
 
 #pragma mark 旋转到某一个方向

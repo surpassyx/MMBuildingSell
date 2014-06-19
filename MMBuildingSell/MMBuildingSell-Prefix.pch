@@ -14,9 +14,19 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+#import "AppDelegate.h"
+
+#import "AFNetworking.h"
+
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
 // 获得颜色
 #define kGetColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
-#define kGlobalBg kGetColor(46, 46, 46)
+#define kGlobalBg kGetColor(243, 245, 250)
+#define kSegmentBg kGetColor(212, 219, 215)
+#define kAllStatusBg kGetColor(250, 250, 250)
+#define kAnalyseBg kGetColor(234, 234, 234)
 
 // 获取Dock的高度
 #define kDockHeight(orientation) ((UIInterfaceOrientationIsLandscape(orientation)?[UIScreen mainScreen].bounds.size.width:[UIScreen mainScreen].bounds.size.height) - 20)
@@ -25,12 +35,12 @@
  Compose里面item的宽高
  */
 // 横屏的宽度
-#define kDockComposeItemWidthL 90
+#define kDockComposeItemWidthL 70
 // 横屏的高度
 #define kDockComposeItemHeightL kDockComposeItemWidthL
 
 // 竖屏的宽度
-#define kDockComposeItemWidthP 60
+#define kDockComposeItemWidthP 50
 // 竖屏的高度
 #define kDockComposeItemHeightP kDockComposeItemWidthP
 
@@ -38,6 +48,19 @@
  Menu里面Item的宽高
  */
 #define kDockMenuItemHeight kDockComposeItemHeightP
+/*
+ 展示页 x，y，w，h
+ */
+#define kItemShowImageX 10
+#define kItemShowImageY 10
+#define kItemShowImageW 772
+#define kItemShowImageH 660
+
+
+#define kCount 20
+#define kWidth 80
+#define kHeight 40
+
 
 
 #import "UIImage+Fit.h"
