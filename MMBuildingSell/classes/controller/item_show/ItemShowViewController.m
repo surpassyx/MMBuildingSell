@@ -24,7 +24,7 @@
 @end
 
 @implementation ItemShowViewController{
-    NSArray *_slideshowData;
+    NSMutableArray *_slideshowData;
     NSArray *_transitionOptions;
 }
 
@@ -60,8 +60,11 @@ static NSMutableArray *colors;
                           [NSNumber numberWithInteger:UIViewAnimationOptionTransitionCrossDissolve]
                           ];
     
-    NSArray* section1 = @[@"0.jpg",@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
-    _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+    NSString *saveFilePath = [LocalFilePath getSessionPath:@"xiangmuzhanshi/"]; //保存文件的路径
+    NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+    
+//    NSArray* section1 = @[@"0.jpg",@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
+    _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
     
 
     CGFloat width = 814.0;
@@ -94,7 +97,7 @@ static NSMutableArray *colors;
     [self initPlalette:width height:height];
     
     //播放视频按钮
-    [self initPlay];
+    [self initPlay:YES];
     
     //左右按钮与图片集切换
     [self initImageShowView];
@@ -157,14 +160,14 @@ static NSMutableArray *colors;
 }
 
 
--(void)initPlay{
+-(void)initPlay:(BOOL)isHidden{
     playButton= [[UIButton alloc]initWithFrame:CGRectMake(303, 270, 208, 208)];
     [playButton addTarget:self action:@selector(PlayMovieAction:) forControlEvents:UIControlEventTouchUpInside];
 //    playButton.backgroundColor=[UIColor redColor];
     [playButton setBackgroundImage:[UIImage imageNamed:@"item_play_btn"] forState:UIControlStateNormal];
     [self.view addSubview:playButton];
     
-    [playButton setHidden:YES];
+    [playButton setHidden:isHidden];
 
 }
 
@@ -242,8 +245,11 @@ static NSMutableArray *colors;
             //项目展示背景
 //            imageBk = [UIImage imageNamed:@"xiangmuzhanshi.jpg"];
 //            [imageView setImage:imageBk];
-            NSArray* section1 = @[@"0.jpg",@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
-            _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+            
+//            NSArray* section1 = @[@"0.jpg",@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"xiangmuzhanshi/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
             [self setDrawButtonShow:YES];
             [imageShowView beginSlideShow];
             break;
@@ -253,8 +259,10 @@ static NSMutableArray *colors;
             //剖面图
 //            imageBk = [UIImage imageNamed:@"poumianzhanshi.jpg"];
 //            [imageView setImage:imageBk];
-            NSArray* section1 = @[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
-            _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+//            NSArray* section1 = @[@"1.jpg",@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"poumiantu/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
             [self setDrawButtonShow:YES];
             [imageShowView beginSlideShow];
             break;
@@ -264,8 +272,10 @@ static NSMutableArray *colors;
             //房型展示
 //            imageBk = [UIImage imageNamed:@"huxingtu.jpg"];
 //            [imageView setImage:imageBk];
-            NSArray* section1 = @[@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
-            _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+//            NSArray* section1 = @[@"2.jpg",@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"fangxingzhanshi/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
             [self setDrawButtonShow:YES];
             [imageShowView beginSlideShow];
             break;
@@ -275,8 +285,10 @@ static NSMutableArray *colors;
             //物业展示
 //            imageBk = [UIImage imageNamed:@"wuyezhanshi.jpg"];
 //            [imageView setImage:imageBk];
-            NSArray* section1 = @[@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
-            _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+//            NSArray* section1 = @[@"3.jpg",@"4.jpg",@"5.jpg",@"6.jpg"];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"wuyezhanshi/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
             [self setDrawButtonShow:YES];
             [imageShowView beginSlideShow];
             break;
@@ -286,8 +298,10 @@ static NSMutableArray *colors;
             //周边配套
 //            imageBk = [UIImage imageNamed:@"zhoubianpeitao.jpg"];
 //            [imageView setImage:imageBk];
-            NSArray* section1 = @[@"4.jpg",@"5.jpg",@"6.jpg"];
-            _slideshowData =[NSArray arrayWithObjects:section1,nil,nil];
+//            NSArray* section1 = @[@"4.jpg",@"5.jpg",@"6.jpg"];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"zhoubianpeitao/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            _slideshowData =[NSMutableArray arrayWithObjects:arrTemp,nil,nil];
             [self setDrawButtonShow:YES];
             [imageShowView beginSlideShow];
             break;
@@ -295,11 +309,16 @@ static NSMutableArray *colors;
         case 5:
             //视频播放
             //视频预览图片
-            [playButton setHidden:NO];
+        {
+//            [playButton setHidden:NO];
+            [playButton removeFromSuperview];
+            [self initPlay:NO];
             imageBk = [UIImage imageNamed:@"item_show_demo"];
             [imageView setImage:imageBk];
             [self setDrawButtonShow:NO];
+            
             break;
+        }
 
         default:
             break;
@@ -363,25 +382,36 @@ static NSMutableArray *colors;
     
     // NSLog(@"PlayMovieAction====");
     //视频文件路径，此视频已经存入项目包中。属于本地播放
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Movie" ofType:@"m4v"];
-    //视频URL
-    NSURL *url = [NSURL fileURLWithPath:path];
-    //视频播放对象
-    movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    movie.controlStyle = MPMovieControlStyleFullscreen;
-    [movie.view setFrame:self.view.bounds];
-    movie.initialPlaybackTime = -1;
-    [self.view addSubview:movie.view];
     
-//    self.view.userInteractionEnabled = NO;
+    NSString *saveFilePath = [LocalFilePath getSessionPath:@"shipinzhanshi/"]; //保存文件的路径
+    NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+    if (arrTemp != nil && [arrTemp count] > 0) {
+        NSString *path = [arrTemp objectAtIndex:0];
+        
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"Movie" ofType:@"m4v"];
+        //视频URL
+        NSURL *url = [NSURL fileURLWithPath:path];
+        //视频播放对象
+        movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
+        movie.controlStyle = MPMovieControlStyleFullscreen;
+        [movie.view setFrame:self.view.bounds];
+        movie.initialPlaybackTime = -1;
+        [self.view addSubview:movie.view];
+        
+        //    self.view.userInteractionEnabled = NO;
+        
+        // 注册一个播放结束的通知，当播放结束时，监听到并且做一些处理
+        //播放器自带有播放结束的通知，在此仅仅只需要注册观察者监听通知即可。
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(myMovieFinishedCallback:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:movie];
+        [movie play];
+
+    }else{
+        
+    }
     
-    // 注册一个播放结束的通知，当播放结束时，监听到并且做一些处理
-    //播放器自带有播放结束的通知，在此仅仅只需要注册观察者监听通知即可。
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(myMovieFinishedCallback:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:movie];
-    [movie play];
 }
 -(void)myMovieFinishedCallback:(NSNotification*)notify
 {
@@ -410,9 +440,9 @@ static NSMutableArray *colors;
 -(UIView*)viewForSlideShow:(SLGSlideshowView*)slideShowView atIndexPath:(NSIndexPath*)indexPath{
     
     NSString* imageName = [[_slideshowData objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
-    UIImage* img  = [UIImage imageNamed:imageName];
+//    UIImage* img  = [UIImage imageNamed:imageName];
     //路径
-//    UIImage *image = [UIImage imageWithContentsOfFile:imageName];
+    UIImage *img = [UIImage imageWithContentsOfFile:imageName];
     UIImageView* imageView = [[UIImageView alloc]initWithImage:img];
 //    imageView.frame = CGRectMake(kItemShowImageX, kItemShowImageY, kItemShowImageW, kItemShowImageH);
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;

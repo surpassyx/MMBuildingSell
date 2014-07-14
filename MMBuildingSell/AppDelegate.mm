@@ -87,29 +87,5 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
--(NSMutableArray *)searchFileInDocumentDirctory:(NSString *)path
-{
-    NSMutableArray *picPathArray = [[NSMutableArray alloc]init];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    //如果没有目录则创建信息储存目录
-    [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    //递归枚举目录
-    NSDirectoryEnumerator *dirEnumerater = [fm enumeratorAtPath:path];
-    NSString * filePath = nil;
-    while (nil != (filePath = [dirEnumerater nextObject])) {
-//        NSLog(@"%@",filePath);
-        NSString *msgdir = [NSString stringWithFormat:@"%@/%@",path,filePath];
-        BOOL isDir;
-        if ([fm fileExistsAtPath:msgdir isDirectory:&isDir]) {
-            if (!isDir) {
-                if ([[filePath lastPathComponent] isEqualToString:@".png"]||[[filePath lastPathComponent] isEqualToString:@".jpg"]||[[filePath lastPathComponent] isEqualToString:@".jpeg"]) {
-                    [picPathArray addObject:msgdir];
-                }
-            }
-        }
-    }
-    return picPathArray;
-}
 
 @end

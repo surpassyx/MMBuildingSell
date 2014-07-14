@@ -18,6 +18,12 @@
 
 #import "AFNetworking.h"
 
+#import "MBProgressHUD.h"
+
+#import "ZDProgressView.h"
+
+#import "LocalFilePath.h"
+
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 

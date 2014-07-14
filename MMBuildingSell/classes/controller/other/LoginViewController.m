@@ -11,7 +11,14 @@
 #import "ServiceSettingViewController.h"
 #import "UIViewController+CWPopup.h"
 
+#import "AFHTTPRequestOperationManager.h"
+#import "AFURLSessionManager.h"
+
 @interface LoginViewController ()
+
+
+@property (nonatomic, strong) NSDictionary *dicDirectoryKey;
+
 
 @end
 
@@ -63,9 +70,131 @@
     return YES;
 }
 
+
+- (IBAction)updateResources
+{
+    
+    
+    waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:waitHUD];
+    waitHUD.dimBackground = YES;
+    waitHUD.labelText = @"正在更新，请稍后";
+    [waitHUD show:YES];
+    
+    
+    [self downLoadInfo];
+    
+}
+
+
+- (void)downLoadInfo
+{
+    [LocalFilePath deleteDirectoryPath:@""];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    //    NSDictionary *parameter = [NSDictionary dictionaryWithObjectsAndKeys:@"20140618",@"day", nil];
+    NSString *gameListUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager GET:gameListUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSArray *arr = [dic objectForKey:@"arr"];
+        [waitHUD removeFromSuperview];
+        waitHUD = nil;
+        nDownloadAllNum = [arr count];
+        nDownloadNum = 1;
+        
+        progressView = [[ZDProgressView alloc] initWithFrame:CGRectMake(360, 650, 320, 25)];
+        progressView.progress = 0;
+        progressView.text = [NSString stringWithFormat:@"%d/%d",nDownloadNum,nDownloadAllNum];
+        progressView.noColor = [UIColor whiteColor];
+        progressView.prsColor = self.view.tintColor;
+        [self.view addSubview:progressView];
+
+        for (NSDictionary *dicTmp in arr) {
+            NSString *fileUrl = [dicTmp objectForKey:@"fimgpath"];
+            // 文件完整的网络地址
+            fileUrl = [NSString stringWithFormat:@"http://www.ykhome.cn/%@", fileUrl];
+            NSString *fileDic = [dicTmp objectForKey:@"ftitle"];
+            fileDic = [_dicDirectoryKey objectForKey:fileDic];
+            NSString *saveFilePath = [LocalFilePath getSessionPath:fileDic]; //保存文件的路径
+            
+            NSURL *url = [NSURL URLWithString:fileUrl];
+			
+            NSString *fileName = [url lastPathComponent];
+			NSArray *arrType = [fileName componentsSeparatedByString:@"."];
+			NSString *name;
+			NSString *type;
+			if (arrType.count == 2) {
+				name = [arrType objectAtIndex:0];
+				type = [arrType objectAtIndex:1];
+			}
+            // mp4
+            if ([type isEqualToString:@"zip"]) {
+                fileName = [NSString stringWithFormat:@"%@.mp4", name];
+            }
+            
+            NSString *saveLocalFilePath = [NSString stringWithFormat:@"%@/%@", saveFilePath, fileName];
+            NSFileManager *manager = [NSFileManager defaultManager];
+            // 防止重复下载
+            if (![manager fileExistsAtPath:saveLocalFilePath]) {
+                [self downLoadFile:fileUrl filePath:saveLocalFilePath];
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [waitHUD removeFromSuperview];
+        waitHUD = nil;
+    }];
+}
+
+
+- (void)downLoadFile:(NSString *)url filePath:(NSString *)filePath
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"url is %@ file path is %@", url, filePath);
+    NSString *urlString = url;//@"http://www.ykhome.cn/project/P0001/01/paomiantu/201401.jpg";
+    AFHTTPRequestOperation *operation = [manager GET:urlString
+                                          parameters:nil
+                                             success:^(AFHTTPRequestOperation *operation, NSData *responseData)
+                                         {
+                                             NSLog(@"保存文件路径为%@", filePath);
+                                             nDownloadNum++;
+                                             [responseData writeToFile:filePath atomically:YES];
+                                             if (nDownloadNum > nDownloadAllNum) {
+                                                 [progressView removeFromSuperview];
+                                                 progressView = nil;
+                                             }
+                                         }
+                                             failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                                         {
+                                             NSLog(@"Downloading error: %@", error);
+                                             [progressView removeFromSuperview];
+                                             progressView = nil;
+                                         }];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+     {
+         float downloadPercentage = (float)totalBytesRead/(float)(totalBytesExpectedToRead);
+         progressView.progress = downloadPercentage;
+         progressView.text = [NSString stringWithFormat:@"%d/%d",nDownloadNum,nDownloadAllNum];
+         NSLog(@"downloadPercentage is %f", downloadPercentage);
+         //         [someProgressView setProgress:downloadPercentage animated:YES];
+     }];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    // ftitle和目录文件夹名称的对照
+    self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"wuye", @"shipinzhanshi", @"shipin", @"poumiantu", @"paomian", @"fangxingzhanshi", @"fangxing", @"xiangmuzhanshi", @"project show", @"zhoubianpeitao", @"zhoubian", nil];
+
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup)];
     tapRecognizer.numberOfTapsRequired = 1;
@@ -199,9 +328,13 @@
     [myDefaults setObject:@"01" forKey:@"installment"];
     [myDefaults synchronize];
     
+    //http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all
+    
     NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/login.php?loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
     NSLog(@"loginUrl=%@",strUrl);
     
+   strUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
+//    strUrl = @"http://www.ykhome.cn/myhome/login.php?loginname=lgh&loginpassword=123&enterpriseCode=P0001&installment=01";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Login - %@",responseObject);
@@ -358,10 +491,6 @@
     
 }
 
--(void)downloadResources
-{
-    
-}
 -(BOOL)copyBundleToDocuments:(NSString *)fileName filePath:(NSString *)filePath
 {
     NSFileManager * fileManager = [NSFileManager defaultManager];

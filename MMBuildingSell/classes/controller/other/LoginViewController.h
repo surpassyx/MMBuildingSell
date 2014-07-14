@@ -13,6 +13,11 @@
 
 @interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NIDropDownDelegate>{
     NIDropDown *dropDown;
+    MBProgressHUD *waitHUD;
+    ZDProgressView *progressView;
+    
+    int nDownloadNum;
+    int nDownloadAllNum;
 }
 //@property (nonatomic , unsafe_unretained) TCBlobDownloadManager *sharedDownloadManager;
 
@@ -27,5 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 - (IBAction)settingAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *qibieBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *gengxinBtn;
+
+- (IBAction)updateResources;
+
 - (IBAction)selectQiBie;
 @end

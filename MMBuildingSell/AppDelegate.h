@@ -17,6 +17,6 @@
 
 @property int nPhase;
 
--(NSMutableArray *)searchFileInDocumentDirctory:(NSString *)path;
+
 
 @end
