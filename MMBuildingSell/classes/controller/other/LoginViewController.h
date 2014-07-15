@@ -21,6 +21,8 @@
 }
 //@property (nonatomic , unsafe_unretained) TCBlobDownloadManager *sharedDownloadManager;
 
+@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+
 @property (weak, nonatomic) IBOutlet UIView *loginView;
 - (IBAction)login;
 @property (weak, nonatomic) IBOutlet UITextField *qq;

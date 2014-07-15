@@ -77,8 +77,10 @@
 //    http://www.ykhome.cn/myhome/setcustomers.php?name=张珊&tel=13898823456&roomtype=三室一厅&level=部门经理&getway=路过&purpose=改善&workspace=浑南&livingspace=120-140&family=大东&income=30万&car=酷路泽&age=30&havinghouse=2
 
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/setcustomers.php?no=%@&enterpriseCode=%@&name=%@&tel=%@&roomtype=%@&level=%@&getway=%@&purpose=%@&workplace=%@&livingspace=%@&family=%@&income=%@&car=%@&age=%@&havinghouse=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"],self.name.text,self.tel.text,self.wantType.text,self.wantLevel.text,self.getWay.text,self.mudi.text,self.workSpace.text,self.jiatingjiegou.text,self.juzhuquyu.text,self.nianshouru.text,self.car.text,self.age.text,self.xianyoufangchan.text];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/setcustomers.php?no=%@&enterpriseCode=%@&name=%@&tel=%@&roomtype=%@&level=%@&getway=%@&purpose=%@&workplace=%@&livingspace=%@&family=%@&income=%@&car=%@&age=%@&havinghouse=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"],self.name.text,self.tel.text,self.wantType.text,self.wantLevel.text,self.getWay.text,self.mudi.text,self.workSpace.text,self.jiatingjiegou.text,self.juzhuquyu.text,self.nianshouru.text,self.car.text,self.age.text,self.xianyoufangchan.text];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/setcustomers.php?name=%@&tel=%@&roomtype=%@&level=%@&getway=%@&purpose=%@&workplace=%@&livingspace=%@&family=%@&income=%@&car=%@&age=%@&havinghouse=%@",self.name.text,self.tel.text,self.wantType.text,self.wantLevel.text,self.getWay.text,self.mudi.text,self.workSpace.text,self.juzhuquyu.text,self.jiatingjiegou.text,self.nianshouru.text,self.car.text,self.age.text,self.xianyoufangchan.text];
+    NSLog(@"url: %@", strUrl);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);

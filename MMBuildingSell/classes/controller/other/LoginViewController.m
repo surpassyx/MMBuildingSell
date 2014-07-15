@@ -152,14 +152,18 @@
 
 - (void)downLoadFile:(NSString *)url filePath:(NSString *)filePath
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    if (!_manager) {
+		_manager = [AFHTTPRequestOperationManager manager];
+		[_manager.operationQueue setMaxConcurrentOperationCount:1];
+	}
+	[NSURLSessionConfiguration defaultSessionConfiguration].HTTPMaximumConnectionsPerHost = 1;
+	
+    _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"url is %@ file path is %@", url, filePath);
     NSString *urlString = url;//@"http://www.ykhome.cn/project/P0001/01/paomiantu/201401.jpg";
-    AFHTTPRequestOperation *operation = [manager GET:urlString
-                                          parameters:nil
-                                             success:^(AFHTTPRequestOperation *operation, NSData *responseData)
+    AFHTTPRequestOperation *operation = [_manager GET:urlString
+                                           parameters:nil
+                                              success:^(AFHTTPRequestOperation *operation, NSData *responseData)
                                          {
                                              NSLog(@"保存文件路径为%@", filePath);
                                              nDownloadNum++;
@@ -169,13 +173,13 @@
                                                  progressView = nil;
                                              }
                                          }
-                                             failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                                              failure:^(AFHTTPRequestOperation *operation, NSError *error)
                                          {
                                              NSLog(@"Downloading error: %@", error);
                                              [progressView removeFromSuperview];
                                              progressView = nil;
                                          }];
-    
+    [NSURLSessionConfiguration defaultSessionConfiguration].HTTPMaximumConnectionsPerHost = 1;
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
      {
          float downloadPercentage = (float)totalBytesRead/(float)(totalBytesExpectedToRead);
