@@ -74,7 +74,7 @@
             
             [self.arrPersonInfo addObject:rowData];
         }
-
+        
     }else{
         NSLog(@"服务端返回错误");
     }
@@ -177,7 +177,7 @@
     //默认选中第一行
     NSIndexPath *firstPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [myTableView selectRowAtIndexPath:firstPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-
+    
 }
 -(void)initView
 {
@@ -207,7 +207,7 @@
                    getWay:(NSString *)getway
                      mudi:(NSString *)mudi
                 workspace:(NSString *)workspace
-                   age:(NSString *)age
+                      age:(NSString *)age
             yixiangdengji:(NSString *)yixiangdengji
             gongzuodanwei:(NSString *)gongzuodanwei
                 juzhuquyu:(NSString *)juzhuquyu
@@ -256,22 +256,22 @@
 }
 
 -(void)addPersonBtnPressed:(id)sender{
-//    UIButton* btn = (UIButton*)sender;
+    //    UIButton* btn = (UIButton*)sender;
     if (myView != nil) {
         [myView removeFromSuperview];
     }
-
-//    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"AddCustomerView" owner:self options:nil];
-//    addView = [array objectAtIndex:0];
-//    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
+    
+    //    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"AddCustomerView" owner:self options:nil];
+    //    addView = [array objectAtIndex:0];
+    //    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     
     addView = [self loadNibNamed:@"AddCustomerView" ofClass:[AddCustomerView class] andOwner:self];
     addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     addView.delegate = self; // Or do this in the xib file
     [self.view addSubview:addView];
     
-//    [addView setDelegate:self];
-//    [self.view addSubview:addView];
+    //    [addView setDelegate:self];
+    //    [self.view addSubview:addView];
     
     NSLog(@"执行添加操作");
 }
@@ -316,8 +316,8 @@
     }
     cell.backgroundColor = [UIColor clearColor];
     
-   //    cell.imageView.image = [UIImage imageNamed:@"green.png"];
-//    cell.detailTextLabel.text = @"详细信息";
+    //    cell.imageView.image = [UIImage imageNamed:@"green.png"];
+    //    cell.detailTextLabel.text = @"详细信息";
     
     //选中背景自定义
     cell.selectedBackgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"name_item_selected_bk"]];
@@ -332,7 +332,7 @@
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section
 {
     if (table == myTableView) {
-       return [self.dataList count];
+        return [self.dataList count];
     }else if(table == myView.tableJIlu){
         return [self.dataDetailList count];
     }else
@@ -361,16 +361,16 @@
 //点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [self showDeatilCustomer];
+    //    [self showDeatilCustomer];
     NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
     rowData = [self.arrPersonInfo objectAtIndex:indexPath.row];
     
     
     [self showDeatilCustomer:[rowData objectForKey:@"ftel"] wantType:[rowData objectForKey:@"froomtype"] level:@"1" getWay:[rowData objectForKey:@"fgetway"] mudi:[rowData objectForKey:@"fpurpose"] workspace:[rowData objectForKey:@"fworkplace"] age:[rowData objectForKey:@"fage"] yixiangdengji:@"1" gongzuodanwei:[rowData objectForKey:@"fworkplace"] juzhuquyu:[rowData objectForKey:@"ffamilyregion"] car:[rowData objectForKey:@"fcardetail"] nianshouru:[rowData objectForKey:@"ffamilyincome"] jiatingjiegou:[rowData objectForKey:@"ffamilyincome"] xianyoufangchan:[rowData objectForKey:@"fhavehouse"] fname:[rowData objectForKey:@"fcustomername"]];
     
-//    NSString *msg = [[NSString alloc] initWithFormat:@"你选择的是:%@",[self.dataList objectAtIndex:[indexPath row]]];
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//    [alert show];
+    //    NSString *msg = [[NSString alloc] initWithFormat:@"你选择的是:%@",[self.dataList objectAtIndex:[indexPath row]]];
+    //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    //    [alert show];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -396,27 +396,27 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     if(0 == searchText.length)
-
+        
     {
         return ;
     }
-
+    
     [self.dataList removeAllObjects];
-
+    
     for(NSString * str in self.personList)
     {
-
+        
         if([str hasPrefix:searchText])
-
+            
         {
-
+            
             [self.dataList addObject:str];
-
+            
         }
     }
-
+    
     [self.myTableView reloadData];
-
+    
 }
 
 
@@ -436,7 +436,7 @@
 -(void)moveUpView:(UITextField *)textField
 {
     CGRect frame = textField.frame;
-    int offset = frame.origin.y + 32 - (addView.frame.size.height - 216.0);//键盘高度216
+    int offset = frame.origin.y + 32 - (addView.frame.size.height - 352);//键盘高度216
     
     NSTimeInterval animationDuration = 0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
@@ -444,13 +444,13 @@
     
     //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
     if(offset > 0)
-        addView.frame = CGRectMake(0.0f, -offset, addView.frame.size.width, addView.frame.size.height);
+        addView.frame = CGRectMake(AddBtnWIDTH, -offset, addView.frame.size.width, addView.frame.size.height);
     
     [UIView commitAnimations];
 }
 -(void)moveDownView:(UITextField *)textField
 {
-    addView.frame =CGRectMake(0, 0, addView.frame.size.width, addView.frame.size.height);
+    addView.frame =CGRectMake(AddBtnWIDTH, 0, addView.frame.size.width, addView.frame.size.height);
 }
 
 
