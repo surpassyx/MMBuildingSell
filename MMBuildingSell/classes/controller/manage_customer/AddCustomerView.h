@@ -25,10 +25,10 @@
 
 @interface AddCustomerView : UIView<UITextFieldDelegate>{
     
-    id<AddCustomerDelegate> deleage;
+    id<AddCustomerDelegate> delegate;
     
 }
-@property(assign,nonatomic)id<AddCustomerDelegate> delegate;
+@property(retain,nonatomic)id<AddCustomerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *tel;

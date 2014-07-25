@@ -69,7 +69,7 @@
 //开始编辑输入框的时候，软键盘出现，执行此事件
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [deleage moveUpView:textField];
+    [delegate moveUpView:textField];
     return;
     CGRect frame = textField.frame;
     int offset = frame.origin.y + 32 - (self.frame.size.height - 216.0);//键盘高度216
@@ -95,7 +95,7 @@
 //输入框编辑完成以后，将视图恢复到原始状态
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [deleage moveDownView:textField];
+    [delegate moveDownView:textField];
     return;
     self.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
@@ -156,7 +156,7 @@
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
         CustomerBean * cb = [[CustomerBean alloc]init];
-        [deleage addPerson:cb];
+        [delegate addPerson:cb];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -182,7 +182,7 @@
 }
 
 - (IBAction)cancelAction:(id)sender {
-    [deleage removeAddPersonView];
+    [delegate removeAddPersonView];
     [self removeFromSuperview];
 }
 
