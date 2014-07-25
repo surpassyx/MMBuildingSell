@@ -242,18 +242,36 @@
     [self.view addSubview:myView];
 }
 
+- (id)loadNibNamed:(NSString *)nibName ofClass:(Class)objClass andOwner:(id)owner {
+    if (nibName && objClass) {
+        NSArray *objects = [[NSBundle mainBundle] loadNibNamed:nibName owner:owner options:nil];
+        
+        for (id currentObject in objects ){
+            if ([currentObject isKindOfClass:objClass])
+                return currentObject;
+        }
+    }
+    
+    return nil;
+}
+
 -(void)addPersonBtnPressed:(id)sender{
 //    UIButton* btn = (UIButton*)sender;
     if (myView != nil) {
         [myView removeFromSuperview];
     }
 
-    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"AddCustomerView" owner:self options:nil];
-    addView = [array objectAtIndex:0];
-    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
+//    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"AddCustomerView" owner:self options:nil];
+//    addView = [array objectAtIndex:0];
+//    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     
-    [addView setDelegate:self];
+    addView = [self loadNibNamed:@"AddCustomerView" ofClass:[AddCustomerView class] andOwner:self];
+    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
+    addView.delegate = self; // Or do this in the xib file
     [self.view addSubview:addView];
+    
+//    [addView setDelegate:self];
+//    [self.view addSubview:addView];
     
     NSLog(@"执行添加操作");
 }
@@ -413,6 +431,26 @@
 {
     NSLog(@"执行取消操作");
     [addView removeFromSuperview];
+}
+
+-(void)moveUpView:(UITextField *)textField
+{
+    CGRect frame = textField.frame;
+    int offset = frame.origin.y + 32 - (addView.frame.size.height - 216.0);//键盘高度216
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
+    if(offset > 0)
+        addView.frame = CGRectMake(0.0f, -offset, addView.frame.size.width, addView.frame.size.height);
+    
+    [UIView commitAnimations];
+}
+-(void)moveDownView:(UITextField *)textField
+{
+    addView.frame =CGRectMake(0, 0, addView.frame.size.width, addView.frame.size.height);
 }
 
 

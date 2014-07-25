@@ -17,10 +17,13 @@
 -(void)addPerson:(CustomerBean *)customer;
 -(void)removeAddPersonView;
 
+-(void)moveUpView:(UITextField *)textField;
+-(void)moveDownView:(UITextField *)textField;
+
 @end
 
 
-@interface AddCustomerView : UIView{
+@interface AddCustomerView : UIView<UITextFieldDelegate>{
     
     id<AddCustomerDelegate> deleage;
     

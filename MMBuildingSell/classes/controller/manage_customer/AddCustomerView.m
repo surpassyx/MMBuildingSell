@@ -16,19 +16,89 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-                
+        
+
     }
     return self;
 }
 
-/*
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.name.delegate = self;
+    self.tel.delegate = self;
+    self.wantType.delegate = self;
+    self.wantLevel.delegate = self;
+    self.getWay.delegate = self;
+    self.mudi.delegate = self;
+    self.workSpace.delegate = self;
+    self.danwei.delegate = self;
+    self.juzhuquyu.delegate = self;
+    self.jiatingjiegou.delegate = self;
+    self.nianshouru.delegate = self;
+    self.car.delegate = self;
+    self.age.delegate = self;
+    self.xianyoufangchan.delegate = self;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    self.name.delegate = self;
+    self.tel.delegate = self;
+    self.wantType.delegate = self;
+    self.wantLevel.delegate = self;
+    self.getWay.delegate = self;
+    self.mudi.delegate = self;
+    self.workSpace.delegate = self;
+    self.danwei.delegate = self;
+    self.juzhuquyu.delegate = self;
+    self.jiatingjiegou.delegate = self;
+    self.nianshouru.delegate = self;
+    self.car.delegate = self;
+    self.age.delegate = self;
+    self.xianyoufangchan.delegate = self;
 }
-*/
+
+
+
+
+//开始编辑输入框的时候，软键盘出现，执行此事件
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [deleage moveUpView:textField];
+    return;
+    CGRect frame = textField.frame;
+    int offset = frame.origin.y + 32 - (self.frame.size.height - 216.0);//键盘高度216
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
+    if(offset > 0)
+        self.frame = CGRectMake(0.0f, -offset, self.frame.size.width, self.frame.size.height);
+    
+    [UIView commitAnimations];
+}
+
+//当用户按下return键或者按回车键，keyboard消失
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+//输入框编辑完成以后，将视图恢复到原始状态
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [deleage moveDownView:textField];
+    return;
+    self.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+}
 
 -(void)analysisJson:(NSDictionary *)jsonDic
 {
@@ -59,18 +129,18 @@
 -(void)addCustomerHttp
 {
     
-    [self.name setText:@"张珊"];
+    [self.name setText:@"111"];
     [self.tel setText:@"13898823456"];
-    [self.wantType setText:@"三室一厅"];
-    [self.wantLevel setText:@"1级"];
-    [self.getWay setText:@"路过"];
-    [self.mudi setText:@"改善"];
-    [self.workSpace setText:@"浑南"];
+    [self.wantType setText:@"2123"];
+    [self.wantLevel setText:@"123"];
+    [self.getWay setText:@"123"];
+    [self.mudi setText:@"123"];
+    [self.workSpace setText:@"123"];
     [self.danwei setText:@"120-140"];
-    [self.juzhuquyu setText:@"大东"];
-    [self.jiatingjiegou setText:@"3口"];
-    [self.nianshouru setText:@"30万"];
-    [self.car setText:@"酷路泽"];
+    [self.juzhuquyu setText:@"123"];
+    [self.jiatingjiegou setText:@"31"];
+    [self.nianshouru setText:@"3213123"];
+    [self.car setText:@"123123"];
     [self.age setText:@"30"];
     [self.xianyoufangchan setText:@"2"];
     
