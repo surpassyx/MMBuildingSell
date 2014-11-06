@@ -11,5 +11,6 @@
 @interface TaskListViewController : UIViewController
 
 @property (nonatomic, retain) NSMutableArray *dataList;
+@property (strong, nonatomic) IBOutlet UITableView *myTable;
 
 @end

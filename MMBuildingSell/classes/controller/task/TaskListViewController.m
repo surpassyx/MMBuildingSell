@@ -54,9 +54,9 @@
                 NSString * strId = [dicInfo objectForKey:@"id"];
 
                 NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-                [rowData setValue:strTaskId forKey:@"Description"];
-                [rowData setValue:strTaskTitle forKey:@"Connect"];
-                [rowData setValue:strContent forKey:@"urlpic"];
+                [rowData setValue:strTaskId forKey:@"ftaskid"];
+                [rowData setValue:strTaskTitle forKey:@"ftasktitle"];
+                [rowData setValue:strContent forKey:@"fcontent"];
                 [rowData setValue:strTaskTime forKey:@"ftasktime"];
                 [rowData setValue:strFirstRelease forKey:@"ffirstrelease"];
                 [rowData setValue:strHowLong forKey:@"fhowlong"];
@@ -95,6 +95,7 @@
     [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
+        [self.myTable reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -123,6 +124,11 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self getHttpInfo];
+}
+
 #pragma mark close
 - (void)close
 {
@@ -143,7 +149,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.arrayForPlaces count];
+    return [self.dataList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,10 +162,10 @@
         cell.contentView.backgroundColor = [UIColor clearColor];
     }
     
-    NSDictionary* dict = [self.arrayForPlaces objectAtIndex:indexPath.row];
-    
-    cell.tittleTask.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"Place"]];
-    cell.timeTask.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"Country"]];
+//    NSDictionary* dict = [self.arrayForPlaces objectAtIndex:indexPath.row];
+    NSMutableDictionary *rowData = [self.dataList objectAtIndex:indexPath.row];
+    cell.tittleTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"ftasktitle"]];
+    cell.timeTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"ftasktime"]];
 //    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[dict objectForKey:@"Image"]]];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -174,7 +180,7 @@
     
     TaskDetailViewController* detailViewController = [[TaskDetailViewController alloc] initWithNibName:@"TaskDetailViewController" bundle:nil];
     
-    NSMutableDictionary* dict = [self.arrayForPlaces objectAtIndex:indexPath.row];
+    NSMutableDictionary* dict = [self.dataList objectAtIndex:indexPath.row];
     detailViewController.dictForData = dict;
     detailViewController.yOrigin = cellFrameInSuperview.origin.y;
     [self.navigationController pushViewController:detailViewController animated:NO];

@@ -58,7 +58,6 @@
     };
     [_dock rotateToOrientation:self.interfaceOrientation];
     [self.view addSubview:_dock];
-    
     // 2.设置背景
     self.view.backgroundColor = kGlobalBg;
 //    self.view.backgroundColor = [UIColor whiteColor];

@@ -371,7 +371,7 @@
     NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/gettype.php?&fenterisecode=%@&finstallment=%@",[userDefaults objectForKey:@"enterpriseCode"],@"01"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"selectedß---JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

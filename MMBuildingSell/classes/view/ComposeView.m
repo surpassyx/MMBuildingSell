@@ -136,7 +136,9 @@
         }
     }
     
-    CGFloat y = kDockHeight(orientation) - height;
-    self.frame = CGRectMake(x, y, width, height);
+//    CGFloat y = kDockHeight(orientation) - height;
+    self.frame = CGRectMake(x, 675, width, height);
+    
+//    NSLog(@"----%f,%f,%f,%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.width,self.frame.size.height);
 }
 @end

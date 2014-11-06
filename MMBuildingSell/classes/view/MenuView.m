@@ -24,6 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
         // 1.先添加DockItem
         [self addDockItems];
         
@@ -92,8 +93,8 @@
     // 设置MenuView的frame
     CGFloat width = composeFrame.size.width;
     CGFloat height = _dockItems.count * kDockMenuItemHeight;
-    CGFloat y = composeFrame.origin.y - height;
-    self.frame = CGRectMake(0, y, width, height);
+//    CGFloat y = composeFrame.origin.y - height;
+    self.frame = CGRectMake(0, 310, width, height);
 }
 
 - (void)unselectAll

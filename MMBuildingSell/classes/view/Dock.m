@@ -40,7 +40,6 @@
             }
         };
         [self addSubview:_menuView];
-        
         // 3.制作（说说、照片、文章）ComposeView
         _composeView = [[ComposeView alloc] init];
         _composeView.composeItemClickBlock = ^(DockItem *item) {

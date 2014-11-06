@@ -244,6 +244,8 @@
         
         //        [self setADScrollView];
     });
+    
+    
     return ;
     //    NSError *error;
     //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
@@ -337,8 +339,10 @@
     NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/login.php?loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
     NSLog(@"loginUrl=%@",strUrl);
     
-   strUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
+//   strUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
 //    strUrl = @"http://www.ykhome.cn/myhome/login.php?loginname=lgh&loginpassword=123&enterpriseCode=P0001&installment=01";
+    strUrl = @"http://www.gytaobao.cn:9006/FC/Action?data=616374696f6e3d31266c6f67696e6e616d653db2e2cad4266c6f67696e7077643d31323326656e7465727072697365436f64653d503030303126696e7374616c6c6d656e743d303131";
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Login - %@",responseObject);
