@@ -28,20 +28,11 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    self.name.delegate = self;
-    self.tel.delegate = self;
-    self.wantType.delegate = self;
-    self.wantLevel.delegate = self;
-    self.getWay.delegate = self;
-    self.mudi.delegate = self;
-    self.workSpace.delegate = self;
-    self.danwei.delegate = self;
-    self.juzhuquyu.delegate = self;
-    self.jiatingjiegou.delegate = self;
-    self.nianshouru.delegate = self;
-    self.car.delegate = self;
-    self.age.delegate = self;
-    self.xianyoufangchan.delegate = self;
+    
+    self.nameTextField.delegate = self;
+    self.telTextField.delegate = self;
+    self.livingspaceTextField.delegate = self;
+    self.bugdetTextField.delegate = self;
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -49,20 +40,10 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    self.name.delegate = self;
-    self.tel.delegate = self;
-    self.wantType.delegate = self;
-    self.wantLevel.delegate = self;
-    self.getWay.delegate = self;
-    self.mudi.delegate = self;
-    self.workSpace.delegate = self;
-    self.danwei.delegate = self;
-    self.juzhuquyu.delegate = self;
-    self.jiatingjiegou.delegate = self;
-    self.nianshouru.delegate = self;
-    self.car.delegate = self;
-    self.age.delegate = self;
-    self.xianyoufangchan.delegate = self;
+    self.nameTextField.delegate = self;
+    self.telTextField.delegate = self;
+    self.livingspaceTextField.delegate = self;
+    self.bugdetTextField.delegate = self;
 }
 
 
@@ -130,31 +111,28 @@
 
 -(void)addCustomerHttp
 {
+    NSString * nameStr =@"张三";
+    NSString * sexStr =@"男";
+    NSString * statusStr =@"问询";
+    NSString * telStr =@"13898823456";
+    NSString * roomtypeStr =@"6";
+    NSString * livingspaceStr =@"120-140";
+    NSString * ownerStr =@"是";
+    NSString * producttypeStr =@"12";
+    NSString * callvisitStr =@"来电";
+    NSString * getwayStr =@"44";
+    NSString * bugdetStr =@"100";
+    NSString * intentionStr =@"一般";
     
-    [self.name setText:@"111"];
-    [self.tel setText:@"13898823456"];
-    [self.wantType setText:@"2123"];
-    [self.wantLevel setText:@"123"];
-    [self.getWay setText:@"123"];
-    [self.mudi setText:@"123"];
-    [self.workSpace setText:@"123"];
-    [self.danwei setText:@"120-140"];
-    [self.juzhuquyu setText:@"123"];
-    [self.jiatingjiegou setText:@"31"];
-    [self.nianshouru setText:@"3213123"];
-    [self.car setText:@"123123"];
-    [self.age setText:@"30"];
-    [self.xianyoufangchan setText:@"2"];
-    
-    //    http://www.ykhome.cn/myhome/setcustomers.php?name=张珊&tel=13898823456&roomtype=三室一厅&level=部门经理&getway=路过&purpose=改善&workspace=浑南&livingspace=120-140&family=大东&income=30万&car=酷路泽&age=30&havinghouse=2
-    
-    
-    //    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/setcustomers.php?no=%@&enterpriseCode=%@&name=%@&tel=%@&roomtype=%@&level=%@&getway=%@&purpose=%@&workplace=%@&livingspace=%@&family=%@&income=%@&car=%@&age=%@&havinghouse=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"],self.name.text,self.tel.text,self.wantType.text,self.wantLevel.text,self.getWay.text,self.mudi.text,self.workSpace.text,self.jiatingjiegou.text,self.juzhuquyu.text,self.nianshouru.text,self.car.text,self.age.text,self.xianyoufangchan.text];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/setcustomers.php?name=%@&tel=%@&roomtype=%@&level=%@&getway=%@&purpose=%@&workplace=%@&livingspace=%@&family=%@&income=%@&car=%@&age=%@&havinghouse=%@",self.name.text,self.tel.text,self.wantType.text,self.wantLevel.text,self.getWay.text,self.mudi.text,self.workSpace.text,self.juzhuquyu.text,self.jiatingjiegou.text,self.nianshouru.text,self.car.text,self.age.text,self.xianyoufangchan.text];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&callvisit=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,callvisitStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
     NSLog(@"url: %@", strUrl);
+    
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
         CustomerBean * cb = [[CustomerBean alloc]init];

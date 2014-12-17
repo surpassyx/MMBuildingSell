@@ -58,7 +58,7 @@
                 NSArray *room=[model.meetRoom componentsSeparatedByString:@"0"];
                 headView=(HeadView *)self.contentView.subviews[[[room lastObject] intValue]];
             }
-            headView.backgroundColor=[UIColor greenColor];
+//            headView.backgroundColor=[UIColor greenColor];
             
             for(HeadView *leftHeadView in self.contentView.subviews){
               

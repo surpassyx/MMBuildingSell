@@ -93,10 +93,15 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    //    NSDictionary *parameter = [NSDictionary dictionaryWithObjectsAndKeys:@"20140618",@"day", nil];
-    NSString *gameListUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
+//    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString *gameListUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
+//    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@installment=%@&fflag=all",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+    //测试
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@&installment=%@&flag=0",@"SYHDMD",@"02"];
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:gameListUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         NSArray *arr = [dic objectForKey:@"arr"];
@@ -113,10 +118,10 @@
         [self.view addSubview:progressView];
 
         for (NSDictionary *dicTmp in arr) {
-            NSString *fileUrl = [dicTmp objectForKey:@"fimgpath"];
+            NSString *fileUrl = [dicTmp objectForKey:@"docpath"];
             // 文件完整的网络地址
-            fileUrl = [NSString stringWithFormat:@"http://www.ykhome.cn/%@", fileUrl];
-            NSString *fileDic = [dicTmp objectForKey:@"ftitle"];
+            fileUrl = [NSString stringWithFormat:@"http://www.gytaobao.cn:9012/roomtest/%@", fileUrl];
+            NSString *fileDic = [dicTmp objectForKey:@"flag"];
             fileDic = [_dicDirectoryKey objectForKey:fileDic];
             NSString *saveFilePath = [LocalFilePath getSessionPath:fileDic]; //保存文件的路径
             
@@ -197,7 +202,7 @@
     
     
     // ftitle和目录文件夹名称的对照
-    self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"wuye", @"shipinzhanshi", @"shipin", @"poumiantu", @"paomian", @"fangxingzhanshi", @"fangxing", @"xiangmuzhanshi", @"project show", @"zhoubianpeitao", @"zhoubian", nil];
+    self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"4", @"shipinzhanshi", @"6", @"poumiantu", @"2", @"fangxingzhanshi", @"3", @"xiangmuzhanshi", @"1", @"zhoubianpeitao", @"5", nil];
 
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup)];
@@ -235,20 +240,6 @@
 
 -(void)analysisJson:(NSDictionary *)jsonDic
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
-        
-        // 3.3.通过定时器跳到主界面
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
-        
-        //        [self setADScrollView];
-    });
-    
-    
-    return ;
-    //    NSError *error;
-    //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
     NSString * strSign = [jsonDic objectForKey:@"sign"];
     int intString = [strSign intValue];
     if (intString == 1) {
@@ -260,7 +251,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 3.2.让整个登录界面停止跟用户交互
-            self.view.userInteractionEnabled = NO;
+//            self.view.userInteractionEnabled = NO;
             
             // 3.3.通过定时器跳到主界面
             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
@@ -271,14 +262,15 @@
         
     }else if (intString == 0) {
         // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
+//        self.view.userInteractionEnabled = NO;
         
         // 3.3.通过定时器跳到主界面
+        NSLog(@"%@",[jsonDic objectForKey:@"error"]);
         [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(alertError:) userInfo:[jsonDic objectForKey:@"error"] repeats:NO];
     }else{
         NSLog(@"服务端返回错误");
         // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
+//        self.view.userInteractionEnabled = NO;
         
         // 3.3.通过定时器跳到主界面
         [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(alertError:) userInfo:@"服务端返回错误" repeats:NO];
@@ -292,6 +284,7 @@
 #pragma mark 弹出错误提示
 - (void)alertError:(NSString *)error
 {
+    return;
     // 1.弹框
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录失败" message:error delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
     [alert show];
@@ -330,21 +323,25 @@
     [_indicator startAnimating];
     
     NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
-    [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
-    [myDefaults setObject:@"01" forKey:@"installment"];
+    [myDefaults setObject:@"SYHDMD" forKey:@"enterpriseCode"];
+    [myDefaults setObject:@"02" forKey:@"installment"];
     [myDefaults synchronize];
     
     //http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all
     
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/login.php?loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
-    NSLog(@"loginUrl=%@",strUrl);
+//    NSString * parms = @"action=1&loginname=lgh&loginpassword=123&enterpriseCode=P0001&installment=01";
+//    NSString * jieguo  = [Utility hexStringFromString:parms];
+//    NSLog(@"hex=%@",jieguo);
     
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=1&loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+//    NSLog(@"loginUrl=%@",strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
 //   strUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
 //    strUrl = @"http://www.ykhome.cn/myhome/login.php?loginname=lgh&loginpassword=123&enterpriseCode=P0001&installment=01";
-    strUrl = @"http://www.gytaobao.cn:9006/FC/Action?data=616374696f6e3d31266c6f67696e6e616d653db2e2cad4266c6f67696e7077643d31323326656e7465727072697365436f64653d503030303126696e7374616c6c6d656e743d303131";
+//    strUrl = @"http://www.gytaobao.cn:9006/FC/Action?data=616374696f6e3d31266c6f67696e6e616d653db2e2cad4266c6f67696e7077643d31323326656e7465727072697365436f64653d503030303126696e7374616c6c6d656e743d303131";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Login - %@",responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -549,10 +546,12 @@
     [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
     [myDefaults setObject:@"01" forKey:@"installment"];
     [myDefaults synchronize];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://erp.lncct.com/Mobile/Interface.aspx?username=%@&password=%@&enterpriseCode=%@installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
-    NSLog(@"loginUrl=%@",strUrl);
+    
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@installment=%@",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+    NSLog(@"updateUrl=%@",strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Login JSON: %@", responseObject);
         [self analysisFileJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

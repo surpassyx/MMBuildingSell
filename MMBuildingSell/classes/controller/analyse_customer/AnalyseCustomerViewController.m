@@ -91,15 +91,19 @@
 -(void)getHttpInfo
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://erp.lncct.com/Mobile/Interface.aspx?no=%@&enterpriseCode=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"]];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=9&usercode=%@&enterpriseCode=%@&installment=%@",[userDefaults objectForKey:@"usercode"],[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
+    
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+//        NSLog(@"%@",[responseObject objectForKey:@"error"]);
         [self analysisJson:(NSDictionary *)responseObject type:0];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
-    
+
 }
 
 -(void)getHttpDetailInfo:(NSString *)strtype
@@ -254,6 +258,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self getHttpInfo];
     self.slices = [NSMutableArray arrayWithCapacity:5];
     
     for(int i = 0; i < 5; i ++)

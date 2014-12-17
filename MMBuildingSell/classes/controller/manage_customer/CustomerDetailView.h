@@ -9,32 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "AMRatingControl.h"
 
-@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate>{
+@interface CustomerDetailView : UIView{
 //    UIView *view;
     AMRatingControl *simpleRatingControl;
 }
 
-//@property (nonatomic, retain) IBOutlet UIView *view;
-
-@property (nonatomic, retain) NSMutableArray *dataDetailList;
-
-
-@property (strong, nonatomic) IBOutlet UILabel *fname;
-@property (weak, nonatomic) IBOutlet UILabel *tel;
-@property (weak, nonatomic) IBOutlet UILabel *wantType;
-@property (weak, nonatomic) IBOutlet UILabel *getWay;
-@property (weak, nonatomic) IBOutlet UILabel *mudi;
-@property (weak, nonatomic) IBOutlet UILabel *workSpace;
-@property (weak, nonatomic) IBOutlet UILabel *age;
-@property (weak, nonatomic) IBOutlet UITableView *tableJIlu;
-@property (weak, nonatomic) IBOutlet UILabel *yixiangdengji;
-@property (weak, nonatomic) IBOutlet UILabel *gongzuodanwei;
-@property (weak, nonatomic) IBOutlet UILabel *juzhuquyu;
-@property (weak, nonatomic) IBOutlet UILabel *car;
-@property (weak, nonatomic) IBOutlet UILabel *nianshouru;
-@property (weak, nonatomic) IBOutlet UILabel *jiatingjiegou;
-@property (weak, nonatomic) IBOutlet UILabel *xianyoufangchan;
-@property (weak, nonatomic) IBOutlet UITextField *remarkTextField;
-- (IBAction)addRemark:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *noLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sexLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *telLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roomtypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *livingspaceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ownerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *producttypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *callvisitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *getwayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bugdetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *intentionLabel;
 
 @end

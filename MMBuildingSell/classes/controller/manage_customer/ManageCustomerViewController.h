@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "PSStackedView.h"
 #import "CustomerDetailView.h"
 #import "AddCustomerView.h"
 #import "CustomerBean.h"
@@ -20,11 +19,7 @@
 @property (nonatomic, retain) NSMutableArray *personList;
 @property (nonatomic, retain) NSMutableArray *dataList;
 @property (nonatomic, retain) UITableView *myTableView;
-@property (nonatomic, retain) NSMutableArray *dataDetailList;
 @property (nonatomic, retain) NSMutableArray *arrPersonInfo;
 
-
-
-//@property (nonatomic, strong) PSStackedViewController *stackController;
 
 @end

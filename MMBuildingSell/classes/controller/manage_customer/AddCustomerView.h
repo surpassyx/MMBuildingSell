@@ -30,20 +30,18 @@
 }
 @property(retain,nonatomic)id<AddCustomerDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UITextField *name;
-@property (weak, nonatomic) IBOutlet UITextField *tel;
-@property (weak, nonatomic) IBOutlet UITextField *wantType;
-@property (weak, nonatomic) IBOutlet UITextField *wantLevel;
-@property (weak, nonatomic) IBOutlet UITextField *getWay;
-@property (weak, nonatomic) IBOutlet UITextField *mudi;
-@property (weak, nonatomic) IBOutlet UITextField *workSpace;
-@property (weak, nonatomic) IBOutlet UITextField *danwei;
-@property (weak, nonatomic) IBOutlet UITextField *juzhuquyu;
-@property (weak, nonatomic) IBOutlet UITextField *jiatingjiegou;
-@property (weak, nonatomic) IBOutlet UITextField *nianshouru;
-@property (weak, nonatomic) IBOutlet UITextField *car;
-@property (weak, nonatomic) IBOutlet UITextField *age;
-@property (weak, nonatomic) IBOutlet UITextField *xianyoufangchan;
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *telTextField;
+@property (weak, nonatomic) IBOutlet UITextField *livingspaceTextField;
+@property (weak, nonatomic) IBOutlet UITextField *bugdetTextField;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sexSeg;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *statusSeg;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *ownerSeg;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *callvisitSeg;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *intentionSeg;
+
+
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)okAction:(id)sender;
 

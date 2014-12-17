@@ -527,6 +527,7 @@
 		53DB357C196FC0EE0044A6D1 /* LocalFilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB357B196FC0EE0044A6D1 /* LocalFilePath.m */; };
 		53DB3586197224B90044A6D1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB3585197224B90044A6D1 /* MBProgressHUD.m */; };
 		53FA82E11973763A00FDF7AB /* ZDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FA82E01973763A00FDF7AB /* ZDProgressView.m */; };
+		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1268,6 +1269,8 @@
 		53DB3585197224B90044A6D1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		53FA82DF1973763A00FDF7AB /* ZDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDProgressView.h; sourceTree = "<group>"; };
 		53FA82E01973763A00FDF7AB /* ZDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDProgressView.m; sourceTree = "<group>"; };
+		ABD6482E1A0B7D5C00953419 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1813,6 +1816,8 @@
 				3D84C41C180C1C8700B2311E /* model */,
 				3D84C421180C1C8700B2311E /* other */,
 				3D84C424180C1C8700B2311E /* view */,
+				ABD6482E1A0B7D5C00953419 /* Utility.h */,
+				ABD6482F1A0B7D5C00953419 /* Utility.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -3150,6 +3155,7 @@
 				3D988DA818B6E0ED004F6011 /* ExpendTableView.m in Sources */,
 				3DB0EB7418239B7E00BB9161 /* PLSceneElementBase.m in Sources */,
 				3DB0EB7F18239B7E00BB9161 /* PLViewBase.m in Sources */,
+				ABD648301A0B7D5C00953419 /* Utility.m in Sources */,
 				3D84C4B8180C1C8800B2311E /* IconView.m in Sources */,
 				530CBD31193D96C500B56AF6 /* AFURLSessionManager.m in Sources */,
 				3DB0D2FC181CAD3E001C1AB6 /* XYPieChart.m in Sources */,

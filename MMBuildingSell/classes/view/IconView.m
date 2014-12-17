@@ -23,7 +23,7 @@
         
         [self setImage:[UIImage imageNamed:@"head_icon.jpg"] forState:UIControlStateNormal];
         
-        [self setTitle:@"赵四" forState:UIControlStateNormal];
+        [self setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"] forState:UIControlStateNormal];
         
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -42,7 +42,7 @@
     self.frame = CGRectMake(0, 0, width, width);
     
     // 2.根据方向隐藏文字
-    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:@"赵四";
+    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
     [self setTitle:title forState:UIControlStateNormal];
 }
 

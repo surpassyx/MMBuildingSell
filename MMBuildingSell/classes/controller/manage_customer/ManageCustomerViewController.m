@@ -28,47 +28,46 @@
 
 -(void)analysisJson:(NSDictionary *)jsonDic
 {
-    //    NSError *error;
-    //    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:date options:NSJSONReadingMutableLeaves error:&error];
-    
-    //{"sign":"1","arr":[{"fcustomername":"刘文波","ftel":"1338800888","froomtype":"二室一厅","fposition":"公务员","fgetway":"旗标","fpurpose":"新居","fworkplace":"大东","farea":"80-100","ffamilyregion":"大东区","ffamilyincome":"5万","fcardetail":"福特","fage":"30","fhavehouse":"1","id":"1"},{"fcustomername":"张珊","ftel":"13898823456","froomtype":"三室一厅","fposition":"部门经理","fgetway":"路过","fpurpose":"改善","fworkplace":"浑南","farea":"120-140","ffamilyregion":"大东","ffamilyincome":"30万","fcardetail":"酷路泽","fage":"30","fhavehouse":"2","id":"1"}]}
     NSString * strSign = [jsonDic objectForKey:@"sign"];
     int intString = [strSign intValue];
     if (intString == 1) {
+        [self.personList removeAllObjects];
+        [self.arrPersonInfo removeAllObjects];
         NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
         for (int i = 0; i < arrInfo.count ; i++) {
             NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-            NSString * strName = [dicInfo objectForKey:@"fcustomername"];
-            NSString * strTel =[dicInfo objectForKey:@"ftel"];
-            NSString * strType = [dicInfo objectForKey:@"froomtype"];
-            NSString * strGetway = [dicInfo objectForKey:@"fgetway"];
-            NSString * strPurpose = [dicInfo objectForKey:@"fpurpose"];
-            NSString * strWorkplace =[dicInfo objectForKey:@"fworkplace"];
-            NSString * strPosition = [dicInfo objectForKey:@"fposition"];
-            NSString * strArea = [dicInfo objectForKey:@"farea"];
-            NSString * strFamilyRegion = [dicInfo objectForKey:@"ffamilyregion"];
-            NSString * strFamilyIncom = [dicInfo objectForKey:@"ffamilyincome"];
-            NSString * strCarDetail = [dicInfo objectForKey:@"fcardetail"];
-            NSString * strAge = [dicInfo objectForKey:@"fage"];
-            NSString * strHaveHouse = [dicInfo objectForKey:@"fhavehouse"];
-            NSString * strId = [dicInfo objectForKey:@"id"];
+            NSString * strNo = [dicInfo objectForKey:@"no"];
+            NSString * strName = [dicInfo objectForKey:@"name"];
+            NSString * strSex = [dicInfo objectForKey:@"sex"];
+            NSString * strStatus =[dicInfo objectForKey:@"status"];
+            NSString * strTel =[dicInfo objectForKey:@"tel"];
+            NSString * strRoomType = [dicInfo objectForKey:@"roomtype"];
+            NSString * strLivingspace = [dicInfo objectForKey:@"livingspace"];
+            NSString * strOwner = [dicInfo objectForKey:@"owner"];
+            NSString * strProducttype = [dicInfo objectForKey:@"producttype"];
+            NSString * strCallvisit =[dicInfo objectForKey:@"callvisit"];
+            NSString * strGetway = [dicInfo objectForKey:@"getway"];
+            NSString * strUsername = [dicInfo objectForKey:@"username"];
+            NSString * strBugdet = [dicInfo objectForKey:@"bugdet"];
+            NSString * strIntention = [dicInfo objectForKey:@"intention"];
+            
             
             
             NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-            [rowData setValue:strId forKey:@"id"];
-            [rowData setValue:strName forKey:@"fcustomername"];
-            [rowData setValue:strTel forKey:@"ftel"];
-            [rowData setValue:strType forKey:@"froomtype"];
-            [rowData setValue:strGetway forKey:@"fgetway"];
-            [rowData setValue:strPurpose forKey:@"fpurpose"];
-            [rowData setValue:strWorkplace forKey:@"fworkplace"];
-            [rowData setValue:strPosition forKey:@"fposition"];
-            [rowData setValue:strArea forKey:@"farea"];
-            [rowData setValue:strFamilyRegion forKey:@"ffamilyregion"];
-            [rowData setValue:strFamilyIncom forKey:@"ffamilyincome"];
-            [rowData setValue:strCarDetail forKey:@"fcardetail"];
-            [rowData setValue:strAge forKey:@"fage"];
-            [rowData setValue:strHaveHouse forKey:@"fhavehouse"];
+            [rowData setValue:strNo forKey:@"no"];
+            [rowData setValue:strName forKey:@"name"];
+            [rowData setValue:strSex forKey:@"sex"];
+            [rowData setValue:strStatus forKey:@"status"];
+            [rowData setValue:strTel forKey:@"tel"];
+            [rowData setValue:strRoomType forKey:@"roomtype"];
+            [rowData setValue:strLivingspace forKey:@"livingspace"];
+            [rowData setValue:strOwner forKey:@"owner"];
+            [rowData setValue:strProducttype forKey:@"producttype"];
+            [rowData setValue:strCallvisit forKey:@"callvisit"];
+            [rowData setValue:strGetway forKey:@"getway"];
+            [rowData setValue:strUsername forKey:@"username"];
+            [rowData setValue:strBugdet forKey:@"bugdet"];
+            [rowData setValue:strIntention forKey:@"intention"];
             
             [self.personList addObject:strName];
             
@@ -79,30 +78,46 @@
         NSLog(@"服务端返回错误");
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
+    [self.myTableView reloadData];
+    if ([self.arrPersonInfo count] > 0) {
+        NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+        rowData = [self.arrPersonInfo objectAtIndex:0];
         
-        // 3.3.通过定时器跳到主界面
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
-        
-        //        [self setADScrollView];
-    });
+        [self showDeatilCustomer:[rowData objectForKey:@"no"]
+                            name:[rowData objectForKey:@"name"]
+                             sex:[rowData objectForKey:@"sex"]
+                          status:[rowData objectForKey:@"status"]
+                             tel:[rowData objectForKey:@"tel"]
+                        roomtype:[rowData objectForKey:@"roomtype"]
+                     livingspace:[rowData objectForKey:@"livingspace"]
+                           owner:[rowData objectForKey:@"owner"]
+                     producttype:[rowData objectForKey:@"producttype"]
+                       callvisit:[rowData objectForKey:@"callvisit"]
+                          getway:[rowData objectForKey:@"getway"]
+                        username:[rowData objectForKey:@"username"]
+                          bugdet:[rowData objectForKey:@"bugdet"]
+                       intention:[rowData objectForKey:@"intention"]];
+    }
+    
 }
 
-- (void)getInfoSuccess
+
+-(void)viewWillAppear:(BOOL)animated
 {
-    
+    [self getHttpInfo];
 }
 
 -(void)getHttpInfo
 {
-    NSString * strInstallment = @"01";
+//    NSString * strInstallment = @"02";
     //http://www.ykhome.cn/myhome/getcustomers.php?&fenterisecode=P00001&finstallment=01
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/getcustomers.php?&no=%@&fenterpriseCode=%@&finstallment=%@",[userDefaults objectForKey:@"no"],[userDefaults objectForKey:@"enterpriseCode"],strInstallment];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=13&enterpriseCode=%@&installment=%@&userno=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],[userDefaults objectForKey:@"usercode"]];
+    NSLog(@"获取用户信息url: %@", strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"获取用户信息hexurl: %@", API_BASE_URL(hexUrl));
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -139,11 +154,9 @@
     
     // 初始化tableView的数据
     self.personList = [NSMutableArray arrayWithObjects:@"李先生",@"刘先生",@"赵先生",@"杨先生", nil];
-    
-    NSMutableArray *jilulist = [NSMutableArray arrayWithObjects:@"活动记录1",@"活动记录2",@"活动记录3", nil];
+    self.arrPersonInfo = [[NSMutableArray alloc]init];
     
     self.dataList = self.personList;
-    self.dataDetailList = jilulist;
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 85, AddBtnWIDTH, FrameHEIGHT-46 - 10 - 45) style:UITableViewStylePlain];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -195,27 +208,22 @@
     
     [self initAddPersonView];
     
-    NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-    rowData = [self.arrPersonInfo objectAtIndex:0];
-    
-    [self showDeatilCustomer:[rowData objectForKey:@"ftel"] wantType:[rowData objectForKey:@"froomtype"] level:@"1" getWay:[rowData objectForKey:@"fgetway"] mudi:[rowData objectForKey:@"fpurpose"] workspace:[rowData objectForKey:@"fworkplace"] age:[rowData objectForKey:@"fage"] yixiangdengji:@"1" gongzuodanwei:[rowData objectForKey:@"fworkplace"] juzhuquyu:[rowData objectForKey:@"ffamilyregion"] car:[rowData objectForKey:@"fcardetail"] nianshouru:[rowData objectForKey:@"ffamilyincome"] jiatingjiegou:[rowData objectForKey:@"ffamilyincome"] xianyoufangchan:[rowData objectForKey:@"fhavehouse"] fname:[rowData objectForKey:@"fcustomername"]];
 }
 
--(void)showDeatilCustomer:(NSString *)tel
-                 wantType:(NSString *)wantType
-                    level:(NSString *)level
-                   getWay:(NSString *)getway
-                     mudi:(NSString *)mudi
-                workspace:(NSString *)workspace
-                      age:(NSString *)age
-            yixiangdengji:(NSString *)yixiangdengji
-            gongzuodanwei:(NSString *)gongzuodanwei
-                juzhuquyu:(NSString *)juzhuquyu
-                      car:(NSString *)car
-               nianshouru:(NSString *)nianshouru
-            jiatingjiegou:(NSString *)jiatingjiegou
-          xianyoufangchan:(NSString *)xianyoufangchan
-                    fname:(NSString *)fname
+-(void)showDeatilCustomer:(NSString *)no
+                     name:(NSString *)name
+                      sex:(NSString *)sex
+                    status:(NSString *)status
+                      tel:(NSString *)tel
+                 roomtype:(NSString *)roomtype
+              livingspace:(NSString *)livingspace
+                    owner:(NSString *)owner
+              producttype:(NSString *)producttype
+                callvisit:(NSString *)callvisit
+                   getway:(NSString *)getway
+               username:(NSString *)username
+                   bugdet:(NSString *)bugdet
+                intention:(NSString *)intention
 {
     
     if (addView != nil) {
@@ -224,20 +232,20 @@
     NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"CustomerDetailView" owner:self options:nil];
     myView = [array objectAtIndex:0];
     myView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
-    myView.tel.text = tel;
-    myView.wantType.text = wantType;
-    myView.getWay.text = getway;
-    myView.mudi.text = mudi;
-    myView.workSpace.text = workspace;
-    myView.age.text = age;
-    myView.yixiangdengji.text = yixiangdengji;
-    myView.gongzuodanwei.text = gongzuodanwei;
-    myView.juzhuquyu.text = juzhuquyu;
-    myView.car.text = car;
-    myView.nianshouru.text = nianshouru;
-    myView.jiatingjiegou.text = jiatingjiegou;
-    myView.xianyoufangchan.text = xianyoufangchan;
-    myView.fname.text = fname;
+    myView.noLabel.text = no;
+    myView.nameLabel.text = name;
+    myView.sexLabel.text = sex;
+    myView.statusLabel.text = status;
+    myView.telLabel.text = tel;
+    myView.roomtypeLabel.text = roomtype;
+    myView.livingspaceLabel.text = livingspace;
+    myView.ownerLabel.text = owner;
+    myView.producttypeLabel.text = producttype;
+    myView.callvisitLabel.text = callvisit;
+    myView.getwayLabel.text = getway;
+    myView.usernameLabel.text = username;
+    myView.bugdetLabel.text = bugdet;
+    myView.intentionLabel.text = intention;
     
     [self.view addSubview:myView];
 }
@@ -261,17 +269,10 @@
         [myView removeFromSuperview];
     }
     
-    //    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"AddCustomerView" owner:self options:nil];
-    //    addView = [array objectAtIndex:0];
-    //    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
-    
     addView = [self loadNibNamed:@"AddCustomerView" ofClass:[AddCustomerView class] andOwner:self];
     addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     addView.delegate = self; // Or do this in the xib file
     [self.view addSubview:addView];
-    
-    //    [addView setDelegate:self];
-    //    [self.view addSubview:addView];
     
     NSLog(@"执行添加操作");
 }
@@ -311,13 +312,8 @@
     NSUInteger row = [indexPath row];
     if (tableView == myTableView) {
         cell.textLabel.text = [self.dataList objectAtIndex:row];
-    }else if(tableView == myView.tableJIlu){
-        cell.textLabel.text = [self.dataDetailList objectAtIndex:row];
     }
     cell.backgroundColor = [UIColor clearColor];
-    
-    //    cell.imageView.image = [UIImage imageNamed:@"green.png"];
-    //    cell.detailTextLabel.text = @"详细信息";
     
     //选中背景自定义
     cell.selectedBackgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"name_item_selected_bk"]];
@@ -333,31 +329,17 @@
 {
     if (table == myTableView) {
         return [self.dataList count];
-    }else if(table == myView.tableJIlu){
-        return [self.dataDetailList count];
     }else
         return 0;
     
 }
-//设置缩进
-//- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [indexPath row];
-//}
+
 //行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
 }
-//设置cell的隔行换色
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if ([indexPath row] % 2 == 0) {
-//        cell.backgroundColor = [UIColor blueColor];
-//    } else {
-//        cell.backgroundColor = [UIColor greenColor];
-//    }
-//}
+
 //点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -366,11 +348,20 @@
     rowData = [self.arrPersonInfo objectAtIndex:indexPath.row];
     
     
-    [self showDeatilCustomer:[rowData objectForKey:@"ftel"] wantType:[rowData objectForKey:@"froomtype"] level:@"1" getWay:[rowData objectForKey:@"fgetway"] mudi:[rowData objectForKey:@"fpurpose"] workspace:[rowData objectForKey:@"fworkplace"] age:[rowData objectForKey:@"fage"] yixiangdengji:@"1" gongzuodanwei:[rowData objectForKey:@"fworkplace"] juzhuquyu:[rowData objectForKey:@"ffamilyregion"] car:[rowData objectForKey:@"fcardetail"] nianshouru:[rowData objectForKey:@"ffamilyincome"] jiatingjiegou:[rowData objectForKey:@"ffamilyincome"] xianyoufangchan:[rowData objectForKey:@"fhavehouse"] fname:[rowData objectForKey:@"fcustomername"]];
-    
-    //    NSString *msg = [[NSString alloc] initWithFormat:@"你选择的是:%@",[self.dataList objectAtIndex:[indexPath row]]];
-    //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    //    [alert show];
+    [self showDeatilCustomer:[rowData objectForKey:@"no"]
+                        name:[rowData objectForKey:@"name"]
+                         sex:[rowData objectForKey:@"sex"]
+                      status:[rowData objectForKey:@"status"]
+                         tel:[rowData objectForKey:@"tel"]
+                    roomtype:[rowData objectForKey:@"roomtype"]
+                 livingspace:[rowData objectForKey:@"livingspace"]
+                       owner:[rowData objectForKey:@"owner"]
+                 producttype:[rowData objectForKey:@"producttype"]
+                   callvisit:[rowData objectForKey:@"callvisit"]
+                      getway:[rowData objectForKey:@"getway"]
+                    username:[rowData objectForKey:@"username"]
+                      bugdet:[rowData objectForKey:@"bugdet"]
+                   intention:[rowData objectForKey:@"intention"]];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -398,6 +389,8 @@
     if(0 == searchText.length)
         
     {
+        self.dataList = self.personList;
+        [self.myTableView reloadData];
         return ;
     }
     

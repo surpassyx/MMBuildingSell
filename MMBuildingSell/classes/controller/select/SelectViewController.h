@@ -11,9 +11,9 @@
 #import "QCheckBox.h"
 #import "PrintPurchasingViewController.h"
 #import "NIDropDown.h"
-
-@interface SelectViewController : UIViewController<MSGridViewDataSource,MSGridViewDelegate,NIDropDownDelegate,UIGestureRecognizerDelegate>{
-    MSGridView *gridView;
+//MSGridViewDataSource,MSGridViewDelegate,
+@interface SelectViewController : UIViewController<NIDropDownDelegate,UIGestureRecognizerDelegate>{
+//    MSGridView *gridView;
 
     UIImageView  *imageView;
     

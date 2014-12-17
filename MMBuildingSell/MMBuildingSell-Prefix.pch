@@ -37,6 +37,8 @@
 // 获取Dock的高度
 #define kDockHeight(orientation) ((UIInterfaceOrientationIsLandscape(orientation)?[UIScreen mainScreen].bounds.size.width:[UIScreen mainScreen].bounds.size.height) - 20)
 
+//接口的基础地址
+#define API_BASE_URL(_URL_) [@"http://www.gytaobao.cn:9006/FC/Action?data=" stringByAppendingString:_URL_]
 /*
  Compose里面item的宽高
  */
@@ -67,6 +69,8 @@
 #define kWidth 80
 #define kHeight 40
 
+
+#import "Utility.h"
 
 
 #import "UIImage+Fit.h"
