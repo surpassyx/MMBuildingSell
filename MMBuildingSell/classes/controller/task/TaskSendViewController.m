@@ -10,7 +10,11 @@
 #import "AFNetworking.h"
 #import "TaskPersonListViewController.h"
 
-@interface TaskSendViewController ()
+@interface TaskSendViewController ()<AddPersonDelegate>{
+    NSString * upexecuteNameStr;
+    NSString * upexecuteIdStr;
+    NSMutableArray * followManArr;
+}
 
 @end
 
@@ -30,15 +34,20 @@
 - (IBAction)addFollowBtnAction:(id)sender {
     TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];
     listViewController.nType = 2;
+    listViewController.delegate = self;
     [self.navigationController pushViewController:listViewController animated:NO];
 
 }
 - (IBAction)subFollowBtnAction:(id)sender {
-    
+    if ([followManArr count] > 0) {
+        [followManArr removeLastObject];
+    }
+    [self showFollowMan];
 }
 - (IBAction)upexecuteBtnAction:(id)sender {
     TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];
     listViewController.nType = 1;
+    listViewController.delegate = self;
     [self.navigationController pushViewController:listViewController animated:NO];
 
 }
@@ -97,11 +106,6 @@
     
 }
 
-- (void)getInfoSuccess
-{
-    
-}
-
 -(void)getHttpInfo:(NSString *)taskTitle
            content:(NSString *)strContent
          fTaskTime:(NSString *)strTime
@@ -140,6 +144,8 @@
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
     
+    followManArr = [[NSMutableArray alloc]init];
+    
 }
 
 #pragma mark close
@@ -152,6 +158,40 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)addPerson:(NSString *)userId name:(NSString *)username type:(int)nType
+{
+    if (nType == 1) {
+//        self.title = @"选择责任人";
+        upexecuteNameStr = username;
+        upexecuteIdStr = userId;
+        [self.upexecuteBtn setTitle:username forState:UIControlStateNormal];
+    }else{
+//        self.title = @"选择跟踪人";
+        NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+        [rowData setValue:userId forKey:@"userid"];
+        [rowData setValue:username forKey:@"username"];
+        [followManArr addObject:rowData];
+        [self showFollowMan];
+    }
+}
+
+-(void)showFollowMan
+{
+    if ([followManArr count] == 0) {
+        [self.followManBtn setTitle:@"暂无" forState:UIControlStateNormal];
+    }else{
+        NSString * strBtn = @"";
+        for (NSMutableDictionary *rowData in followManArr) {
+            NSString * strTemp = [rowData objectForKey:@"username"];
+            strBtn = [strBtn stringByAppendingString:strTemp];
+            strBtn = [strBtn stringByAppendingString:@","];
+        }
+        NSString *b = [strBtn substringToIndex:([strBtn length] - 1)];
+        [self.followManBtn setTitle:b forState:UIControlStateNormal];
+    }
+    
 }
 
 @end

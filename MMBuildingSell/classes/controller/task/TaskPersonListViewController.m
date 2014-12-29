@@ -81,7 +81,11 @@
 //    [self.navigationController pushViewController:detailViewController animated:NO];
 //    
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self close];
+//    [self close];
+     NSMutableDictionary *rowData = [self.dataList objectAtIndex:indexPath.row];
+    
+    [self.delegate addPerson:[rowData objectForKey:@"userid"] name:[rowData objectForKey:@"username"] type:self.nType];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)analysisJson:(NSDictionary *)jsonDic
