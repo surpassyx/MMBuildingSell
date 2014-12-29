@@ -54,17 +54,19 @@
 - (IBAction)okBtnAction:(id)sender {
     if ([self isReadyToUpdate]) {
         
-        NSString * strFollowManText = @"";
+        NSString * strFollowManText = [self getFollowManStr];
         
         [self getHttpInfo:self.taskTitle.text
                   content:self.contentTextView.text
                 fTaskTime:self.taskTimeBtn.titleLabel.text
-               fupexecute:self.upexecuteBtn.titleLabel.text
+               fupexecute:upexecuteIdStr
                  fhowlong:self.howLong.text
                 followMan:strFollowManText
                    notion:self.notionTextField.text];
     }else{
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据填写不全" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
+        [alter show];
     }
 }
 - (IBAction)cancelBtnAction:(id)sender {
@@ -192,6 +194,22 @@
         [self.followManBtn setTitle:b forState:UIControlStateNormal];
     }
     
+}
+
+-(NSString *)getFollowManStr
+{
+    if ([followManArr count] == 0) {
+        return @"";
+    }else{
+        NSString * strBtn = @"";
+        for (NSMutableDictionary *rowData in followManArr) {
+            NSString * strTemp = [rowData objectForKey:@"userid"];
+            strBtn = [strBtn stringByAppendingString:strTemp];
+            strBtn = [strBtn stringByAppendingString:@","];
+        }
+        NSString *b = [strBtn substringToIndex:([strBtn length] - 1)];
+        return b;
+    }
 }
 
 @end
