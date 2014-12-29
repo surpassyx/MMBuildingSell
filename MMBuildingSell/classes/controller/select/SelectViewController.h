@@ -11,13 +11,22 @@
 #import "QCheckBox.h"
 #import "PrintPurchasingViewController.h"
 #import "NIDropDown.h"
-//MSGridViewDataSource,MSGridViewDelegate,
+
 @interface SelectViewController : UIViewController<NIDropDownDelegate,UIGestureRecognizerDelegate>{
-//    MSGridView *gridView;
 
     UIImageView  *imageView;
     
-    UILabel *showLabel;
+    UILabel *roomNameLabel;
+    
+    UILabel *roomSatausLabel;
+    
+    UILabel *roomTypeLabel;
+    
+    UILabel *allAresLabel;
+    
+    UILabel *realAresLabel;
+    
+    UILabel *realPriceLabel;
     
     UILabel *danjiaLabel;
     
@@ -39,16 +48,6 @@
     
     UIButton *freeTotalJisuanBtn;
     
-//    UILabel *okLabel;
-//    
-//    UILabel *okLabel2;
-
-    
-//    QCheckBox * check1;
-//    QCheckBox * check2;
-//    QCheckBox * check3;
-    
-//    UIButton * jisuanBtn;
     UIButton * nextBtn;
     
     UIButton * selectBtn;
@@ -56,6 +55,9 @@
     
     UIImageView  *imageViewLeftBk;
     UIImageView  *imageViewRightBk;
+    
+    int nCurSelected;
+    NSMutableDictionary *rowHouseData;
 }
 
 @property (nonatomic, retain) NSMutableArray *dataList;

@@ -12,15 +12,25 @@
 
 @interface TaskDetailViewController : UIViewController
 
-@property (retain, nonatomic) IBOutlet UILabel *labelForPlace;
-@property (retain, nonatomic) IBOutlet UILabel *labelForCountry;
-@property (retain, nonatomic) IBOutlet UIImageView *imageView;
+
 @property (retain, nonatomic) IBOutlet UIButton *doneBtn;
 @property (retain, nonatomic) IBOutlet UITextView *textviewForDetail;
-@property (retain, nonatomic) IBOutlet UIImageView *backgroundImageView;
+
+
+@property (retain, nonatomic) IBOutlet UILabel *labelForTaskid;
+@property (retain, nonatomic) IBOutlet UILabel *labelForTasktitle;
+@property (retain, nonatomic) IBOutlet UILabel *labelForTasktime;
+@property (retain, nonatomic) IBOutlet UILabel *labelForFirstrelease;
+@property (retain, nonatomic) IBOutlet UILabel *labelForUpexecute;
+@property (retain, nonatomic) IBOutlet UILabel *labelForHowlong;
+@property (retain, nonatomic) IBOutlet UILabel *labelForResult;
+
 
 @property (readwrite, nonatomic) int yOrigin;
 @property (retain, nonatomic) NSMutableDictionary *dictForData;
+
+
+
 
 - (IBAction)doneBtnPressed:(id)sender;
 

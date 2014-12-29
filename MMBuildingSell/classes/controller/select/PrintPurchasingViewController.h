@@ -13,11 +13,23 @@
 
     NIDropDown *dropDownType;
     NIDropDown *dropDownSex;
+    
+    NSMutableDictionary *houseData;
 }
+
+-(void)initData:(NSMutableDictionary *)dic;
+
 @property (weak, nonatomic) IBOutlet UIButton *sexBtn;
 @property (weak, nonatomic) IBOutlet UIButton *typeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *fanganBtn;
 - (IBAction)sexAction:(id)sender;
 - (IBAction)typeAction:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *roomNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *roomTypelabel;
+@property (strong, nonatomic) IBOutlet UILabel *allPriceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *realPriceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *allAresLabel;
+@property (strong, nonatomic) IBOutlet UILabel *realAresLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalLabel;
 
 @end

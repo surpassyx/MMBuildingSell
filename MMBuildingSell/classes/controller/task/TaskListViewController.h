@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TaskListViewController : UIViewController
+@interface TaskListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *dataList;
 @property (strong, nonatomic) IBOutlet UITableView *myTable;

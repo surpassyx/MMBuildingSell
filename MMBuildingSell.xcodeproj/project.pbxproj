@@ -33,10 +33,6 @@
 		3D2B0DB71816568F008BEAA6 /* UIGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DB11816568F008BEAA6 /* UIGridView.m */; };
 		3D2B0DB81816568F008BEAA6 /* UIGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DB31816568F008BEAA6 /* UIGridViewCell.m */; };
 		3D2B0DB91816568F008BEAA6 /* UIGridViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DB61816568F008BEAA6 /* UIGridViewRow.m */; };
-		3D2B0DBC1816585D008BEAA6 /* HouseStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DBB1816585D008BEAA6 /* HouseStateCell.m */; };
-		3D2B0DBF18165877008BEAA6 /* HouseInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DBE18165877008BEAA6 /* HouseInfoCell.m */; };
-		3D2B0DC318165A1A008BEAA6 /* HouseStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2B0DC218165A1A008BEAA6 /* HouseStateCell.xib */; };
-		3D2B0DC518165A52008BEAA6 /* HouseInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2B0DC418165A52008BEAA6 /* HouseInfoCell.xib */; };
 		3D2B0DC718166C29008BEAA6 /* select_cell_house.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2B0DC618166C29008BEAA6 /* select_cell_house.png */; };
 		3D2B0DCB181791A5008BEAA6 /* PrintPurchasingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B0DC9181791A5008BEAA6 /* PrintPurchasingViewController.m */; };
 		3D2B0DCC181791A5008BEAA6 /* PrintPurchasingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2B0DCA181791A5008BEAA6 /* PrintPurchasingViewController.xib */; };
@@ -518,15 +514,13 @@
 		531CC9E51931C79D004E91B8 /* SegmentedButton_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 531CC9E31931C79D004E91B8 /* SegmentedButton_Selected@2x.png */; };
 		531CC9E61931C79D004E91B8 /* SegmentedButton_Normal2222@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 531CC9E41931C79D004E91B8 /* SegmentedButton_Normal2222@2x.png */; };
 		531CC9E81931CD57004E91B8 /* SegmentedButton_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 531CC9E71931CD57004E91B8 /* SegmentedButton_Normal@2x.png */; };
-		53A9CFCD194EC63600883947 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFC2194EC63600883947 /* HeadView.m */; };
-		53A9CFCE194EC63600883947 /* MeetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFC4194EC63600883947 /* MeetModel.m */; };
-		53A9CFCF194EC63600883947 /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFC6194EC63600883947 /* MyCell.m */; };
-		53A9CFD0194EC63600883947 /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFC8194EC63600883947 /* MyLabel.m */; };
-		53A9CFD1194EC63600883947 /* TimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFCA194EC63600883947 /* TimeCell.m */; };
-		53A9CFD2194EC63600883947 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9CFCC194EC63600883947 /* TimeView.m */; };
 		53DB357C196FC0EE0044A6D1 /* LocalFilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB357B196FC0EE0044A6D1 /* LocalFilePath.m */; };
 		53DB3586197224B90044A6D1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB3585197224B90044A6D1 /* MBProgressHUD.m */; };
 		53FA82E11973763A00FDF7AB /* ZDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FA82E01973763A00FDF7AB /* ZDProgressView.m */; };
+		AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */; };
+		AB83BF4C1A49528A007667C9 /* TaskPersonListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */; };
+		AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8499F61A4CF7DE00F22804 /* HouseCell.m */; };
+		AB8499F91A4CF7DE00F22804 /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8499F71A4CF7DE00F22804 /* HouseCell.xib */; };
 		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
 /* End PBXBuildFile section */
 
@@ -585,12 +579,6 @@
 		3D2B0DB41816568F008BEAA6 /* UIGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewDelegate.h; sourceTree = "<group>"; };
 		3D2B0DB51816568F008BEAA6 /* UIGridViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewRow.h; sourceTree = "<group>"; };
 		3D2B0DB61816568F008BEAA6 /* UIGridViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewRow.m; sourceTree = "<group>"; };
-		3D2B0DBA1816585D008BEAA6 /* HouseStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseStateCell.h; sourceTree = "<group>"; };
-		3D2B0DBB1816585D008BEAA6 /* HouseStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseStateCell.m; sourceTree = "<group>"; };
-		3D2B0DBD18165877008BEAA6 /* HouseInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseInfoCell.h; sourceTree = "<group>"; };
-		3D2B0DBE18165877008BEAA6 /* HouseInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseInfoCell.m; sourceTree = "<group>"; };
-		3D2B0DC218165A1A008BEAA6 /* HouseStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseStateCell.xib; sourceTree = "<group>"; };
-		3D2B0DC418165A52008BEAA6 /* HouseInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseInfoCell.xib; sourceTree = "<group>"; };
 		3D2B0DC618166C29008BEAA6 /* select_cell_house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select_cell_house.png; sourceTree = "<group>"; };
 		3D2B0DC8181791A5008BEAA6 /* PrintPurchasingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintPurchasingViewController.h; sourceTree = "<group>"; };
 		3D2B0DC9181791A5008BEAA6 /* PrintPurchasingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintPurchasingViewController.m; sourceTree = "<group>"; };
@@ -1251,24 +1239,18 @@
 		531CC9E31931C79D004E91B8 /* SegmentedButton_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SegmentedButton_Selected@2x.png"; sourceTree = "<group>"; };
 		531CC9E41931C79D004E91B8 /* SegmentedButton_Normal2222@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SegmentedButton_Normal2222@2x.png"; sourceTree = "<group>"; };
 		531CC9E71931CD57004E91B8 /* SegmentedButton_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SegmentedButton_Normal@2x.png"; sourceTree = "<group>"; };
-		53A9CFC1194EC63600883947 /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
-		53A9CFC2194EC63600883947 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
-		53A9CFC3194EC63600883947 /* MeetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetModel.h; sourceTree = "<group>"; };
-		53A9CFC4194EC63600883947 /* MeetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetModel.m; sourceTree = "<group>"; };
-		53A9CFC5194EC63600883947 /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCell.h; sourceTree = "<group>"; };
-		53A9CFC6194EC63600883947 /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCell.m; sourceTree = "<group>"; };
-		53A9CFC7194EC63600883947 /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
-		53A9CFC8194EC63600883947 /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
-		53A9CFC9194EC63600883947 /* TimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeCell.h; sourceTree = "<group>"; };
-		53A9CFCA194EC63600883947 /* TimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCell.m; sourceTree = "<group>"; };
-		53A9CFCB194EC63600883947 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
-		53A9CFCC194EC63600883947 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		53DB357A196FC0EE0044A6D1 /* LocalFilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalFilePath.h; sourceTree = "<group>"; };
 		53DB357B196FC0EE0044A6D1 /* LocalFilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalFilePath.m; sourceTree = "<group>"; };
 		53DB3584197224B90044A6D1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		53DB3585197224B90044A6D1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		53FA82DF1973763A00FDF7AB /* ZDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDProgressView.h; sourceTree = "<group>"; };
 		53FA82E01973763A00FDF7AB /* ZDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDProgressView.m; sourceTree = "<group>"; };
+		AB83BF481A49528A007667C9 /* TaskPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskPersonListViewController.h; sourceTree = "<group>"; };
+		AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskPersonListViewController.m; sourceTree = "<group>"; };
+		AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskPersonListViewController.xib; sourceTree = "<group>"; };
+		AB8499F51A4CF7DE00F22804 /* HouseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseCell.h; sourceTree = "<group>"; };
+		AB8499F61A4CF7DE00F22804 /* HouseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseCell.m; sourceTree = "<group>"; };
+		AB8499F71A4CF7DE00F22804 /* HouseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
 		ABD6482E1A0B7D5C00953419 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2039,26 +2021,11 @@
 		3D84C4C6180C1F9800B2311E /* select */ = {
 			isa = PBXGroup;
 			children = (
-				53A9CFC1194EC63600883947 /* HeadView.h */,
-				53A9CFC2194EC63600883947 /* HeadView.m */,
-				53A9CFC3194EC63600883947 /* MeetModel.h */,
-				53A9CFC4194EC63600883947 /* MeetModel.m */,
-				53A9CFC5194EC63600883947 /* MyCell.h */,
-				53A9CFC6194EC63600883947 /* MyCell.m */,
-				53A9CFC7194EC63600883947 /* MyLabel.h */,
-				53A9CFC8194EC63600883947 /* MyLabel.m */,
-				53A9CFC9194EC63600883947 /* TimeCell.h */,
-				53A9CFCA194EC63600883947 /* TimeCell.m */,
-				53A9CFCB194EC63600883947 /* TimeView.h */,
-				53A9CFCC194EC63600883947 /* TimeView.m */,
 				3D84C4D3180C209000B2311E /* SelectViewController.h */,
 				3D84C4D4180C209000B2311E /* SelectViewController.m */,
-				3D2B0DBA1816585D008BEAA6 /* HouseStateCell.h */,
-				3D2B0DBB1816585D008BEAA6 /* HouseStateCell.m */,
-				3D2B0DC218165A1A008BEAA6 /* HouseStateCell.xib */,
-				3D2B0DBD18165877008BEAA6 /* HouseInfoCell.h */,
-				3D2B0DBE18165877008BEAA6 /* HouseInfoCell.m */,
-				3D2B0DC418165A52008BEAA6 /* HouseInfoCell.xib */,
+				AB8499F51A4CF7DE00F22804 /* HouseCell.h */,
+				AB8499F61A4CF7DE00F22804 /* HouseCell.m */,
+				AB8499F71A4CF7DE00F22804 /* HouseCell.xib */,
 				3D2B0DC8181791A5008BEAA6 /* PrintPurchasingViewController.h */,
 				3D2B0DC9181791A5008BEAA6 /* PrintPurchasingViewController.m */,
 				3D2B0DCA181791A5008BEAA6 /* PrintPurchasingViewController.xib */,
@@ -2224,6 +2191,9 @@
 				3D0E7A09183C880400178F14 /* TaskCell.h */,
 				3D0E7A0A183C880400178F14 /* TaskCell.m */,
 				3D0E7A0C183C882200178F14 /* TaskCell.xib */,
+				AB83BF481A49528A007667C9 /* TaskPersonListViewController.h */,
+				AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */,
+				AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -2774,7 +2744,6 @@
 				3DB2AA47183DD9E30066ED37 /* images-1.jpeg in Resources */,
 				3D67F78F18CC161600E0F66B /* PickerBG@2x.png in Resources */,
 				3D84C481180C1C8700B2311E /* SegmentedControl_Selected.png in Resources */,
-				3D2B0DC318165A1A008BEAA6 /* HouseStateCell.xib in Resources */,
 				3DACC1BD1837119300658976 /* checkbox1_unchecked@2x.png in Resources */,
 				3DA7D9EB184628F300662DB3 /* select_next_left_btn@2x.png in Resources */,
 				3DA7D9BC18457AB800662DB3 /* detail_down_add.png in Resources */,
@@ -2805,6 +2774,7 @@
 				3D5B2071187E271E00F769E0 /* item_right_btn_selected@2x.png in Resources */,
 				3D416F8B18B4517D00106DE4 /* arrow_02.png in Resources */,
 				3D84C4F1180D1F6600B2311E /* 5.jpg in Resources */,
+				AB83BF4C1A49528A007667C9 /* TaskPersonListViewController.xib in Resources */,
 				3D84C469180C1C8700B2311E /* login_separator.png in Resources */,
 				3DB564741840D5DC00828878 /* item_play_btn@2x.png in Resources */,
 				3DB0EB9218239FE400BB9161 /* hotspot.png in Resources */,
@@ -2959,7 +2929,6 @@
 				3DB0EB9B18239FE400BB9161 /* pano_r.jpg in Resources */,
 				3D84C496180C1C8800B2311E /* tabbar_photo@2x.png in Resources */,
 				3D84C43F180C1C8700B2311E /* btn_addfriend_add_click@2x.png in Resources */,
-				3D2B0DC518165A52008BEAA6 /* HouseInfoCell.xib in Resources */,
 				3D5B206D187E271E00F769E0 /* item_left_btn_selected@2x.png in Resources */,
 				3D0E7A08183C872A00178F14 /* TaskDetailViewController.xib in Resources */,
 				3D84C493180C1C8700B2311E /* tabbar_mood.png in Resources */,
@@ -3068,6 +3037,7 @@
 				3DB5649F1842D98100828878 /* all_status_task@2x.png in Resources */,
 				3D84C473180C1C8700B2311E /* navbar_btn_back_bg_click.png in Resources */,
 				3D5B206C187E271E00F769E0 /* item_left_btn_selected.png in Resources */,
+				AB8499F91A4CF7DE00F22804 /* HouseCell.xib in Resources */,
 				3D84C476180C1C8700B2311E /* NavigationBar_Background@2x.png in Resources */,
 				3DACC1BA1837119300658976 /* checkbox1_checked.png in Resources */,
 			);
@@ -3091,22 +3061,21 @@
 				3DB0EB6318239B7E00BB9161 /* PLCamera.m in Sources */,
 				3D0C0E7218852EBC00CAFBF4 /* CustomDatePicker.m in Sources */,
 				3D28321A181F807200CDF5F3 /* PSStackedViewGlobal.m in Sources */,
-				3D2B0DBC1816585D008BEAA6 /* HouseStateCell.m in Sources */,
 				530CBD2E193D96C500B56AF6 /* AFURLConnectionOperation.m in Sources */,
 				3DACC1A61835053200658976 /* TaskSendViewController.m in Sources */,
 				3DACC1B21837097F00658976 /* MSGridViewCell.m in Sources */,
-				53A9CFD2194EC63600883947 /* TimeView.m in Sources */,
 				3D84C4D5180C209000B2311E /* SelectViewController.m in Sources */,
 				3DB47762182CCF1F000F3C21 /* UIView+XCMultiSortTableView.m in Sources */,
 				3D2B0DB71816568F008BEAA6 /* UIGridView.m in Sources */,
 				3D2B0DB91816568F008BEAA6 /* UIGridViewRow.m in Sources */,
+				AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */,
 				3DB0EB6C18239B7E00BB9161 /* PLObject.m in Sources */,
 				3D283219181F807200CDF5F3 /* PSStackedViewController.m in Sources */,
+				AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */,
 				3D84C4A5180C1C8800B2311E /* UIImage+Fit.m in Sources */,
 				53FA82E11973763A00FDF7AB /* ZDProgressView.m in Sources */,
 				3DB0EB6418239B7E00BB9161 /* PLCubicPanorama.m in Sources */,
 				3D84C1221808E16A00B2311E /* AppDelegate.mm in Sources */,
-				53A9CFCE194EC63600883947 /* MeetModel.m in Sources */,
 				3D84C4C9180C1FBC00B2311E /* ItemShowViewController.m in Sources */,
 				3DB166CD18307B2C006DB0A0 /* CustomerDetailView.m in Sources */,
 				3DB0EB7618239B7E00BB9161 /* PLSphericalPanorama.m in Sources */,
@@ -3123,7 +3092,6 @@
 				3D2B0DB81816568F008BEAA6 /* UIGridViewCell.m in Sources */,
 				3D84C4B4180C1C8800B2311E /* DockItem.m in Sources */,
 				3D67F78318CC016100E0F66B /* CustomerBean.m in Sources */,
-				53A9CFCD194EC63600883947 /* HeadView.m in Sources */,
 				3DB0EB5D18239B7E00BB9161 /* glues_mipmap.c in Sources */,
 				3DB47764182CCF1F000F3C21 /* XCMultiSortTableViewBGScrollView.m in Sources */,
 				3D84C4A6180C1C8800B2311E /* AboutMeViewController.m in Sources */,
@@ -3192,12 +3160,10 @@
 				3DB0EB7218239B7E00BB9161 /* PLScene.m in Sources */,
 				3D416FA918B4518B00106DE4 /* OAFont.m in Sources */,
 				530CBD39193D96C500B56AF6 /* UIWebView+AFNetworking.m in Sources */,
-				3D2B0DBF18165877008BEAA6 /* HouseInfoCell.m in Sources */,
 				3D416F6818B44D8800106DE4 /* FangDaiViewController.m in Sources */,
 				3DACC1AB1835109000658976 /* SJAvatarBrowser.m in Sources */,
 				530CBD33193D96C500B56AF6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				530CBD37193D96C500B56AF6 /* UIProgressView+AFNetworking.m in Sources */,
-				53A9CFCF194EC63600883947 /* MyCell.m in Sources */,
 				3DB0EB6F18239B7E00BB9161 /* PLPanoramaBase.m in Sources */,
 				3DB0EB5F18239B7E00BB9161 /* glues_quad.c in Sources */,
 				3D84C4AA180C1C8800B2311E /* HomeViewController.m in Sources */,
@@ -3207,7 +3173,6 @@
 				3DB0EB7118239B7E00BB9161 /* PLRenderer.m in Sources */,
 				53DB357C196FC0EE0044A6D1 /* LocalFilePath.m in Sources */,
 				530CBD32193D96C500B56AF6 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				53A9CFD0194EC63600883947 /* MyLabel.m in Sources */,
 				3D84C4AC180C1C8800B2311E /* PhotoViewController.m in Sources */,
 				3DB0EB7C18239B7E00BB9161 /* PLUtils.m in Sources */,
 				3D67F77C18CBF6D400E0F66B /* ProfileCell.m in Sources */,
@@ -3215,7 +3180,6 @@
 				3D28321D181F807200CDF5F3 /* UIView+PSSizes.m in Sources */,
 				3DB0EB6618239B7E00BB9161 /* PLHotspot.m in Sources */,
 				3DB0EB6918239B7E00BB9161 /* PLJSONLoader.m in Sources */,
-				53A9CFD1194EC63600883947 /* TimeCell.m in Sources */,
 				3D0E7A07183C872A00178F14 /* TaskDetailViewController.m in Sources */,
 				530CBD35193D96C500B56AF6 /* UIButton+AFNetworking.m in Sources */,
 				3D5B1FEE187B961400F769E0 /* Common.m in Sources */,

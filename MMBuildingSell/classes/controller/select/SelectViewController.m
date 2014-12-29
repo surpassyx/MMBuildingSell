@@ -8,32 +8,17 @@
 
 #import "SelectViewController.h"
 #import "SegmentView.h"
-#import "HouseStateCell.h"
-#import "HouseInfoCell.h"
 #import "SJAvatarBrowser.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AFNetworking.h"
 #import "UIViewController+CWPopup.h"
 #import "CalculatorViewController.h"
 #import "FangDaiViewController.h"
+#import "HouseCell.h"
 
+@interface SelectViewController () <SegmentViewDelegate,QCheckBoxDelegate,UITableViewDataSource,UITableViewDelegate>
 
-
-#import "HeadView.h"
-#import "TimeView.h"
-#import "MyCell.h"
-#import "MeetModel.h"
-
-
-
-
-@interface SelectViewController () <SegmentViewDelegate,QCheckBoxDelegate,UITableViewDataSource,UITableViewDelegate,MyCellDelegate>
-
-@property (nonatomic,strong) UIView *myHeadView;
 @property (nonatomic,strong) UITableView *myTableView;
-@property (nonatomic,strong) TimeView *timeView;
-@property (nonatomic,strong) NSMutableArray *meets;
-@property (nonatomic,strong) NSMutableArray *currentTime;
 
 @end
 
@@ -41,123 +26,107 @@
 @synthesize dataList;
 
 
--(void)initData
-{
-    self.meets=[NSMutableArray array];
-    self.currentTime=[NSMutableArray array];
-    for(int i=0;i<10;i++){
-        
-        MeetModel *meet=[[MeetModel alloc]init];
-        meet.meetRoom=[NSString stringWithFormat:@"%03d",i];
-        int currentTime=i*30+520;
-        NSString *time=[NSString stringWithFormat:@"%d:%02d",currentTime/60,currentTime%60];
-        meet.meetTime=time;
-
-        [self.meets addObject:meet];
-    }
-    
-}
-
 -(void)initHouseTable
 {
-    [self initData];
+    self.dataList = [[NSMutableArray alloc]init];
+    self.myTableView=[[UITableView alloc]initWithFrame:CGRectMake(40, 50, 400, 600) style:UITableViewStylePlain];
+    self.myTableView.delegate=self;
+    self.myTableView.dataSource=self;
+    self.myTableView.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:self.myTableView];
+    nCurSelected = 0;
     
-    //40, 142, 400, 850
-    UIView *tableViewHeadView=[[UIView alloc]initWithFrame:CGRectMake(40, 142, kCount*kWidth, kHeight)];
-    self.myHeadView=tableViewHeadView;
-    
-    for(int i=0;i<kCount;i++){
-        
-        HeadView *headView=[[HeadView alloc]initWithFrame:CGRectMake(i*kWidth, 0, kWidth, kHeight)];
-        headView.num=[NSString stringWithFormat:@"%03d",i];
-        headView.detail=@"";
-        headView.backgroundColor=[UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-        [tableViewHeadView addSubview:headView];
-    }
-    
-    UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.myHeadView.frame.size.width, 560) style:UITableViewStylePlain];
-    tableView.delegate=self;
-    tableView.dataSource=self;
-    tableView.bounces=NO;
-    tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    self.myTableView=tableView;
-    tableView.backgroundColor=[UIColor whiteColor];
-    
-    UIScrollView *myScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(70, 100, 400, 560)];
-    [myScrollView addSubview:tableView];
-    myScrollView.bounces=NO;
-    myScrollView.contentSize=CGSizeMake(self.myHeadView.frame.size.width,0);
-    [self.view addSubview:myScrollView];
-    
-    self.timeView=[[TimeView alloc]initWithFrame:CGRectMake(22, 150, 40, 510)];
-    [self.view addSubview:self.timeView];
-
-
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return kCount-1;
+    return [self.dataList count];
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier=@"cell";
-    
-    MyCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(cell==nil){
-        
-        cell=[[MyCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.delegate=self;
-        cell.backgroundColor=[UIColor grayColor];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    static NSString *CellIdentifier = @"HouseCellIdentifier";
+    HouseCell *cell = (HouseCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"HouseCell" owner:self options:nil];
+        cell = [array objectAtIndex:0];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     }
-    [self.currentTime removeAllObjects];
-    for(MeetModel *model in self.meets){
-        
-//        NSArray *timeArray=[ model.meetTime componentsSeparatedByString:@":"];
-//        int min=[timeArray[0] intValue]*60+[timeArray[1] intValue];
-//        int currentTime=indexPath.row*30+510;
-//        if(min>currentTime&&min<currentTime+30){
-//            [self.currentTime addObject:model];
-//        }
-        [self.currentTime addObject:model];
-    }
-    cell.index=indexPath.row;
-    cell.currentTime=self.currentTime;
+    NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+    rowData = [self.dataList objectAtIndex:indexPath.row];
+    [cell.roomCode setText:[rowData objectForKey:@"roomcode"]];
+    [cell.roomName setText:[rowData objectForKey:@"roomname"]];
+    [cell.roomType setText:[rowData objectForKey:@"roomtype"]];
+    [cell.allAres setText:[rowData objectForKey:@"allares"]];
+    [cell.roomState setText:[rowData objectForKey:@"roomstatus"]];
     return cell;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    return self.myHeadView;
+    return 1;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return kHeight;
-}
--(void)myHeadView:(HeadView *)headView point:(CGPoint)point
-{
-    CGPoint myPoint= [self.myTableView convertPoint:point fromView:headView];
-    
-    [self convertRoomFromPoint:myPoint];
-}
--(void)convertRoomFromPoint:(CGPoint)ponit
-{
-    NSString *roomNum=[NSString stringWithFormat:@"%03d",(int)(ponit.x)/kWidth];
-    int currentTime=(ponit.y-kHeight-kHeightMargin)*30.0/(kHeight+kHeightMargin)+510;
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"clicked room" message:[NSString stringWithFormat:@"time :%@ room :%@",[NSString stringWithFormat:@"%d:%02d",currentTime/60,currentTime%60],roomNum] delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:@"ok", nil];
-    [alert show];
-}
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat offsetY= self.myTableView.contentOffset.y;
-    CGPoint timeOffsetY=self.timeView.timeTableView.contentOffset;
-    timeOffsetY.y=offsetY;
-    self.timeView.timeTableView.contentOffset=timeOffsetY;
-    if(offsetY==0){
-        self.timeView.timeTableView.contentOffset=CGPointZero;
+    nCurSelected = indexPath.row;
+    NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+    rowData = [self.dataList objectAtIndex:indexPath.row];
+    rowHouseData = rowData;
+    roomNameLabel.text = [rowData objectForKey:@"roomname"];
+    NSString * strRoomStatus = [rowData objectForKey:@"roomstatus"];
+    if ([strRoomStatus isEqualToString:@"1"]) {
+        strRoomStatus = @"销售状态：销控";
+    }else if ([strRoomStatus isEqualToString:@"2"]){
+        strRoomStatus = @"销售状态：待售";
+    }else if ([strRoomStatus isEqualToString:@"3"]){
+        strRoomStatus = @"销售状态：预约";
+    }else if ([strRoomStatus isEqualToString:@"4"]){
+        strRoomStatus = @"销售状态：预留";
+    }else if ([strRoomStatus isEqualToString:@"5"]){
+        strRoomStatus = @"销售状态：小订";
+    }else if ([strRoomStatus isEqualToString:@"6"]){
+        strRoomStatus = @"销售状态：认购";
+    }else if ([strRoomStatus isEqualToString:@"7"]){
+        strRoomStatus = @"销售状态：签约";
+    }else if ([strRoomStatus isEqualToString:@"8"]){
+        strRoomStatus = @"销售状态：非售";
     }
+    roomSatausLabel.text = strRoomStatus;
+    
+    NSString * strRoomType = [rowData objectForKey:@"roomtype"];
+    strRoomType = [@"房间类型：" stringByAppendingString:strRoomType];
+    roomTypeLabel.text = strRoomType;
+    
+    NSString * strAllAres = [rowData objectForKey:@"allares"];
+    strAllAres = [@"建筑面积：" stringByAppendingString:strAllAres];
+    strAllAres = [strAllAres stringByAppendingString:@" ㎡"];
+    allAresLabel.text = strAllAres;
+    
+    NSString * strRealAres = [rowData objectForKey:@"realares"];
+    strRealAres = [@"室内面积：" stringByAppendingString:strRealAres];
+    strRealAres = [strRealAres stringByAppendingString:@" ㎡"];
+    realAresLabel.text = strRealAres;
+    
+    NSString * strRealPrice = [rowData objectForKey:@"realprice"];
+    strRealPrice = [@"建筑单价：" stringByAppendingString:strRealPrice];
+    strRealPrice = [strRealPrice stringByAppendingString:@" 万元/㎡"];
+    realPriceLabel.text = strRealPrice;
+    
+//    NSString * strAllPriceSS = @"";
+//    strAllPriceSS = [strAllPriceSS stringByAppendingString:[rowData objectForKey:@"allprice"]];
+//    strAllPriceSS = [@"套内单价：" stringByAppendingString:strAllPriceSS];
+//    strAllPriceSS = [strAllPriceSS stringByAppendingString:@" 万元"];
+//    danjiaLabel.text = strAllPriceSS;
+    
+    NSString * strTotal = [rowData objectForKey:@"total"];
+    strTotal = [@"标准总价：" stringByAppendingString:strTotal];
+    strTotal = [strTotal stringByAppendingString:@" 万元"];
+    totalLabel.text = strTotal;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
 }
 
 
@@ -170,54 +139,58 @@
     [imageView addGestureRecognizer:singleTap];
     
     [self.view addSubview:imageView];
+
+    roomNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 300 - 46, 220, 30)];
+    roomNameLabel.text = @"1#楼1单元1楼1号";
+    [self.view addSubview:roomNameLabel];
     
-    showLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 300 - 46, 220, 30)];
-    showLabel.text = @"1栋2单元1102 113.30平方米";
-    [self.view addSubview:showLabel];
+    roomSatausLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 285, 220, 30)];
+    roomSatausLabel.text = @"销售状态：待售";
+    [self.view addSubview:roomSatausLabel];
     
-    danjiaLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 285, 220, 30)];
+    roomTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 315, 220, 30)];
+    roomTypeLabel.text = @"房间类型：一室一厅一卫";
+    [self.view addSubview:roomTypeLabel];
+    
+//    allAresLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 345, 220, 30)];
+//    allAresLabel.text = @"建筑面积：0 ㎡";
+//    [self.view addSubview:allAresLabel];
+    
+    realAresLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 375, 220, 30)];
+    realAresLabel.text = @"室内面积：0 ㎡";
+    [self.view addSubview:realAresLabel];
+    
+    realPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 405, 220, 30)];
+    realPriceLabel.text = @"单价：1万";
+    [self.view addSubview:realPriceLabel];
+    
+    
+    
+    danjiaLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 435, 220, 30)];
     danjiaLabel.text = @"单价：1万";
     [self.view addSubview:danjiaLabel];
     
-    totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 315, 220, 30)];
+    totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 465, 220, 30)];
     totalLabel.text = @"总价：65万";
     [self.view addSubview:totalLabel];
     
     
     freeTotalJisuanBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    freeTotalJisuanBtn.frame = CGRectMake(545, 380, 38, 35);
+    freeTotalJisuanBtn.frame = CGRectMake(700, 435, 38, 35);
 //    [freeTotalJisuanBtn setTitle:@"计算" forState:UIControlStateNormal];
     [freeTotalJisuanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [freeTotalJisuanBtn setBackgroundImage:[UIImage imageNamed:@"item_calculator_btn"] forState:UIControlStateNormal];
     [freeTotalJisuanBtn addTarget:self action:@selector(btnPresentPopup:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:freeTotalJisuanBtn];
-
-    
-//    okLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 350, 220, 30)];
-//    okLabel.text = @"成交：";
-//    [self.view addSubview:okLabel];
-//    
-//    okLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(595, 350, 220, 30)];
-//    okLabel2.text = @"65万";
-//    [self.view addSubview:okLabel2];
     
     
     selectBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    selectBtn.frame = CGRectMake(545, 450, 220, 40);
+    selectBtn.frame = CGRectMake(545, 500, 220, 40);
     [selectBtn setTitle:@"购买方案" forState:UIControlStateNormal];
     [selectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [selectBtn setBackgroundImage:[UIImage imageNamed:@"select_btn_compute"] forState:UIControlStateNormal];
     [selectBtn addTarget:self action:@selector(selectClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:selectBtn];
-    
-//    jisuanBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    jisuanBtn.frame = CGRectMake(545, 470, 220, 40);
-//    [jisuanBtn setTitle:@"计算" forState:UIControlStateNormal];
-//    //    [jisuanBtn setTitle:@"计算" forState:UIControlStateHighlighted];
-//    [jisuanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [jisuanBtn setBackgroundImage:[UIImage imageNamed:@"select_btn_compute"] forState:UIControlStateNormal];
-//    [jisuanBtn addTarget:self action:@selector(jisuanBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:jisuanBtn];
     
     nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     nextBtn.frame = CGRectMake(545, 550, 220, 40);
@@ -251,10 +224,6 @@
             NSString * strTotal =[dicInfo objectForKey:@"total"];
             NSString * strId =[dicInfo objectForKey:@"id"];
             
-            
-        //            NSString * strUrlpic = [dicInfo objectForKey:@"urlpic"];
-        //            NSString * strType = [dicInfo objectForKey:@"Type"];
-        //
             NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
             [rowData setValue:strRoomCode forKey:@"roomcode"];
             [rowData setValue:strRoomName forKey:@"roomname"];
@@ -265,32 +234,16 @@
             [rowData setValue:strRealPrice forKey:@"realprice"];
             [rowData setValue:strTotal forKey:@"total"];
             [rowData setValue:strId forKey:@"id"];
-            
-        //            [rowData setValue:strDescription forKey:@"Description"];
-        //            [rowData setValue:strConnect forKey:@"Connect"];
-        //            [rowData setValue:strUrlpic forKey:@"urlpic"];
-        //            [rowData setValue:strType forKey:@"Type"];
+
             [self.dataList addObject:rowData];
         }
     }else{
         NSLog(@"服务端返回错误");
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
-        
-        // 3.3.通过定时器跳到主界面
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
-        
-        //        [self setADScrollView];
-    });
 }
 
-- (void)getInfoSuccess
-{
-    self.view.userInteractionEnabled = YES;
-}
+
 
 -(void)getHttpInfo
 {
@@ -304,6 +257,7 @@
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"selectedß---JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
+        [self.myTableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -334,24 +288,11 @@
     
     [self initHouseTable];
     
-//    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup)];
-//    tapRecognizer.numberOfTapsRequired = 1;
-//    tapRecognizer.delegate = self;
-//    [self.view addGestureRecognizer:tapRecognizer];
-//    self.useBlurForPopup = YES;
-
-    
-    
-    
 }
-
-//-(void)jisuanBtnAction:(id)sender {
-//    float rel = 65.0 - [freeFieldText.text floatValue];
-//    okLabel2.text = [[NSString alloc]initWithFormat:@"%.4f万",rel];
-//}
 
 -(void)nextBtnAction:(id)sender {
     PrintPurchasingViewController *print = [[PrintPurchasingViewController alloc]init];
+    [print initData:rowHouseData];
     [self.navigationController pushViewController:print animated:NO];
 }
 
@@ -407,13 +348,11 @@
 #pragma mark - Popup Functions
 
 - (void)btnPresentPopup:(UIButton *)sender {
-//    CalculatorViewController *samplePopupViewController = [[CalculatorViewController alloc] initWithNibName:@"CalculatorViewController" bundle:nil];
+
     FangDaiViewController *samplePopupViewController = [[FangDaiViewController alloc] initWithNibName:@"FangDaiViewController" bundle:nil];
     [samplePopupViewController setCurHouseInfo:@"8000" ares:@"90cc"];
     [self.navigationController pushViewController:samplePopupViewController animated:NO];
-//    [self presentPopupViewController:samplePopupViewController animated:YES completion:^(void) {
-//        NSLog(@"popup view presented");
-//    }];
+
 }
 
 - (void)dismissPopup {

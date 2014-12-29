@@ -23,6 +23,11 @@
     }
     return self;
 }
+
+-(void)initData:(NSMutableDictionary *)dic
+{
+    houseData = dic;
+}
 -(void)analysisJson:(NSDictionary *)jsonDic
 {
     //    NSError *error;
@@ -76,6 +81,33 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.roomNameLabel.text = [houseData objectForKey:@"roomname"];
+    
+    NSString * strRoomType = [houseData objectForKey:@"roomtype"];
+    self.roomTypelabel.text = strRoomType;
+    
+    NSString * strAllAres = [houseData objectForKey:@"allares"];
+    strAllAres = [strAllAres stringByAppendingString:@" ㎡"];
+    self.allAresLabel.text = strAllAres;
+    
+    NSString * strRealAres = [houseData objectForKey:@"realares"];
+    strRealAres = [strRealAres stringByAppendingString:@" ㎡"];
+    self.realAresLabel.text = strRealAres;
+    
+    NSString * strRealPrice = [houseData objectForKey:@"realprice"];
+    strRealPrice = [strRealPrice stringByAppendingString:@" 万元/㎡"];
+    self.realPriceLabel.text = strRealPrice;
+    
+    //    NSString * strAllPriceSS = @"";
+    //    strAllPriceSS = [strAllPriceSS stringByAppendingString:[rowData objectForKey:@"allprice"]];
+    //    strAllPriceSS = [@"套内单价：" stringByAppendingString:strAllPriceSS];
+    //    strAllPriceSS = [strAllPriceSS stringByAppendingString:@" 万元"];
+    //    danjiaLabel.text = strAllPriceSS;
+    
+    NSString * strTotal = [houseData objectForKey:@"total"];
+    strTotal = [strTotal stringByAppendingString:@" 万元"];
+    self.totalLabel.text = strTotal;
+
 }
 
 - (void)didReceiveMemoryWarning

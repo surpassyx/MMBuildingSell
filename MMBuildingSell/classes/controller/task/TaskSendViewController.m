@@ -8,6 +8,7 @@
 
 #import "TaskSendViewController.h"
 #import "AFNetworking.h"
+#import "TaskPersonListViewController.h"
 
 @interface TaskSendViewController ()
 
@@ -23,7 +24,64 @@
     }
     return self;
 }
+- (IBAction)taskTimeBtnAction:(id)sender {
+    
+}
+- (IBAction)addFollowBtnAction:(id)sender {
+    TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];
+    listViewController.nType = 2;
+    [self.navigationController pushViewController:listViewController animated:NO];
 
+}
+- (IBAction)subFollowBtnAction:(id)sender {
+    
+}
+- (IBAction)upexecuteBtnAction:(id)sender {
+    TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];
+    listViewController.nType = 1;
+    [self.navigationController pushViewController:listViewController animated:NO];
+
+}
+- (IBAction)okBtnAction:(id)sender {
+    if ([self isReadyToUpdate]) {
+        
+        NSString * strFollowManText = @"";
+        
+        [self getHttpInfo:self.taskTitle.text
+                  content:self.contentTextView.text
+                fTaskTime:self.taskTimeBtn.titleLabel.text
+               fupexecute:self.upexecuteBtn.titleLabel.text
+                 fhowlong:self.howLong.text
+                followMan:strFollowManText
+                   notion:self.notionTextField.text];
+    }else{
+        
+    }
+}
+- (IBAction)cancelBtnAction:(id)sender {
+    [self close];
+}
+
+-(BOOL)isReadyToUpdate
+{
+    if (self.taskTitle.text.length <= 0) {
+        return NO;
+    }
+    if (self.howLong.text.length <= 0) {
+        return NO;
+    }
+    if (self.contentTextView.text.length <= 0) {
+        return NO;
+    }
+    if (self.taskTimeBtn.titleLabel.text.length <= 0) {
+        return NO;
+    }
+    if (self.upexecuteBtn.titleLabel.text.length <= 0  || [self.followManBtn.titleLabel.text isEqualToString:@"点击设置人员"]) {
+        return NO;
+    }
+    
+    return YES;
+}
 -(void)analysisJson:(NSDictionary *)jsonDic
 {
     //    NSError *error;
@@ -32,20 +90,11 @@
     int intString = [strSign intValue];
     if (intString == 1) {
        
-    
+        [self close];
     }else{
         NSLog(@"服务端返回错误");
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
-        
-        // 3.3.通过定时器跳到主界面
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
-        
-        //        [self setADScrollView];
-    });
 }
 
 - (void)getInfoSuccess
@@ -53,24 +102,23 @@
     
 }
 
--(void)getHttpInfo:(NSString *)taskId
-        fTaskTitle:(NSString *)taskTitle
+-(void)getHttpInfo:(NSString *)taskTitle
            content:(NSString *)strContent
          fTaskTime:(NSString *)strTime
-     ffirstrelease:(NSString *)strFirstRelease
         fupexecute:(NSString *)strUpexecute
           fhowlong:(NSString *)strHowLong
-           fresult:(NSString *)strResult
+           followMan:(NSString *)strFollowMan
+            notion:(NSString *)strNotion
 {
-    //指派谁
-    //标题
-    //时间
-    //内容
-    //http://www.ykhome.cn/myhome/settask.php?fenterisecode=P0001&finstallment=01&ftaskid=20140503&ftasktitle=加强销售管控&fcontent=人力资源管理与物流管理内容&ftasktime=2014-05-03&ffirstrelease=张三&fupexecute=刘五&fhowlong=3天&fresult=开始
+    //http://218.24.45.194:9001/Action?action=6&tasktitle=加强销售管控&content=人力资源管理与物流管理内容&tasktime=2014-05-03&firstrelease=9&upexecute=203101844937&howlong=3&result=2&followMan=2,9&notion=请尽快完成该任务内容
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/settask.php?fenterisecode=%@&finstallment=%@&ftaskid=%@&ftasktitle=%@&fcontent=%@&ftasktime=%@&ffirstrelease=%@&fupexecute=%@&fhowlong=%@&fresult=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],taskId,taskTitle,strContent,strTime,strFirstRelease,strUpexecute,strHowLong,strResult];
+    
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=6&tasktitle=%@&content=%@&tasktime=%@&firstrelease=%@&upexecute=%@&howlong=%@&result=2&followMan=%@&notion=%@",taskTitle,strContent,strTime,[userDefaults objectForKey:@"usercode"],strUpexecute,strHowLong,strFollowMan,strNotion];
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"tasksendUrl=%@",API_BASE_URL(hexUrl));
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -84,22 +132,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"发布任务";
-    
+    [self.firstReleaseBtn setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
     
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,22,22)];
     [rightButton setImage:[UIImage imageNamed:@"task_close_btn2.png"]forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(close)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
-
-    
-//    UIImage *closeimage=[UIImage imageNamed:@"task_close_btn.png"];
-//    
-//    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithTitle:@"  关  闭  " style:UIBarButtonItemStylePlain target:self action:@selector(close)];
-//    
-//    barbtn.image = closeimage;
-//    
-//    self.navigationItem.rightBarButtonItem = barbtn;
     
 }
 

@@ -39,46 +39,44 @@
     NSString * strSign = [jsonDic objectForKey:@"sign"];
     int intString = [strSign intValue];
     if (intString == 1) {
+        [self.dataList removeAllObjects];
             NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
             for (int i = 0; i < arrInfo.count ; i++) {
                 NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-                NSString * strTaskId = [dicInfo objectForKey:@"ftaskid"];
-                NSString * strTaskTitle =[dicInfo objectForKey:@"ftasktitle"];
-                NSString * strContent = [dicInfo objectForKey:@"fcontent"];
-                NSString * strTaskTime = [dicInfo objectForKey:@"ftasktime"];
-                NSString * strFirstRelease = [dicInfo objectForKey:@"ffirstrelease"];
-                NSString * strHowLong = [dicInfo objectForKey:@"fhowlong"];
-                NSString * strUpexecute = [dicInfo objectForKey:@"fupexecute"];
-                NSString * strResult = [dicInfo objectForKey:@"fresult"];
-                NSString * strRoutes = [dicInfo objectForKey:@"froutes"];
-                NSString * strId = [dicInfo objectForKey:@"id"];
+                NSString * strTaskId = [dicInfo objectForKey:@"taskid"];
+                NSString * strTaskTitle =[dicInfo objectForKey:@"tasktitle"];
+                NSString * strContent = [dicInfo objectForKey:@"content"];
+                NSString * strTaskTime = [dicInfo objectForKey:@"tasktime"];
+                NSString * strFirstRelease = [dicInfo objectForKey:@"firstrelease"];
+                NSString * strHowLong = [dicInfo objectForKey:@"howlong"];
+                NSString * strUpexecute = [dicInfo objectForKey:@"upexecute"];
+                NSString * strResult = [dicInfo objectForKey:@"result"];
 
                 NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-                [rowData setValue:strTaskId forKey:@"ftaskid"];
-                [rowData setValue:strTaskTitle forKey:@"ftasktitle"];
-                [rowData setValue:strContent forKey:@"fcontent"];
-                [rowData setValue:strTaskTime forKey:@"ftasktime"];
-                [rowData setValue:strFirstRelease forKey:@"ffirstrelease"];
-                [rowData setValue:strHowLong forKey:@"fhowlong"];
-                [rowData setValue:strUpexecute forKey:@"fupexecute"];
-                [rowData setValue:strResult forKey:@"fresult"];
-                [rowData setValue:strRoutes forKey:@"froutes"];
-                [rowData setValue:strId forKey:@"id"];
+                [rowData setValue:strTaskId forKey:@"taskid"];
+                [rowData setValue:strTaskTitle forKey:@"tasktitle"];
+                [rowData setValue:strContent forKey:@"content"];
+                [rowData setValue:strTaskTime forKey:@"tasktime"];
+                [rowData setValue:strFirstRelease forKey:@"firstrelease"];
+                [rowData setValue:strHowLong forKey:@"howlong"];
+                [rowData setValue:strUpexecute forKey:@"upexecute"];
+                [rowData setValue:strResult forKey:@"result"];
+
                 [self.dataList addObject:rowData];
             }
     }else{
         NSLog(@"服务端返回错误");
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 3.2.让整个登录界面停止跟用户交互
-        self.view.userInteractionEnabled = NO;
-        
-        // 3.3.通过定时器跳到主界面
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
-        
-        //        [self setADScrollView];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        // 3.2.让整个登录界面停止跟用户交互
+//        self.view.userInteractionEnabled = NO;
+//        
+//        // 3.3.通过定时器跳到主界面
+//        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getInfoSuccess) userInfo:nil repeats:NO];
+//        
+//        //        [self setADScrollView];
+//    });
 }
 
 - (void)getInfoSuccess
@@ -88,11 +86,14 @@
 
 -(void)getHttpInfo
 {
-    //http://www.ykhome.cn/myhome/gettask.php?&fenterisecode=P0001&finstallment=01&ftask=all
+    //http://218.24.45.194:9001/Action?action=7&userid=9&flowSign=2
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"http://www.ykhome.cn/myhome/gettask.php?&fenterisecode=%@&finstallment=%@&ftask=all",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=7&userid=%@&flowSign=%@",[userDefaults objectForKey:@"usercode"],@"2"];
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
         [self.myTable reloadData];
@@ -106,7 +107,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.dataList = [[NSMutableArray alloc]init];
     NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"SampleData" ofType:@"plist"];
     NSMutableDictionary *plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     self.arrayForPlaces = [plistDict objectForKey:@"Data"];
@@ -118,7 +119,7 @@
     [rightButton addTarget:self action:@selector(close)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
-
+    
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
     
@@ -164,8 +165,8 @@
     
 //    NSDictionary* dict = [self.arrayForPlaces objectAtIndex:indexPath.row];
     NSMutableDictionary *rowData = [self.dataList objectAtIndex:indexPath.row];
-    cell.tittleTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"ftasktitle"]];
-    cell.timeTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"ftasktime"]];
+    cell.tittleTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"tasktitle"]];
+    cell.timeTask.text = [NSString stringWithFormat:@"%@",[rowData objectForKey:@"tasktime"]];
 //    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[dict objectForKey:@"Image"]]];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
