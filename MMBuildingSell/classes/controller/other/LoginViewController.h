@@ -11,13 +11,16 @@
 //#import <TCBlobDownload/TCBlobDownload.h>
 //#import <TCBlobDownload/TCBlobDownloadManager.h>
 
-@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NIDropDownDelegate>{
+@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NIDropDownDelegate,UITextFieldDelegate>{
     NIDropDown *dropDown;
     MBProgressHUD *waitHUD;
     ZDProgressView *progressView;
     
     int nDownloadNum;
     int nDownloadAllNum;
+    
+    NSMutableArray *nameArray;
+    NSMutableArray *noArray;
 }
 //@property (nonatomic , unsafe_unretained) TCBlobDownloadManager *sharedDownloadManager;
 

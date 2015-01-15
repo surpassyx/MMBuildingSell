@@ -1,42 +1,52 @@
 //
-//  TaskSendViewController.m
+//  TaskToViewController.m
 //  MMBuildingSell
 //
-//  Created by 3G组 on 13-11-14.
-//  Copyright (c) 2013年 Y.X. All rights reserved.
+//  Created by Daisy on 15/1/15.
+//  Copyright (c) 2015年 Y.X. All rights reserved.
 //
 
-#import "TaskSendViewController.h"
+#import "TaskToViewController.h"
 #import "AFNetworking.h"
 #import "TaskPersonListViewController.h"
 
-@interface TaskSendViewController ()<AddPersonDelegate>{
+@interface TaskToViewController ()<AddPersonDelegate>{
     NSString * upexecuteNameStr;
     NSString * upexecuteIdStr;
     NSMutableArray * followManArr;
+    NSString * taskIdStr;
 }
+
 
 @end
 
-@implementation TaskSendViewController
+@implementation TaskToViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(void)initTaskId:(NSString *)strId
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    taskIdStr = strId;
 }
-- (IBAction)taskTimeBtnAction:(id)sender {
-    
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
 - (IBAction)addFollowBtnAction:(id)sender {
     TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];
     listViewController.nType = 2;
     listViewController.delegate = self;
     [self.navigationController pushViewController:listViewController animated:NO];
-
+    
 }
 - (IBAction)subFollowBtnAction:(id)sender {
     if ([followManArr count] > 0) {
@@ -49,20 +59,21 @@
     listViewController.nType = 1;
     listViewController.delegate = self;
     [self.navigationController pushViewController:listViewController animated:NO];
-
+    
 }
 - (IBAction)okBtnAction:(id)sender {
     if ([self isReadyToUpdate]) {
         
         NSString * strFollowManText = [self getFollowManStr];
-        
-        [self getHttpInfo:self.taskTitle.text
-                  content:self.contentTextView.text
-                fTaskTime:self.taskTimeBtn.titleLabel.text
-               fupexecute:upexecuteIdStr
-                 fhowlong:self.howLong.text
-                followMan:strFollowManText
-                   notion:self.notionTextField.text];
+        NSString * strTemp = @"2";
+        NSString * strTemp2 = upexecuteIdStr;
+        if (self.stateSwitch.on == NO) {
+            strTemp = @"3";
+            strFollowManText = @"";
+            strTemp2 = @"";
+        }
+        [self getHttpInfo:taskIdStr result:strTemp fupexecute:strTemp2 followMan:strFollowManText notion:self.contentTextView.text];
+
     }else{
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"数据填写不全" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
@@ -70,25 +81,18 @@
     }
 }
 - (IBAction)cancelBtnAction:(id)sender {
-    [self close];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(BOOL)isReadyToUpdate
 {
-    if (self.taskTitle.text.length <= 0) {
-        return NO;
-    }
-    if (self.howLong.text.length <= 0) {
-        return NO;
-    }
     if (self.contentTextView.text.length <= 0) {
         return NO;
     }
-    if (self.taskTimeBtn.titleLabel.text.length <= 0) {
-        return NO;
-    }
-    if (self.upexecuteBtn.titleLabel.text.length <= 0  || [self.followManBtn.titleLabel.text isEqualToString:@"点击设置人员"]) {
-        return NO;
+    if (self.stateSwitch.on == YES) {
+        if (self.upexecuteBtn.titleLabel.text.length <= 0  || [self.followManBtn.titleLabel.text isEqualToString:@"点击设置人员"]) {
+            return NO;
+        }
     }
     
     return YES;
@@ -100,7 +104,7 @@
     NSString * strSign = [jsonDic objectForKey:@"sign"];
     int intString = [strSign intValue];
     if (intString == 1) {
-       
+        
         [self close];
     }else{
         NSLog(@"服务端返回错误");
@@ -108,20 +112,18 @@
     
 }
 
--(void)getHttpInfo:(NSString *)taskTitle
-           content:(NSString *)strContent
-         fTaskTime:(NSString *)strTime
+
+-(void)getHttpInfo:(NSString *)taskId
+            result:(NSString *)strResult
         fupexecute:(NSString *)strUpexecute
-          fhowlong:(NSString *)strHowLong
          followMan:(NSString *)strFollowMan
             notion:(NSString *)strNotion
 {
-    //http://218.24.45.194:9001/Action?action=6&tasktitle=加强销售管控&content=人力资源管理与物流管理内容&tasktime=2014-05-03&firstrelease=9&upexecute=203101844937&howlong=3&result=2&followMan=2,9&notion=请尽快完成该任务内容
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //http://www.gytaobao.cn:9006/FC/Action?action=9&taskid=311203608859&result=2&upexecute=203101844937&followMan=2&notion=请尽快完成该任务内容1
     
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=6&tasktitle=%@&content=%@&tasktime=%@&firstrelease=%@&upexecute=%@&howlong=%@&result=2&followMan=%@&notion=%@",taskTitle,strContent,strTime,[userDefaults objectForKey:@"usercode"],strUpexecute,strHowLong,strFollowMan,strNotion];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=9&taskid=%@&result=%@&upexecute=%@&followMan=%@&notion=%@",taskId,strResult,strUpexecute,strFollowMan,strNotion];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-    NSLog(@"tasksendUrl=%@",API_BASE_URL(hexUrl));
+    NSLog(@"taskToUrl=%@",API_BASE_URL(hexUrl));
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -137,8 +139,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"发布任务";
-    [self.firstReleaseBtn setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
+    self.title = @"办理任务";
+    
+    [self.stateSwitch addTarget:self action:@selector(switchAction:)forControlEvents:UIControlEventValueChanged];
     
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,22,22)];
     [rightButton setImage:[UIImage imageNamed:@"task_close_btn2.png"]forState:UIControlStateNormal];
@@ -150,27 +153,46 @@
     
 }
 
+-(void)switchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if (isButtonOn) {
+        self.stateLabel.text = @"转办";
+        [self.upexecuteBtn setHidden:NO];
+        [self.followManBtn setHidden:NO];
+        [self.addFollowManBtn setHidden:NO];
+        [self.subFollowManBtn setHidden:NO];
+        [self.Label1 setHidden:NO];
+        [self.Label2 setHidden:NO];
+        
+    }else {
+        self.stateLabel.text = @"结束";
+        [self.upexecuteBtn setHidden:YES];
+        [self.followManBtn setHidden:YES];
+        [self.addFollowManBtn setHidden:YES];
+        [self.subFollowManBtn setHidden:YES];
+        [self.Label1 setHidden:YES];
+        [self.Label2 setHidden:YES];
+    }
+}
+
 #pragma mark close
 - (void)close
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)addPerson:(NSString *)userId name:(NSString *)username type:(int)nType
 {
     if (nType == 1) {
-//        self.title = @"选择责任人";
+        //        self.title = @"选择责任人";
         upexecuteNameStr = username;
         upexecuteIdStr = userId;
         [self.upexecuteBtn setTitle:username forState:UIControlStateNormal];
     }else{
-//        self.title = @"选择跟踪人";
+        //        self.title = @"选择跟踪人";
         NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
         [rowData setValue:userId forKey:@"userid"];
         [rowData setValue:username forKey:@"username"];
@@ -211,5 +233,6 @@
         return b;
     }
 }
+
 
 @end

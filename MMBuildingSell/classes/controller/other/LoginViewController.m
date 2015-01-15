@@ -14,6 +14,8 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLSessionManager.h"
 
+#import "XWAlterview.h"
+
 @interface LoginViewController ()
 
 
@@ -34,31 +36,84 @@
     return self;
 }
 
+-(void)getQibieInfo:(NSString *)strUsername
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=17&enterpriseCode=%@&username=%@",@"SYHDMD",strUsername];
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
+   
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        [nameArray removeAllObjects];
+        [noArray removeAllObjects];
+        NSString * strSign = [dic objectForKey:@"sign"];
+        int intString = [strSign intValue];
+        if (intString == 1) {
+            
+            NSMutableArray *arrInfo = [dic objectForKey:@"arr"];
+            for (int i = 0; i < arrInfo.count ; i++) {
+                NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                NSString * strNo = [dicInfo objectForKey:@"no"];
+                NSString * strName =[dicInfo objectForKey:@"name"];
+                
+                [nameArray addObject:strName];
+                [noArray addObject:strNo];
+            }
+        }else{
+            NSLog(@"服务端返回错误");
+        }
+
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
+}
+
 /**
  * 输入文本结束后，关闭键盘，并恢复视图位置
  */
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	[textField resignFirstResponder];
 
-    self.view.frame =CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    if (textField == _qq) {
+        [self getQibieInfo:_qq.text];
+    }
 }
+
 
 /**
  * 开始输入文本时，将当前视图向上移动，以显示键盘
  */
-- (void)textFieldDidStartEditing:(UITextField *)textField	 {
+-(void)textFieldDidBeginEditing:(UITextField *)textField	 {
 
-    CGRect frame = textField.frame;
-    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);//键盘高度216
+//    CGRect frame = textField.frame;
+//    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 352.0);//键盘高度352
+//    
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
+//    if(offset > 0)
+//        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+//    
+//    [UIView commitAnimations];
+    
     
     NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    CGRect frame = self.view.frame;
+    frame.origin.y -=30.0;//view的X轴上移
+    self.view.frame = frame;
+    [UIView beginAnimations:@"ResizeView" context:nil];
     [UIView setAnimationDuration:animationDuration];
-    
-    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
-    if(offset > 0)
-        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
-    
+    self.view.frame = frame;
     [UIView commitAnimations];
 	
 }
@@ -74,15 +129,28 @@
 - (IBAction)updateResources
 {
     
-    
-    waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:waitHUD];
-    waitHUD.dimBackground = YES;
-    waitHUD.labelText = @"正在更新，请稍后";
-    [waitHUD show:YES];
-    
-    
-    [self downLoadInfo];
+    XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"是否更新系统资源?" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+    alter.rightBlock=^()
+    {
+//        NSLog(@"右边按钮被点击");
+    };
+    alter.leftBlock=^()
+    {
+//        NSLog(@"左边按钮被点击");
+        waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:waitHUD];
+        waitHUD.dimBackground = YES;
+        waitHUD.labelText = @"正在更新，请稍后";
+        [waitHUD show:YES];
+        
+        
+        [self downLoadInfo];
+    };
+    alter.dismissBlock=^()
+    {
+//        NSLog(@"窗口即将消失");
+    };
+    [alter show];
     
 }
 
@@ -200,6 +268,8 @@
 {
     [super viewDidLoad];
     
+    nameArray = [[NSMutableArray alloc]init];
+    noArray = [[NSMutableArray alloc]init];
     
     // ftitle和目录文件夹名称的对照
     self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"4", @"shipinzhanshi", @"6", @"poumiantu", @"2", @"fangxingzhanshi", @"3", @"xiangmuzhanshi", @"1", @"zhoubianpeitao", @"5", nil];
@@ -218,14 +288,23 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //添加事件处理方法
-    [_qq addTarget:self action:@selector(textFieldDidEndEditing:)
-        forControlEvents:UIControlEventEditingDidEndOnExit];
-    [_qq addTarget:self action:@selector(textFieldDidStartEditing:)
-        forControlEvents:UIControlEventEditingDidBegin];
-    [_pwd addTarget:self action:@selector(textFieldDidEndEditing:)
-        forControlEvents:UIControlEventEditingDidEndOnExit];
-    [_pwd addTarget:self action:@selector(textFieldDidStartEditing:)
-        forControlEvents:UIControlEventEditingDidBegin];
+    _qq.delegate = self;
+    _pwd.delegate = self;
+    
+    [_qq addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
+    [_qq addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
+    
+    [_pwd addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
+    [_pwd addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
+    
+//    [_qq addTarget:self action:@selector(textFieldDidEndEditing:)
+//        forControlEvents:UIControlEventEditingDidEndOnExit];
+//    [_qq addTarget:self action:@selector(textFieldDidStartEditing:)
+//        forControlEvents:UIControlEventEditingDidBegin];
+//    [_pwd addTarget:self action:@selector(textFieldDidEndEditing:)
+//        forControlEvents:UIControlEventEditingDidEndOnExit];
+//    [_pwd addTarget:self action:@selector(textFieldDidStartEditing:)
+//        forControlEvents:UIControlEventEditingDidBegin];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _qq.text = [userDefaults objectForKey:@"account"];
@@ -433,13 +512,13 @@
 }
 
 - (void)selectClicked:(id)sender {
-    NSArray * arr = [[NSArray alloc] init];
-    arr = [NSArray arrayWithObjects:@"1期", @"2期", @"3期", @"4期",nil];
+//    NSArray * arr = [[NSArray alloc] init];
+//    arr = [NSArray arrayWithObjects:@"1期", @"2期", @"3期", @"4期",nil];
     NSArray * arrImage = [[NSArray alloc] init];
     arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], [UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], nil];
     if(dropDown == nil) {
         CGFloat f = 200;
-        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :arrImage :@"down"];
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :nameArray :arrImage :@"down"];
         dropDown.delegate = self;
     }
     else {
@@ -450,19 +529,26 @@
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender {
     
-    NSString *temp = [[NSString alloc]init];
-    if([sender.animationDirection isEqualToString:@"1期"]){
-        temp = @"1";
-    }else if ([sender.animationDirection isEqualToString:@"2期"]){
-        temp = @"2";
-    }else if ([sender.animationDirection isEqualToString:@"3期"]){
-        temp = @"3";
-    }else if ([sender.animationDirection isEqualToString:@"4期"]){
-        temp = @"4";
+    NSInteger nPos = [nameArray indexOfObject:sender.animationDirection];
+    if (nPos >= 0) {
+        NSString *temp = [[NSString alloc]init];
+        temp = [noArray objectAtIndex:nPos];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:temp forKey:@"installment"];
+        [defaults synchronize];
     }
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:temp forKey:@"qibie"];
-    [defaults synchronize];
+    
+//    NSString *temp = [[NSString alloc]init];
+//    if([sender.animationDirection isEqualToString:@"1期"]){
+//        temp = @"1";
+//    }else if ([sender.animationDirection isEqualToString:@"2期"]){
+//        temp = @"2";
+//    }else if ([sender.animationDirection isEqualToString:@"3期"]){
+//        temp = @"3";
+//    }else if ([sender.animationDirection isEqualToString:@"4期"]){
+//        temp = @"4";
+//    }
+    
     [self rel];
 }
 
@@ -475,7 +561,7 @@
 -(void)initPicResources
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *qibie = [defaults objectForKey:@"qibie"];
+    NSString *qibie = [defaults objectForKey:@"installment"];
     NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     

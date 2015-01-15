@@ -7,6 +7,7 @@
 //
 
 #import "TaskDetailViewController.h"
+#import "TaskToViewController.h"
 
 @interface TaskDetailViewController ()
 
@@ -52,6 +53,18 @@
     
     [self animateOnEntry];
 
+}
+
+- (IBAction)toDoBtnPressed:(id)sender
+{
+    TaskToViewController* toViewController = [[TaskToViewController alloc] initWithNibName:@"TaskToViewController" bundle:nil];
+    [toViewController initTaskId:[self.dictForData objectForKey:@"taskid"]];
+    [self.navigationController pushViewController:toViewController animated:NO];
+}
+
+- (IBAction)yijianBtnPressed:(id)sender
+{
+    
 }
 
 - (void)didReceiveMemoryWarning

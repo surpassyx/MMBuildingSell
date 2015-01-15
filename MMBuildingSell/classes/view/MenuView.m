@@ -55,7 +55,7 @@
                    [DockItem itemWithIcon:@"tab_bar_select_icon.png" title:@"选房计价" className:@"SelectViewController"],
                    [DockItem itemWithIcon:@"tab_bar_managecustomer_icon.png" title:@"客户管理" className:@"ManageCustomerViewController"],
                    [DockItem itemWithIcon:@"tab_bar_analysecustomer_icon.png" title:@"客户分析" className:@"AnalyseCustomerViewController"],
-                   [DockItem itemWithIcon:@"tab_bar_allstatus_icon.png" title:@"业务查看" className:@"AllStatusViewController"],
+                   [DockItem itemWithIcon:@"tab_bar_allstatus_icon.png" title:@"销售概况" className:@"AllStatusViewController"],
                    [DockItem itemWithIcon:@"tab_bar_setting_icon.png" title:@"设置" className:@"SettingViewController" modal:YES]
                    ];
 }

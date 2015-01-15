@@ -34,4 +34,8 @@
 
 - (IBAction)doneBtnPressed:(id)sender;
 
+- (IBAction)toDoBtnPressed:(id)sender;
+
+- (IBAction)yijianBtnPressed:(id)sender;
+
 @end
