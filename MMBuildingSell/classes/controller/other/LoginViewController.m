@@ -36,37 +36,44 @@
     return self;
 }
 
--(void)getQibieInfo:(NSString *)strUsername
+#pragma mark 获取项目名称与对应的期别
+-(void)getQibieInfo
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=17&enterpriseCode=%@&username=%@",@"SYHDMD",strUsername];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=2"];
+    NSLog(@"qibieurl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-    NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
    
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         [nameArray removeAllObjects];
-        [noArray removeAllObjects];
+        [noEnterpriseArray removeAllObjects];
+        [noInstallmentArray removeAllObjects];
         NSString * strSign = [dic objectForKey:@"sign"];
         int intString = [strSign intValue];
         if (intString == 1) {
-            
             NSMutableArray *arrInfo = [dic objectForKey:@"arr"];
             for (int i = 0; i < arrInfo.count ; i++) {
                 NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-                NSString * strNo = [dicInfo objectForKey:@"no"];
-                NSString * strName =[dicInfo objectForKey:@"name"];
-                
+                NSString * strEnterpriseCode = [dicInfo objectForKey:@"enterpriseCode"];
+                NSString * strEnterpriseName =[dicInfo objectForKey:@"enterpriseName"];
+                NSString * strInstallment = [dicInfo objectForKey:@"installment"];
+                NSString * strInstallmentName =[dicInfo objectForKey:@"installmentName"];
+            
+                NSString * strName = [strEnterpriseName stringByAppendingString:@"-"];
+                strName = [strName stringByAppendingString:strInstallmentName];
                 [nameArray addObject:strName];
-                [noArray addObject:strNo];
+                [noEnterpriseArray addObject:strEnterpriseCode];
+                [noInstallmentArray addObject:strInstallment];
             }
+
         }else{
+            NSString * strError = [responseObject objectForKey:@"error"];
+            [XWAlterview showmessage:@"服务端返回错误" subtitle:strError cancelbutton:@"确定"];
             NSLog(@"服务端返回错误");
         }
-
-        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -82,9 +89,9 @@
 
     self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-    if (textField == _qq) {
-        [self getQibieInfo:_qq.text];
-    }
+//    if (textField == _qq) {
+//        [self getQibieInfo:_qq.text];
+//    }
 }
 
 
@@ -269,10 +276,13 @@
     [super viewDidLoad];
     
     nameArray = [[NSMutableArray alloc]init];
-    noArray = [[NSMutableArray alloc]init];
+    noEnterpriseArray = [[NSMutableArray alloc]init];
+    noInstallmentArray = [[NSMutableArray alloc]init];
     
     // ftitle和目录文件夹名称的对照
     self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"4", @"shipinzhanshi", @"6", @"poumiantu", @"2", @"fangxingzhanshi", @"3", @"xiangmuzhanshi", @"1", @"zhoubianpeitao", @"5", nil];
+    
+    [self getQibieInfo];
 
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopup)];
@@ -296,15 +306,6 @@
     
     [_pwd addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
     [_pwd addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
-    
-//    [_qq addTarget:self action:@selector(textFieldDidEndEditing:)
-//        forControlEvents:UIControlEventEditingDidEndOnExit];
-//    [_qq addTarget:self action:@selector(textFieldDidStartEditing:)
-//        forControlEvents:UIControlEventEditingDidBegin];
-//    [_pwd addTarget:self action:@selector(textFieldDidEndEditing:)
-//        forControlEvents:UIControlEventEditingDidEndOnExit];
-//    [_pwd addTarget:self action:@selector(textFieldDidStartEditing:)
-//        forControlEvents:UIControlEventEditingDidBegin];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     _qq.text = [userDefaults objectForKey:@"account"];
@@ -514,11 +515,11 @@
 - (void)selectClicked:(id)sender {
 //    NSArray * arr = [[NSArray alloc] init];
 //    arr = [NSArray arrayWithObjects:@"1期", @"2期", @"3期", @"4期",nil];
-    NSArray * arrImage = [[NSArray alloc] init];
-    arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], [UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], nil];
+//    NSArray * arrImage = [[NSArray alloc] init];
+//    arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], [UIImage imageNamed:@"apple.png"], [UIImage imageNamed:@"apple2.png"], nil];
     if(dropDown == nil) {
         CGFloat f = 200;
-        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :nameArray :arrImage :@"down"];
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :nameArray :nil :@"down"];
         dropDown.delegate = self;
     }
     else {
@@ -527,14 +528,17 @@
     }
 }
 
-- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender selectPos:(int)nPos{
     
-    NSInteger nPos = [nameArray indexOfObject:sender.animationDirection];
+//    NSInteger nPos = [nameArray indexOfObject:sender.animationDirection];
     if (nPos >= 0) {
         NSString *temp = [[NSString alloc]init];
-        temp = [noArray objectAtIndex:nPos];
+        temp = [noEnterpriseArray objectAtIndex:nPos];
+        NSString *temp1 = [[NSString alloc]init];
+        temp1 = [noInstallmentArray objectAtIndex:nPos];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:temp forKey:@"installment"];
+        [defaults setObject:temp forKey:@"enterpriseCode"];
+        [defaults setObject:temp1 forKey:@"installment"];
         [defaults synchronize];
     }
     
@@ -678,5 +682,4 @@
     
     
 }
-
 @end

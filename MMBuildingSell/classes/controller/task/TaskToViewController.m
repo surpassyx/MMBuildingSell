@@ -123,7 +123,7 @@
     
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=9&taskid=%@&result=%@&upexecute=%@&followMan=%@&notion=%@",taskId,strResult,strUpexecute,strFollowMan,strNotion];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-    NSLog(@"taskToUrl=%@",API_BASE_URL(hexUrl));
+    NSLog(@"taskToUrl=%@",API_BASE_URL(strUrl));
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

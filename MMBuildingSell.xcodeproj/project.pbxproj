@@ -531,6 +531,10 @@
 		AB69CD5D1A674CC100853C7F /* XWAlterview.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD5A1A674CC100853C7F /* XWAlterview.m */; };
 		AB69CD611A67582700853C7F /* TaskToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD5F1A67582700853C7F /* TaskToViewController.m */; };
 		AB69CD621A67582700853C7F /* TaskToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD601A67582700853C7F /* TaskToViewController.xib */; };
+		AB69CD661A676BA400853C7F /* TaskYiJianListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD641A676BA400853C7F /* TaskYiJianListViewController.m */; };
+		AB69CD671A676BA400853C7F /* TaskYiJianListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD651A676BA400853C7F /* TaskYiJianListViewController.xib */; };
+		AB69CD6B1A678B1700853C7F /* TaskYiJianCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD691A678B1700853C7F /* TaskYiJianCell.m */; };
+		AB69CD6C1A678B1700853C7F /* TaskYiJianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */; };
 		AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */; };
 		AB83BF4C1A49528A007667C9 /* TaskPersonListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */; };
 		AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8499F61A4CF7DE00F22804 /* HouseCell.m */; };
@@ -1300,6 +1304,12 @@
 		AB69CD5E1A67582700853C7F /* TaskToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskToViewController.h; sourceTree = "<group>"; };
 		AB69CD5F1A67582700853C7F /* TaskToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskToViewController.m; sourceTree = "<group>"; };
 		AB69CD601A67582700853C7F /* TaskToViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskToViewController.xib; sourceTree = "<group>"; };
+		AB69CD631A676BA300853C7F /* TaskYiJianListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskYiJianListViewController.h; sourceTree = "<group>"; };
+		AB69CD641A676BA400853C7F /* TaskYiJianListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskYiJianListViewController.m; sourceTree = "<group>"; };
+		AB69CD651A676BA400853C7F /* TaskYiJianListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskYiJianListViewController.xib; sourceTree = "<group>"; };
+		AB69CD681A678B1700853C7F /* TaskYiJianCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskYiJianCell.h; sourceTree = "<group>"; };
+		AB69CD691A678B1700853C7F /* TaskYiJianCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskYiJianCell.m; sourceTree = "<group>"; };
+		AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskYiJianCell.xib; sourceTree = "<group>"; };
 		AB83BF481A49528A007667C9 /* TaskPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskPersonListViewController.h; sourceTree = "<group>"; };
 		AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskPersonListViewController.m; sourceTree = "<group>"; };
 		AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskPersonListViewController.xib; sourceTree = "<group>"; };
@@ -2308,6 +2318,12 @@
 				AB69CD5E1A67582700853C7F /* TaskToViewController.h */,
 				AB69CD5F1A67582700853C7F /* TaskToViewController.m */,
 				AB69CD601A67582700853C7F /* TaskToViewController.xib */,
+				AB69CD631A676BA300853C7F /* TaskYiJianListViewController.h */,
+				AB69CD641A676BA400853C7F /* TaskYiJianListViewController.m */,
+				AB69CD651A676BA400853C7F /* TaskYiJianListViewController.xib */,
+				AB69CD681A678B1700853C7F /* TaskYiJianCell.h */,
+				AB69CD691A678B1700853C7F /* TaskYiJianCell.m */,
+				AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -3010,6 +3026,7 @@
 				3D84C4EC180D1F6600B2311E /* 0.jpg in Resources */,
 				3DFFDAE2185C95930040B588 /* task_list_bg.png in Resources */,
 				3DFFDAF6185CA25F0040B588 /* select_head_3.png in Resources */,
+				AB69CD671A676BA400853C7F /* TaskYiJianListViewController.xib in Resources */,
 				3D84C43A180C1C8700B2311E /* BarButtonItem_Pressed.png in Resources */,
 				3D416F8F18B4517D00106DE4 /* danview.png in Resources */,
 				3DA7D9C118457AB800662DB3 /* detail_up_bk@2x.png in Resources */,
@@ -3179,6 +3196,7 @@
 				3D416F9818B4517D00106DE4 /* line02.png in Resources */,
 				3D416F8818B4517D00106DE4 /* appear_08.png in Resources */,
 				3DB5645D1840CD0600828878 /* item_draw_clear_btn.png in Resources */,
+				AB69CD6C1A678B1700853C7F /* TaskYiJianCell.xib in Resources */,
 				3D84C4C1180C1DBA00B2311E /* MainStoryboard.storyboard in Resources */,
 				3DB5649F1842D98100828878 /* all_status_task@2x.png in Resources */,
 				3D84C473180C1C8700B2311E /* navbar_btn_back_bg_click.png in Resources */,
@@ -3235,6 +3253,7 @@
 				530CBD34193D96C500B56AF6 /* UIAlertView+AFNetworking.m in Sources */,
 				AB6919331A5F7F5300C4886F /* GzipCompressor.m in Sources */,
 				AB6919301A5F7F4400C4886F /* Base64.m in Sources */,
+				AB69CD661A676BA400853C7F /* TaskYiJianListViewController.m in Sources */,
 				3DA7D9CC1845876E00662DB3 /* AddCustomerView.m in Sources */,
 				3DB0EB7318239B7E00BB9161 /* PLSceneElement.m in Sources */,
 				3D84C4B0180C1C8800B2311E /* SettingViewController.m in Sources */,
@@ -3290,6 +3309,7 @@
 				3DB0EB6718239B7E00BB9161 /* PLImage.m in Sources */,
 				3DB47763182CCF1F000F3C21 /* XCMultiSortTableView.m in Sources */,
 				3DACC197183304BC00658976 /* AMRatingControl.m in Sources */,
+				AB69CD6B1A678B1700853C7F /* TaskYiJianCell.m in Sources */,
 				3DB0EB7018239B7E00BB9161 /* PLRenderableElementBase.m in Sources */,
 				530CBD2B193D96C500B56AF6 /* AFHTTPSessionManager.m in Sources */,
 				3D2B0DCB181791A5008BEAA6 /* PrintPurchasingViewController.m in Sources */,

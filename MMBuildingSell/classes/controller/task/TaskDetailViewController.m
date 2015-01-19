@@ -8,6 +8,7 @@
 
 #import "TaskDetailViewController.h"
 #import "TaskToViewController.h"
+#import "TaskYiJianListViewController.h"
 
 @interface TaskDetailViewController ()
 
@@ -64,7 +65,9 @@
 
 - (IBAction)yijianBtnPressed:(id)sender
 {
-    
+    TaskYiJianListViewController* toViewController = [[TaskYiJianListViewController alloc] initWithNibName:@"TaskYiJianListViewController" bundle:nil];
+    [toViewController initTaskId:[self.dictForData objectForKey:@"taskid"]];
+    [self.navigationController pushViewController:toViewController animated:NO];
 }
 
 - (void)didReceiveMemoryWarning

@@ -20,7 +20,8 @@
     int nDownloadAllNum;
     
     NSMutableArray *nameArray;
-    NSMutableArray *noArray;
+    NSMutableArray *noEnterpriseArray;
+    NSMutableArray *noInstallmentArray;
 }
 //@property (nonatomic , unsafe_unretained) TCBlobDownloadManager *sharedDownloadManager;
 
