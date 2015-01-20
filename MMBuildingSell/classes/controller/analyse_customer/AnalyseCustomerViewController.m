@@ -120,9 +120,16 @@
     
 }
 
+- (void)receivedPushContent:(NSNotification*)notification{
+    NSString *content = [notification object];
+    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     SegmentView *segmentView = [[SegmentView alloc] init];
     segmentView.titles = @[@"来源分析", @"销售阶段分析"];

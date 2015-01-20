@@ -107,6 +107,7 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
         [alertView show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PUSHCONTENT" object:alert];
     }
     [application setApplicationIconBadgeNumber:0];
     

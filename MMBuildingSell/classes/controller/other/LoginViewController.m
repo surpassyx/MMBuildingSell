@@ -168,11 +168,11 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-//    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
 //    NSString *gameListUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
 //    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@installment=%@&fflag=all",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
     //测试
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@&installment=%@&flag=0",@"SYHDMD",@"02"];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@&installment=%@&flag=0",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -403,9 +403,9 @@
     [_indicator startAnimating];
     
     NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
-    [myDefaults setObject:@"SYHDMD" forKey:@"enterpriseCode"];
-    [myDefaults setObject:@"02" forKey:@"installment"];
-    [myDefaults synchronize];
+//    [myDefaults setObject:@"SYHDMD" forKey:@"enterpriseCode"];
+//    [myDefaults setObject:@"02" forKey:@"installment"];
+//    [myDefaults synchronize];
     
     //http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all
     
@@ -633,9 +633,9 @@
 -(void)synchronizedFileInfoFromHttp
 {
     NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
-    [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
-    [myDefaults setObject:@"01" forKey:@"installment"];
-    [myDefaults synchronize];
+//    [myDefaults setObject:@"P0001" forKey:@"enterpriseCode"];
+//    [myDefaults setObject:@"01" forKey:@"installment"];
+//    [myDefaults synchronize];
     
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@installment=%@",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
     NSLog(@"updateUrl=%@",strUrl);

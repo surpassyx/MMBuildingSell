@@ -32,9 +32,16 @@
 //保存线条颜色
 static NSMutableArray *colors;
 
+- (void)receivedPushContent:(NSNotification*)notification{
+    NSString *content = [notification object];
+    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     SegmentView *segmentView = [[SegmentView alloc] init];
     segmentView.titles = @[@"项目展示", @"剖面图", @"房型展示", @"物业展示",@"周边配套", @"视频展示"];

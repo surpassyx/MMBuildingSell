@@ -18,11 +18,17 @@
 
 @implementation PanoramaViewController
 
+- (void)receivedPushContent:(NSNotification*)notification{
+    NSString *content = [notification object];
+    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     SegmentView *segmentView = [[SegmentView alloc] init];
     segmentView.titles = @[@"全景1", @"全景2", @"全景3"];

@@ -557,6 +557,24 @@
 		AB87D12E1A5A3A2E00A4C921 /* mm-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB87D11C1A5A3A2E00A4C921 /* mm-60@2x.png */; };
 		AB87D12F1A5A3A2E00A4C921 /* mmiTunesArtWork-512.png in Resources */ = {isa = PBXBuildFile; fileRef = AB87D11D1A5A3A2E00A4C921 /* mmiTunesArtWork-512.png */; };
 		AB87D1301A5A3A2E00A4C921 /* mmiTunesArtWork-512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB87D11E1A5A3A2E00A4C921 /* mmiTunesArtWork-512@2x.png */; };
+		ABCF99ED1A6C996200135245 /* TSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99BC1A6C996200135245 /* TSUtils.m */; };
+		ABCF99EE1A6C996200135245 /* TSNavigationStripModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99C01A6C996200135245 /* TSNavigationStripModel.m */; };
+		ABCF99EF1A6C996200135245 /* TSNavigationStripView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99C21A6C996200135245 /* TSNavigationStripView.m */; };
+		ABCF99F01A6C996200135245 /* TSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99C61A6C996200135245 /* TSScrollView.m */; };
+		ABCF99F11A6C996200135245 /* TSTableViewContentHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99CB1A6C996200135245 /* TSTableViewContentHolder.m */; };
+		ABCF99F21A6C996200135245 /* TSTableViewExpandControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99CD1A6C996200135245 /* TSTableViewExpandControlPanel.m */; };
+		ABCF99F31A6C996200135245 /* TSTableViewExpandSection.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99CF1A6C996200135245 /* TSTableViewExpandSection.m */; };
+		ABCF99F41A6C996200135245 /* TSTableViewHeaderPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99D11A6C996200135245 /* TSTableViewHeaderPanel.m */; };
+		ABCF99F51A6C996200135245 /* TSTableViewHeaderSection.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99D31A6C996200135245 /* TSTableViewHeaderSection.m */; };
+		ABCF99F61A6C996200135245 /* TSTableViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99D51A6C996200135245 /* TSTableViewRow.m */; };
+		ABCF99F71A6C996200135245 /* TSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99D71A6C996200135245 /* TSTableView.m */; };
+		ABCF99F81A6C996200135245 /* TSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99D91A6C996200135245 /* TSTableViewCell.m */; };
+		ABCF99F91A6C996200135245 /* TSTableViewHeaderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99DD1A6C996200135245 /* TSTableViewHeaderSectionView.m */; };
+		ABCF99FA1A6C996200135245 /* TSTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99DF1A6C996200135245 /* TSTableViewModel.m */; };
+		ABCF99FB1A6C996200135245 /* TSTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99E21A6C996200135245 /* TSTabView.m */; };
+		ABCF99FC1A6C996200135245 /* TSTabViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99E61A6C996200135245 /* TSTabViewModel.m */; };
+		ABCF99FD1A6C996200135245 /* TSTabViewWithDropDownPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99E91A6C996200135245 /* TSTabViewWithDropDownPanel.m */; };
+		ABCF99FE1A6C996200135245 /* TSTabViewWithDropDownPanelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF99EC1A6C996200135245 /* TSTabViewWithDropDownPanelModel.m */; };
 		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
 /* End PBXBuildFile section */
 
@@ -1334,6 +1352,51 @@
 		AB87D11C1A5A3A2E00A4C921 /* mm-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mm-60@2x.png"; sourceTree = "<group>"; };
 		AB87D11D1A5A3A2E00A4C921 /* mmiTunesArtWork-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mmiTunesArtWork-512.png"; sourceTree = "<group>"; };
 		AB87D11E1A5A3A2E00A4C921 /* mmiTunesArtWork-512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mmiTunesArtWork-512@2x.png"; sourceTree = "<group>"; };
+		ABCF99BA1A6C996200135245 /* TSDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSDefines.h; sourceTree = "<group>"; };
+		ABCF99BB1A6C996200135245 /* TSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSUtils.h; sourceTree = "<group>"; };
+		ABCF99BC1A6C996200135245 /* TSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSUtils.m; sourceTree = "<group>"; };
+		ABCF99BE1A6C996200135245 /* TSNavigationStripDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNavigationStripDataSource.h; sourceTree = "<group>"; };
+		ABCF99BF1A6C996200135245 /* TSNavigationStripModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNavigationStripModel.h; sourceTree = "<group>"; };
+		ABCF99C01A6C996200135245 /* TSNavigationStripModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNavigationStripModel.m; sourceTree = "<group>"; };
+		ABCF99C11A6C996200135245 /* TSNavigationStripView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNavigationStripView.h; sourceTree = "<group>"; };
+		ABCF99C21A6C996200135245 /* TSNavigationStripView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNavigationStripView.m; sourceTree = "<group>"; };
+		ABCF99C31A6C996200135245 /* TSNavigationStripViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNavigationStripViewDelegate.h; sourceTree = "<group>"; };
+		ABCF99C51A6C996200135245 /* TSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSScrollView.h; sourceTree = "<group>"; };
+		ABCF99C61A6C996200135245 /* TSScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSScrollView.m; sourceTree = "<group>"; };
+		ABCF99C91A6C996200135245 /* TSTableViewAppearanceCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewAppearanceCoordinator.h; sourceTree = "<group>"; };
+		ABCF99CA1A6C996200135245 /* TSTableViewContentHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewContentHolder.h; sourceTree = "<group>"; };
+		ABCF99CB1A6C996200135245 /* TSTableViewContentHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewContentHolder.m; sourceTree = "<group>"; };
+		ABCF99CC1A6C996200135245 /* TSTableViewExpandControlPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewExpandControlPanel.h; sourceTree = "<group>"; };
+		ABCF99CD1A6C996200135245 /* TSTableViewExpandControlPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewExpandControlPanel.m; sourceTree = "<group>"; };
+		ABCF99CE1A6C996200135245 /* TSTableViewExpandSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewExpandSection.h; sourceTree = "<group>"; };
+		ABCF99CF1A6C996200135245 /* TSTableViewExpandSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewExpandSection.m; sourceTree = "<group>"; };
+		ABCF99D01A6C996200135245 /* TSTableViewHeaderPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewHeaderPanel.h; sourceTree = "<group>"; };
+		ABCF99D11A6C996200135245 /* TSTableViewHeaderPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewHeaderPanel.m; sourceTree = "<group>"; };
+		ABCF99D21A6C996200135245 /* TSTableViewHeaderSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewHeaderSection.h; sourceTree = "<group>"; };
+		ABCF99D31A6C996200135245 /* TSTableViewHeaderSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewHeaderSection.m; sourceTree = "<group>"; };
+		ABCF99D41A6C996200135245 /* TSTableViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewRow.h; sourceTree = "<group>"; };
+		ABCF99D51A6C996200135245 /* TSTableViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewRow.m; sourceTree = "<group>"; };
+		ABCF99D61A6C996200135245 /* TSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableView.h; sourceTree = "<group>"; };
+		ABCF99D71A6C996200135245 /* TSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableView.m; sourceTree = "<group>"; };
+		ABCF99D81A6C996200135245 /* TSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewCell.h; sourceTree = "<group>"; };
+		ABCF99D91A6C996200135245 /* TSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewCell.m; sourceTree = "<group>"; };
+		ABCF99DA1A6C996200135245 /* TSTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewDataSource.h; sourceTree = "<group>"; };
+		ABCF99DB1A6C996200135245 /* TSTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewDelegate.h; sourceTree = "<group>"; };
+		ABCF99DC1A6C996200135245 /* TSTableViewHeaderSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewHeaderSectionView.h; sourceTree = "<group>"; };
+		ABCF99DD1A6C996200135245 /* TSTableViewHeaderSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewHeaderSectionView.m; sourceTree = "<group>"; };
+		ABCF99DE1A6C996200135245 /* TSTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTableViewModel.h; sourceTree = "<group>"; };
+		ABCF99DF1A6C996200135245 /* TSTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTableViewModel.m; sourceTree = "<group>"; };
+		ABCF99E11A6C996200135245 /* TSTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabView.h; sourceTree = "<group>"; };
+		ABCF99E21A6C996200135245 /* TSTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTabView.m; sourceTree = "<group>"; };
+		ABCF99E31A6C996200135245 /* TSTabViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewDataSource.h; sourceTree = "<group>"; };
+		ABCF99E41A6C996200135245 /* TSTabViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewDelegate.h; sourceTree = "<group>"; };
+		ABCF99E51A6C996200135245 /* TSTabViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewModel.h; sourceTree = "<group>"; };
+		ABCF99E61A6C996200135245 /* TSTabViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTabViewModel.m; sourceTree = "<group>"; };
+		ABCF99E81A6C996200135245 /* TSTabViewWithDropDownPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewWithDropDownPanel.h; sourceTree = "<group>"; };
+		ABCF99E91A6C996200135245 /* TSTabViewWithDropDownPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTabViewWithDropDownPanel.m; sourceTree = "<group>"; };
+		ABCF99EA1A6C996200135245 /* TSTabViewWithDropDownPanelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewWithDropDownPanelDelegate.h; sourceTree = "<group>"; };
+		ABCF99EB1A6C996200135245 /* TSTabViewWithDropDownPanelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSTabViewWithDropDownPanelModel.h; sourceTree = "<group>"; };
+		ABCF99EC1A6C996200135245 /* TSTabViewWithDropDownPanelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSTabViewWithDropDownPanelModel.m; sourceTree = "<group>"; };
 		ABD6482E1A0B7D5C00953419 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1909,6 +1972,7 @@
 		3D84C3F8180C1C8700B2311E /* category */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF99B81A6C996200135245 /* TSUIKit */,
 				AB69CD561A674CC000853C7F /* XWAlterview */,
 				53FA82DE1973763900FDF7AB /* ZDProgressView */,
 				53DB3583197224B90044A6D1 /* MBProgressHUD */,
@@ -2729,6 +2793,114 @@
 			path = XWAlterview;
 			sourceTree = "<group>";
 		};
+		ABCF99B81A6C996200135245 /* TSUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99B91A6C996200135245 /* TSMisc */,
+				ABCF99BD1A6C996200135245 /* TSNavigationStripView */,
+				ABCF99C41A6C996200135245 /* TSScrollView */,
+				ABCF99C71A6C996200135245 /* TSTableView */,
+				ABCF99E01A6C996200135245 /* TSTabView */,
+				ABCF99E71A6C996200135245 /* TSTabViewWithDropDownPanel */,
+			);
+			path = TSUIKit;
+			sourceTree = "<group>";
+		};
+		ABCF99B91A6C996200135245 /* TSMisc */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99BA1A6C996200135245 /* TSDefines.h */,
+				ABCF99BB1A6C996200135245 /* TSUtils.h */,
+				ABCF99BC1A6C996200135245 /* TSUtils.m */,
+			);
+			path = TSMisc;
+			sourceTree = "<group>";
+		};
+		ABCF99BD1A6C996200135245 /* TSNavigationStripView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99BE1A6C996200135245 /* TSNavigationStripDataSource.h */,
+				ABCF99BF1A6C996200135245 /* TSNavigationStripModel.h */,
+				ABCF99C01A6C996200135245 /* TSNavigationStripModel.m */,
+				ABCF99C11A6C996200135245 /* TSNavigationStripView.h */,
+				ABCF99C21A6C996200135245 /* TSNavigationStripView.m */,
+				ABCF99C31A6C996200135245 /* TSNavigationStripViewDelegate.h */,
+			);
+			path = TSNavigationStripView;
+			sourceTree = "<group>";
+		};
+		ABCF99C41A6C996200135245 /* TSScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99C51A6C996200135245 /* TSScrollView.h */,
+				ABCF99C61A6C996200135245 /* TSScrollView.m */,
+			);
+			path = TSScrollView;
+			sourceTree = "<group>";
+		};
+		ABCF99C71A6C996200135245 /* TSTableView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99C81A6C996200135245 /* Private */,
+				ABCF99D61A6C996200135245 /* TSTableView.h */,
+				ABCF99D71A6C996200135245 /* TSTableView.m */,
+				ABCF99D81A6C996200135245 /* TSTableViewCell.h */,
+				ABCF99D91A6C996200135245 /* TSTableViewCell.m */,
+				ABCF99DA1A6C996200135245 /* TSTableViewDataSource.h */,
+				ABCF99DB1A6C996200135245 /* TSTableViewDelegate.h */,
+				ABCF99DC1A6C996200135245 /* TSTableViewHeaderSectionView.h */,
+				ABCF99DD1A6C996200135245 /* TSTableViewHeaderSectionView.m */,
+				ABCF99DE1A6C996200135245 /* TSTableViewModel.h */,
+				ABCF99DF1A6C996200135245 /* TSTableViewModel.m */,
+			);
+			path = TSTableView;
+			sourceTree = "<group>";
+		};
+		ABCF99C81A6C996200135245 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99C91A6C996200135245 /* TSTableViewAppearanceCoordinator.h */,
+				ABCF99CA1A6C996200135245 /* TSTableViewContentHolder.h */,
+				ABCF99CB1A6C996200135245 /* TSTableViewContentHolder.m */,
+				ABCF99CC1A6C996200135245 /* TSTableViewExpandControlPanel.h */,
+				ABCF99CD1A6C996200135245 /* TSTableViewExpandControlPanel.m */,
+				ABCF99CE1A6C996200135245 /* TSTableViewExpandSection.h */,
+				ABCF99CF1A6C996200135245 /* TSTableViewExpandSection.m */,
+				ABCF99D01A6C996200135245 /* TSTableViewHeaderPanel.h */,
+				ABCF99D11A6C996200135245 /* TSTableViewHeaderPanel.m */,
+				ABCF99D21A6C996200135245 /* TSTableViewHeaderSection.h */,
+				ABCF99D31A6C996200135245 /* TSTableViewHeaderSection.m */,
+				ABCF99D41A6C996200135245 /* TSTableViewRow.h */,
+				ABCF99D51A6C996200135245 /* TSTableViewRow.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		ABCF99E01A6C996200135245 /* TSTabView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99E11A6C996200135245 /* TSTabView.h */,
+				ABCF99E21A6C996200135245 /* TSTabView.m */,
+				ABCF99E31A6C996200135245 /* TSTabViewDataSource.h */,
+				ABCF99E41A6C996200135245 /* TSTabViewDelegate.h */,
+				ABCF99E51A6C996200135245 /* TSTabViewModel.h */,
+				ABCF99E61A6C996200135245 /* TSTabViewModel.m */,
+			);
+			path = TSTabView;
+			sourceTree = "<group>";
+		};
+		ABCF99E71A6C996200135245 /* TSTabViewWithDropDownPanel */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF99E81A6C996200135245 /* TSTabViewWithDropDownPanel.h */,
+				ABCF99E91A6C996200135245 /* TSTabViewWithDropDownPanel.m */,
+				ABCF99EA1A6C996200135245 /* TSTabViewWithDropDownPanelDelegate.h */,
+				ABCF99EB1A6C996200135245 /* TSTabViewWithDropDownPanelModel.h */,
+				ABCF99EC1A6C996200135245 /* TSTabViewWithDropDownPanelModel.m */,
+			);
+			path = TSTabViewWithDropDownPanel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3240,6 +3412,7 @@
 				AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */,
 				3D84C4A5180C1C8800B2311E /* UIImage+Fit.m in Sources */,
 				53FA82E11973763A00FDF7AB /* ZDProgressView.m in Sources */,
+				ABCF99F71A6C996200135245 /* TSTableView.m in Sources */,
 				3DB0EB6418239B7E00BB9161 /* PLCubicPanorama.m in Sources */,
 				3D84C1221808E16A00B2311E /* AppDelegate.mm in Sources */,
 				3D84C4C9180C1FBC00B2311E /* ItemShowViewController.m in Sources */,
@@ -3248,6 +3421,7 @@
 				3DB0EB6018239B7E00BB9161 /* glues_registry.c in Sources */,
 				3D84C4B9180C1C8800B2311E /* MenuItemView.m in Sources */,
 				3D84C4B3180C1C8800B2311E /* CellItem.m in Sources */,
+				ABCF99F31A6C996200135245 /* TSTableViewExpandSection.m in Sources */,
 				3DB0EB6D18239B7E00BB9161 /* PLObjectBase.m in Sources */,
 				3D84C4D2180C208400B2311E /* ManageCustomerViewController.m in Sources */,
 				530CBD34193D96C500B56AF6 /* UIAlertView+AFNetworking.m in Sources */,
@@ -3262,11 +3436,15 @@
 				3D84C4B4180C1C8800B2311E /* DockItem.m in Sources */,
 				3D67F78318CC016100E0F66B /* CustomerBean.m in Sources */,
 				3DB0EB5D18239B7E00BB9161 /* glues_mipmap.c in Sources */,
+				ABCF99FD1A6C996200135245 /* TSTabViewWithDropDownPanel.m in Sources */,
 				3DB47764182CCF1F000F3C21 /* XCMultiSortTableViewBGScrollView.m in Sources */,
+				ABCF99F01A6C996200135245 /* TSScrollView.m in Sources */,
 				3D84C4A6180C1C8800B2311E /* AboutMeViewController.m in Sources */,
 				530CBD2D193D96C500B56AF6 /* AFSecurityPolicy.m in Sources */,
 				3DACC1BE1837119300658976 /* QCheckBox.m in Sources */,
 				530CBD29193D96C500B56AF6 /* AFHTTPRequestOperation.m in Sources */,
+				ABCF99F41A6C996200135245 /* TSTableViewHeaderPanel.m in Sources */,
+				ABCF99FA1A6C996200135245 /* TSTableViewModel.m in Sources */,
 				3D5B1FE3187B905700F769E0 /* UIViewController+CWPopup.m in Sources */,
 				3DB0EB6A18239B7E00BB9161 /* PLLog.m in Sources */,
 				3D0E79FD183C7B2200178F14 /* TaskListViewController.m in Sources */,
@@ -3275,6 +3453,7 @@
 				3D416FA818B4518B00106DE4 /* OABaseView.m in Sources */,
 				3D84C4B7180C1C8800B2311E /* Dock.m in Sources */,
 				3D84C4A9180C1C8800B2311E /* FriendViewController.m in Sources */,
+				ABCF99F21A6C996200135245 /* TSTableViewExpandControlPanel.m in Sources */,
 				3D84C4AB180C1C8800B2311E /* LoginViewController.m in Sources */,
 				3D84C4B1180C1C8800B2311E /* SuggestViewController.m in Sources */,
 				3DB0EB7718239B7E00BB9161 /* PLTexture.m in Sources */,
@@ -3284,12 +3463,15 @@
 				3D84C4BC180C1C8800B2311E /* SettingCell.m in Sources */,
 				3D20114F18BDCE420016987F /* ServiceSettingViewController.m in Sources */,
 				3D28321C181F807200CDF5F3 /* PSSVContainerView.m in Sources */,
+				ABCF99F11A6C996200135245 /* TSTableViewContentHolder.m in Sources */,
 				AB69192B1A5F7E0C00C4886F /* OpenUDID.m in Sources */,
+				ABCF99FB1A6C996200135245 /* TSTabView.m in Sources */,
 				3DB0EB6B18239B7E00BB9161 /* PLMath.m in Sources */,
 				3DB0EB6E18239B7E00BB9161 /* PLOpenGLSupport.m in Sources */,
 				3D84C4D8180C244900B2311E /* Palette.m in Sources */,
 				3D0E7A0B183C880400178F14 /* TaskCell.m in Sources */,
 				3DB0EAF418233A8300BB9161 /* PanoramaViewController.m in Sources */,
+				ABCF99ED1A6C996200135245 /* TSUtils.m in Sources */,
 				3D988DA818B6E0ED004F6011 /* ExpendTableView.m in Sources */,
 				AB69CD5D1A674CC100853C7F /* XWAlterview.m in Sources */,
 				3DB0EB7418239B7E00BB9161 /* PLSceneElementBase.m in Sources */,
@@ -3298,6 +3480,7 @@
 				3D84C4B8180C1C8800B2311E /* IconView.m in Sources */,
 				530CBD31193D96C500B56AF6 /* AFURLSessionManager.m in Sources */,
 				3DB0D2FC181CAD3E001C1AB6 /* XYPieChart.m in Sources */,
+				ABCF99FE1A6C996200135245 /* TSTabViewWithDropDownPanelModel.m in Sources */,
 				3D5B1FE7187B912E00F769E0 /* CalculatorViewController.m in Sources */,
 				3D67F78718CC159000E0F66B /* AFPickerView.m in Sources */,
 				3DB0EB7918239B7E00BB9161 /* PLTransitionFadeBase.m in Sources */,
@@ -3310,9 +3493,12 @@
 				3DB47763182CCF1F000F3C21 /* XCMultiSortTableView.m in Sources */,
 				3DACC197183304BC00658976 /* AMRatingControl.m in Sources */,
 				AB69CD6B1A678B1700853C7F /* TaskYiJianCell.m in Sources */,
+				ABCF99F91A6C996200135245 /* TSTableViewHeaderSectionView.m in Sources */,
 				3DB0EB7018239B7E00BB9161 /* PLRenderableElementBase.m in Sources */,
+				ABCF99EE1A6C996200135245 /* TSNavigationStripModel.m in Sources */,
 				530CBD2B193D96C500B56AF6 /* AFHTTPSessionManager.m in Sources */,
 				3D2B0DCB181791A5008BEAA6 /* PrintPurchasingViewController.m in Sources */,
+				ABCF99F61A6C996200135245 /* TSTableViewRow.m in Sources */,
 				53DB3586197224B90044A6D1 /* MBProgressHUD.m in Sources */,
 				3D28321E181F807200CDF5F3 /* UIViewController+PSStackedView.m in Sources */,
 				3DB0EB7E18239B7E00BB9161 /* PLView.m in Sources */,
@@ -3333,14 +3519,18 @@
 				3D416FA918B4518B00106DE4 /* OAFont.m in Sources */,
 				530CBD39193D96C500B56AF6 /* UIWebView+AFNetworking.m in Sources */,
 				3D416F6818B44D8800106DE4 /* FangDaiViewController.m in Sources */,
+				ABCF99EF1A6C996200135245 /* TSNavigationStripView.m in Sources */,
 				3DACC1AB1835109000658976 /* SJAvatarBrowser.m in Sources */,
 				530CBD33193D96C500B56AF6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				530CBD37193D96C500B56AF6 /* UIProgressView+AFNetworking.m in Sources */,
 				3DB0EB6F18239B7E00BB9161 /* PLPanoramaBase.m in Sources */,
+				ABCF99FC1A6C996200135245 /* TSTabViewModel.m in Sources */,
 				3DB0EB5F18239B7E00BB9161 /* glues_quad.c in Sources */,
 				3D84C4AA180C1C8800B2311E /* HomeViewController.m in Sources */,
 				3D28321B181F807200CDF5F3 /* PSStackedViewSegue.m in Sources */,
 				3DB0EB7518239B7E00BB9161 /* PLSpherical2Panorama.m in Sources */,
+				ABCF99F81A6C996200135245 /* TSTableViewCell.m in Sources */,
+				ABCF99F51A6C996200135245 /* TSTableViewHeaderSection.m in Sources */,
 				3DB0EB7D18239B7E00BB9161 /* PLVector3.m in Sources */,
 				3DB0EB7118239B7E00BB9161 /* PLRenderer.m in Sources */,
 				53DB357C196FC0EE0044A6D1 /* LocalFilePath.m in Sources */,

@@ -12,7 +12,7 @@
 #import "PrintPurchasingViewController.h"
 #import "NIDropDown.h"
 
-@interface SelectViewController : UIViewController<NIDropDownDelegate,UIGestureRecognizerDelegate>{
+@interface SelectViewController : UIViewController<UIGestureRecognizerDelegate>{
 
     UIImageView  *imageView;
     
@@ -50,8 +50,8 @@
     
     UIButton * nextBtn;
     
-    UIButton * selectBtn;
-    NIDropDown *dropDown;
+//    UIButton * selectBtn;
+//    NIDropDown *dropDown;
     
     UIImageView  *imageViewLeftBk;
     UIImageView  *imageViewRightBk;

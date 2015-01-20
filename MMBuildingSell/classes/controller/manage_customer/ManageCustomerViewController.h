@@ -21,5 +21,9 @@
 @property (nonatomic, retain) UITableView *myTableView;
 @property (nonatomic, retain) NSMutableArray *arrPersonInfo;
 
+@property (nonatomic, retain) NSMutableArray *laifangqudaoList;
+@property (nonatomic, retain) NSMutableArray *xuqiufangxingList;
+@property (nonatomic, retain) NSMutableArray *juzhuyetaiList;
+
 
 @end

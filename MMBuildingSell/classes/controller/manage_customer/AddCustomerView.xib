@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -191,6 +191,36 @@
                         <segment title="来访"/>
                     </segments>
                 </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOt-vD-Xo9">
+                    <rect key="frame" x="209" y="236" width="240" height="30"/>
+                    <state key="normal" title="点击选择" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dddddAction:" destination="TRw-Wj-eBa" eventType="touchUpInside" id="ytL-P7-Am3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-b7-GKy">
+                    <rect key="frame" x="209" y="362" width="240" height="30"/>
+                    <state key="normal" title="点击选择" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dddddAction:" destination="TRw-Wj-eBa" eventType="touchUpInside" id="YXi-cq-2yi"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6l-nx-Q3E">
+                    <rect key="frame" x="209" y="438" width="240" height="30"/>
+                    <state key="normal" title="点击选择" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dddddAction:" destination="TRw-Wj-eBa" eventType="touchUpInside" id="gac-hN-TRf"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -200,17 +230,21 @@
                 <outlet property="bugdetTextField" destination="eP8-Rc-68c" id="jDD-ke-a8g"/>
                 <outlet property="callvisitSeg" destination="UkN-4Z-WG4" id="PTA-hV-2j3"/>
                 <outlet property="intentionSeg" destination="Bht-e4-OGR" id="J3d-Zj-SVd"/>
+                <outlet property="juzhuyetaiBtn" destination="Beb-b7-GKy" id="X93-UF-LG7"/>
+                <outlet property="laifangqudaoBtn" destination="J6l-nx-Q3E" id="E7I-et-FMO"/>
                 <outlet property="livingspaceTextField" destination="Vim-Xn-R02" id="yGk-9o-YAf"/>
                 <outlet property="nameTextField" destination="EQr-6A-lK9" id="4Sg-Hl-QiI"/>
                 <outlet property="ownerSeg" destination="iQO-lZ-Bc3" id="0B5-yt-FYp"/>
                 <outlet property="sexSeg" destination="C48-Su-Xis" id="wK4-Ui-Ln1"/>
                 <outlet property="statusSeg" destination="A7s-vz-xA9" id="FyU-C1-kFu"/>
                 <outlet property="telTextField" destination="IoL-26-ddq" id="l9c-d0-7Hr"/>
+                <outlet property="xuqiufangxingBtn" destination="BOt-vD-Xo9" id="WxT-vW-AST"/>
             </connections>
         </view>
     </objects>
     <resources>
         <image name="detail_up_bk.png" width="714" height="318"/>
+        <image name="task_send_normal_btn.png" width="245" height="31"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

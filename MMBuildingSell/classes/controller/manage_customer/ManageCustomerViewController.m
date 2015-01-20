@@ -17,7 +17,7 @@
 
 @implementation ManageCustomerViewController
 @synthesize myTableView;
-@synthesize arrPersonInfo;
+@synthesize arrPersonInfo,laifangqudaoList,juzhuyetaiList,xuqiufangxingList;
 
 
 #define FrameWIDTH 812.0
@@ -105,6 +105,120 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self getHttpInfo];
+    [self getXuQiuFangXing];
+    [self getLaiFangQuDao];
+    [self getJuZhuYeTai];
+}
+
+
+
+-(void)getXuQiuFangXing
+{
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=10&sign=2"];
+//    NSLog(@"获取用户信息url: %@", strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"需求房型hexurl: %@", API_BASE_URL(hexUrl));
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSString * strSign = [responseObject objectForKey:@"sign"];
+        int intString = [strSign intValue];
+        if (intString == 1) {
+            [self.xuqiufangxingList removeAllObjects];
+            NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
+            for (int i = 0; i < arrInfo.count ; i++) {
+                NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                NSString * strId = [dicInfo objectForKey:@"id"];
+                NSString * strName = [dicInfo objectForKey:@"name"];
+                
+                NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+                [rowData setValue:strId forKey:@"id"];
+                [rowData setValue:strName forKey:@"name"];
+                
+                [self.xuqiufangxingList addObject:rowData];
+            }
+            
+        }else{
+            NSLog(@"服务端返回错误");
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
+}
+
+-(void)getJuZhuYeTai
+{
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=10&sign=3"];
+    //    NSLog(@"获取用户信息url: %@", strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"居住业态hexurl: %@", API_BASE_URL(hexUrl));
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSString * strSign = [responseObject objectForKey:@"sign"];
+        int intString = [strSign intValue];
+        if (intString == 1) {
+            [self.juzhuyetaiList removeAllObjects];
+            NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
+            for (int i = 0; i < arrInfo.count ; i++) {
+                NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                NSString * strId = [dicInfo objectForKey:@"id"];
+                NSString * strName = [dicInfo objectForKey:@"name"];
+                
+                NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+                [rowData setValue:strId forKey:@"id"];
+                [rowData setValue:strName forKey:@"name"];
+                
+                [self.juzhuyetaiList addObject:rowData];
+            }
+            
+        }else{
+            NSLog(@"服务端返回错误");
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
+
+-(void)getLaiFangQuDao
+{
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=10&sign=11"];
+    //    NSLog(@"获取用户信息url: %@", strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"来访渠道hexurl: %@", API_BASE_URL(hexUrl));
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSString * strSign = [responseObject objectForKey:@"sign"];
+        int intString = [strSign intValue];
+        if (intString == 1) {
+            [self.laifangqudaoList removeAllObjects];
+            NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
+            for (int i = 0; i < arrInfo.count ; i++) {
+                NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                NSString * strId = [dicInfo objectForKey:@"id"];
+                NSString * strName = [dicInfo objectForKey:@"name"];
+                
+                NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+                [rowData setValue:strId forKey:@"id"];
+                [rowData setValue:strName forKey:@"name"];
+                
+                [self.laifangqudaoList addObject:rowData];
+            }
+            
+        }else{
+            NSLog(@"服务端返回错误");
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
 }
 
 -(void)getHttpInfo
@@ -199,10 +313,21 @@
     addView = addCustomerView;
 }
 
+- (void)receivedPushContent:(NSNotification*)notification{
+    NSString *content = [notification object];
+    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.laifangqudaoList = [[NSMutableArray alloc]init];
+    self.xuqiufangxingList = [[NSMutableArray alloc]init];
+    self.juzhuyetaiList = [[NSMutableArray alloc]init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -272,6 +397,7 @@
     addView = [self loadNibNamed:@"AddCustomerView" ofClass:[AddCustomerView class] andOwner:self];
     addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     addView.delegate = self; // Or do this in the xib file
+    [addView initDataLaifangqudao:self.laifangqudaoList xuqiufangxing:self.xuqiufangxingList juzhuyetai:self.juzhuyetaiList];
     [self.view addSubview:addView];
     
     NSLog(@"执行添加操作");

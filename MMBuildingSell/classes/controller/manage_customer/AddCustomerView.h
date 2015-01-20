@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CustomerBean.h"
 
+#import "NIDropDown.h"
+
 
 @protocol AddCustomerDelegate
 
@@ -23,9 +25,17 @@
 @end
 
 
-@interface AddCustomerView : UIView<UITextFieldDelegate>{
+@interface AddCustomerView : UIView<UITextFieldDelegate,NIDropDownDelegate>{
     
     id<AddCustomerDelegate> delegate;
+    
+    NIDropDown *dropDownLaiFang;
+    NIDropDown *dropDownXuQiu;
+    NIDropDown *dropDownJuZhu;
+    
+    NSString * strSelectIdLaiFang;
+    NSString * strSelectIdXuQiu;
+    NSString * strSelectIdJuZhu;
     
 }
 @property(retain,nonatomic)id<AddCustomerDelegate> delegate;
@@ -42,8 +52,26 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *intentionSeg;
 
 
+@property (nonatomic, retain) NSMutableArray *laifangqudaoList;
+@property (nonatomic, retain) NSMutableArray *xuqiufangxingList;
+@property (nonatomic, retain) NSMutableArray *juzhuyetaiList;
+
+@property (weak, nonatomic) IBOutlet UIButton *laifangqudaoBtn;
+@property (weak, nonatomic) IBOutlet UIButton *xuqiufangxingBtn;
+@property (weak, nonatomic) IBOutlet UIButton *juzhuyetaiBtn;
+
+
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)okAction:(id)sender;
+
+
+- (IBAction)dddddAction:(id)sender;
+
+
+
+-(void)initDataLaifangqudao:(NSMutableArray *)laifangqudao
+              xuqiufangxing:(NSMutableArray *)xuqiufangxing
+              juzhuyetai:(NSMutableArray *)juzhuyetai;
 
 
 @end

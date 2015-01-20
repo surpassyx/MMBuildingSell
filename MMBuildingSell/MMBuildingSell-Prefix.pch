@@ -24,6 +24,8 @@
 
 #import "LocalFilePath.h"
 
+#import "XWAlterview.h"
+
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 

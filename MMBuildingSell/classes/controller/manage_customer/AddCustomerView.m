@@ -12,16 +12,28 @@
 @implementation AddCustomerView
 
 @synthesize delegate;
+@synthesize laifangqudaoList,xuqiufangxingList,juzhuyetaiList;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+        self.laifangqudaoList = [[NSMutableArray alloc]init];
+        self.xuqiufangxingList = [[NSMutableArray alloc]init];
+        self.juzhuyetaiList = [[NSMutableArray alloc]init];
         
     }
     return self;
+}
+
+-(void)initDataLaifangqudao:(NSMutableArray *)laifangqudao
+              xuqiufangxing:(NSMutableArray *)xuqiufangxing
+                 juzhuyetai:(NSMutableArray *)juzhuyetai
+{
+    self.laifangqudaoList = laifangqudao;
+    self.xuqiufangxingList = xuqiufangxing;
+    self.juzhuyetaiList = juzhuyetai;
 }
 
 
@@ -111,35 +123,41 @@
 
 -(void)addCustomerHttp
 {
-    NSString * nameStr =@"张三";
-    NSString * sexStr =@"男";
-    NSString * statusStr =@"问询";
-    NSString * telStr =@"13898823456";
-    NSString * roomtypeStr =@"6";
-    NSString * livingspaceStr =@"120-140";
-    NSString * ownerStr =@"是";
-    NSString * producttypeStr =@"12";
-    NSString * callvisitStr =@"来电";
-    NSString * getwayStr =@"44";
-    NSString * bugdetStr =@"100";
-    NSString * intentionStr =@"一般";
+    NSString * nameStr =self.nameTextField.text;
+    NSString * sexStr =[self.sexSeg titleForSegmentAtIndex:[self.sexSeg selectedSegmentIndex]];
+    NSString * statusStr =[self.statusSeg titleForSegmentAtIndex:[self.statusSeg selectedSegmentIndex]];
+    NSString * telStr =self.telTextField.text;
+    NSString * roomtypeStr =strSelectIdXuQiu;
+    NSString * livingspaceStr =self.livingspaceTextField.text;
+    NSString * ownerStr =[self.ownerSeg titleForSegmentAtIndex:[self.ownerSeg selectedSegmentIndex]];
+    NSString * producttypeStr =strSelectIdJuZhu;
+    NSString * callvisitStr =[self.callvisitSeg titleForSegmentAtIndex:[self.callvisitSeg selectedSegmentIndex]];
+    NSString * getwayStr =strSelectIdLaiFang;
+    NSString * bugdetStr =self.bugdetTextField.text;
+    NSString * intentionStr = [self.intentionSeg titleForSegmentAtIndex:[self.intentionSeg selectedSegmentIndex]];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([nameStr length] > 0 &&  [sexStr length] > 0 &&  [statusStr length] > 0 &&  [telStr length] > 0 &&  [roomtypeStr length] > 0 &&  [livingspaceStr length] > 0 &&  [ownerStr length] > 0 &&  [producttypeStr length] > 0 &&  [callvisitStr length] > 0&&  [getwayStr length] > 0&&  [bugdetStr length] > 0&&  [intentionStr length] > 0) {
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&callvisit=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,callvisitStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
+        NSLog(@"url: %@", strUrl);
+        
+        NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            [self analysisJson:(NSDictionary *)responseObject];
+            CustomerBean * cb = [[CustomerBean alloc]init];
+            [delegate addPerson:cb];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
 
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&callvisit=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,callvisitStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
-    NSLog(@"url: %@", strUrl);
-    
-    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        [self analysisJson:(NSDictionary *)responseObject];
-        CustomerBean * cb = [[CustomerBean alloc]init];
-        [delegate addPerson:cb];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    }else{
+        [XWAlterview showmessage:@"提示" subtitle:@"数据填写不全" cancelbutton:@"确定"];
+    }
     
 }
 
@@ -169,5 +187,85 @@
 - (IBAction)okAction:(id)sender {
     
     [self addCustomerHttp];
+}
+
+- (IBAction)dddddAction:(id)sender
+{
+    [self selectClicked:sender];
+}
+
+
+- (void)selectClicked:(id)sender {
+
+    if (sender == self.laifangqudaoBtn) {
+        //Laifang
+        NSMutableArray *laifangArr = [[NSMutableArray alloc]init];;
+        for (NSMutableDictionary *rowData in self.laifangqudaoList) {
+            [laifangArr addObject:[rowData objectForKey:@"name"]];
+        }
+        if(dropDownLaiFang == nil) {
+            CGFloat f = 200;
+            dropDownLaiFang = [[NIDropDown alloc]showDropDown:sender :&f :laifangArr :nil :@"down"];
+            dropDownLaiFang.delegate = self;
+        }
+        else {
+            [dropDownLaiFang hideDropDown:sender];
+            [self rel];
+        }
+
+    }else if (sender == self.xuqiufangxingBtn){
+        //XuQiu
+        NSMutableArray *xuqiuArr = [[NSMutableArray alloc]init];;
+        for (NSMutableDictionary *rowData in self.xuqiufangxingList) {
+            [xuqiuArr addObject:[rowData objectForKey:@"name"]];
+        }
+        if(dropDownLaiFang == nil) {
+            CGFloat f = 200;
+            dropDownXuQiu = [[NIDropDown alloc]showDropDown:sender :&f :xuqiuArr :nil :@"down"];
+            dropDownXuQiu.delegate = self;
+        }
+        else {
+            [dropDownXuQiu hideDropDown:sender];
+            [self rel];
+        }
+    }else if (sender == self.juzhuyetaiBtn){
+        //JuZhu
+        NSMutableArray *juzhuArr = [[NSMutableArray alloc]init];;
+        for (NSMutableDictionary *rowData in self.juzhuyetaiList) {
+            [juzhuArr addObject:[rowData objectForKey:@"name"]];
+        }
+        if(dropDownJuZhu == nil) {
+            CGFloat f = 200;
+            dropDownJuZhu = [[NIDropDown alloc]showDropDown:sender :&f :juzhuArr :nil :@"down"];
+            dropDownJuZhu.delegate = self;
+        }
+        else {
+            [dropDownJuZhu hideDropDown:sender];
+            [self rel];
+        }
+    }
+    
+    
+}
+
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender selectPos:(int)nPos
+{
+    if (sender == dropDownLaiFang) {
+        strSelectIdLaiFang = [[self.laifangqudaoList objectAtIndex:nPos] objectForKey:@"id"];
+    } else if(sender == dropDownXuQiu){
+        strSelectIdXuQiu = [[self.xuqiufangxingList objectAtIndex:nPos] objectForKey:@"id"];
+    }else if(sender == dropDownJuZhu){
+        strSelectIdJuZhu = [[self.juzhuyetaiList objectAtIndex:nPos] objectForKey:@"id"];
+    }
+    
+    [self rel];
+}
+
+-(void)rel
+{
+    //    [dropDown release];
+    dropDownLaiFang = nil;
+    dropDownXuQiu = nil;
+    dropDownJuZhu = nil;
 }
 @end
