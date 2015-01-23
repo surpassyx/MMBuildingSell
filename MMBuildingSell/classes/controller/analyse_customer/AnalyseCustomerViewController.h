@@ -7,24 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XYPieChart.h"
-#import "XCMultiSortTableView.h"
+//#import "XYPieChart.h"
+//#import "XCMultiSortTableView.h"
 
-@interface AnalyseCustomerViewController : UIViewController<XYPieChartDelegate, XYPieChartDataSource,UIWebViewDelegate,XCMultiTableViewDataSource>
+@interface AnalyseCustomerViewController : UIViewController<UIWebViewDelegate>
 {
-    XYPieChart *pieChartRight;
     UIWebView *myWebView;
-    
-    XCMultiTableView *tablePieView;
-    XCMultiTableView *tableLouDouView;
-    
-    NSMutableArray *headDataPie;
-    NSMutableArray *leftTableDataPie;
-    NSMutableArray *rightTableDataPie;
-    
-    NSMutableArray *headDataDou;
-    NSMutableArray *leftTableDataDou;
-    NSMutableArray *rightTableDataDou;
     
     UIImageView *imageUpView;
     UIImageView *imageDownView;
@@ -35,7 +23,6 @@
     
 }
 
-@property(nonatomic, strong) NSMutableArray *slices;
-@property(nonatomic, strong) NSArray        *sliceColors;
+@property (nonatomic, retain) NSMutableArray *dataList;
 
 @end

@@ -20,6 +20,8 @@
 #import "TSDefines.h"
 #import <QuartzCore/QuartzCore.h>
 
+#import "ZhiYeJiHuaViewController.h"
+
 @interface SelectViewController () <SegmentViewDelegate,QCheckBoxDelegate,TSTableViewDelegate>
 {
     TSTableView *_tableView1;
@@ -143,7 +145,7 @@
     [self.view addSubview:imageView];
 
     roomNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 300 - 46, 220, 30)];
-    roomNameLabel.text = @"1#楼1单元1楼1号";
+    roomNameLabel.text = @"1-1802";
     [self.view addSubview:roomNameLabel];
     
     roomSatausLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 285, 220, 30)];
@@ -177,13 +179,13 @@
     [self.view addSubview:totalLabel];
     
     
-    freeTotalJisuanBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    freeTotalJisuanBtn.frame = CGRectMake(700, 435, 38, 35);
-//    [freeTotalJisuanBtn setTitle:@"计算" forState:UIControlStateNormal];
-    [freeTotalJisuanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [freeTotalJisuanBtn setBackgroundImage:[UIImage imageNamed:@"item_calculator_btn"] forState:UIControlStateNormal];
-    [freeTotalJisuanBtn addTarget:self action:@selector(btnPresentPopup:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:freeTotalJisuanBtn];
+//    freeTotalJisuanBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    freeTotalJisuanBtn.frame = CGRectMake(700, 435, 38, 35);
+////    [freeTotalJisuanBtn setTitle:@"计算" forState:UIControlStateNormal];
+//    [freeTotalJisuanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [freeTotalJisuanBtn setBackgroundImage:[UIImage imageNamed:@"item_calculator_btn"] forState:UIControlStateNormal];
+//    [freeTotalJisuanBtn addTarget:self action:@selector(btnPresentPopup:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:freeTotalJisuanBtn];
     
     
 //    selectBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -196,7 +198,7 @@
     
     nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     nextBtn.frame = CGRectMake(545, 550, 220, 40);
-    [nextBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [nextBtn setTitle:@"置业计划" forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nextBtn setBackgroundImage:[UIImage imageNamed:@"select_btn_ok"] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -320,7 +322,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"selectedß---JSON: %@", responseObject);
-        [self analysisJson:(NSDictionary *)responseObject];
+//        [self analysisHouseJson:(NSDictionary *)responseObject];
         [self initAllView];
 //        [self.myTableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -353,7 +355,7 @@
     
     [self initRightView];
     
-    _tableView1 = [[TSTableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2 + 50, self.view.frame.size.width - 40, self.view.frame.size.height/2 - 70)];
+    _tableView1 = [[TSTableView alloc] initWithFrame:CGRectMake(23, 35, 516 - 31, 704 - 66)];
     _tableView1.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView1.delegate = self;
     
@@ -366,7 +368,7 @@
     //    [_model2 setColumns:columns2 andRows:rows2];
     
     NSArray *columns2 = [self columnsForBuild];
-    NSArray *rows2 = [self rowsForAppDirectory];
+    NSArray *rows2 = [self rowsForBuild];
     [_model1 setColumns:columns2 andRows:rows2];
 
 }
@@ -376,11 +378,21 @@
     [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     self.dataList = [[NSMutableArray alloc]init];
     louData = [[NSMutableDictionary alloc]init];
@@ -392,9 +404,12 @@
 }
 
 -(void)nextBtnAction:(id)sender {
-    PrintPurchasingViewController *print = [[PrintPurchasingViewController alloc]init];
-    [print initData:rowHouseData];
-    [self.navigationController pushViewController:print animated:NO];
+    ZhiYeJiHuaViewController * zhiye = [[ZhiYeJiHuaViewController alloc]init];
+    [self.navigationController pushViewController:zhiye animated:NO];
+    
+//    PrintPurchasingViewController *print = [[PrintPurchasingViewController alloc]init];
+//    [print initData:rowHouseData];
+//    [self.navigationController pushViewController:print animated:NO];
 }
 
 -(void)imageClick:(UITapGestureRecognizer*)sender {
@@ -511,7 +526,7 @@
     NSMutableArray *myMutableArray = [[NSMutableArray alloc]init];
      NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
     arrTemp = [louData objectForKey:@"louarr"];
-    TSColumn * tsRow = [TSColumn columnWithDictionary:@{ @"title" : @"楼层名称", @"subtitle" : @"", @"minWidth" : @50, @"defWidth" : @50 }];
+    TSColumn * tsRow = [TSColumn columnWithDictionary:@{ @"title" : @"楼层名称", @"subtitle" : @"", @"minWidth" : @80, @"defWidth" : @80 }];
     [myMutableArray addObject:tsRow];
     for (NSMutableDictionary *danyuanArrData in arrTemp) {
         
@@ -538,136 +553,64 @@
         [myMutableArray addObject:tsRow1];
     }
     
-   
-    
-    
-//    NSArray *columns = @[
-//                         [TSColumn columnWithDictionary:@{ @"title" : @"楼层名称", @"subtitle" : @"", @"minWidth" : @50, @"defWidth" : @50 }],
-//                         [TSColumn columnWithDictionary:@{ @"title" : @"Attributes", @"subcolumns" : @[
-//                                                                   @{ @"title" : @"File size", @"titleFontSize" : @12, @"titleColor" : @"FF006F00", @"headerHeight" : @24, @"defWidth" : @64},
-//                                                                   @{ @"title" : @"Modification date", @"titleFontSize" : @12, @"headerHeight" : @24, @"defWidth" : @200},
-//                                                                   @{ @"title" : @"Creation date", @"titleFontSize" : @12, @"headerHeight" : @24, @"defWidth" : @200}
-//                                                                   ]}
-//                          ]
-//                         ];
     return [myMutableArray copy];
 }
 
-- (NSArray *)rowsForAppDirectory
+- (NSArray *)rowsForBuild
 {
-    NSArray *dirs = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    if(!dirs || dirs.count ==0)
-        return nil;
     
-    NSURL *rootUrl = [dirs lastObject];
+    NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
+    arrTemp = [louData objectForKey:@"louarr"];
+    NSString * strCeng = [louData objectForKey:@"ceng_num"];
+    int nCeng = [strCeng intValue];
+    NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:nCeng];
     
-    return [self rowsForDirectory:[rootUrl URLByDeletingLastPathComponent]];
-}
-
-- (NSArray *)rowsForDirectory:(NSURL *)rootUrl
-{
-    NSError *error = nil;
-    NSArray *properties = @[
-                            NSURLLocalizedNameKey,
-                            NSURLCreationDateKey,
-                            NSURLContentModificationDateKey,
-                            NSURLIsSymbolicLinkKey,
-                            NSURLIsDirectoryKey,
-                            NSURLIsHiddenKey,
-                            NSURLFileSizeKey
-                            ];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"HH:MM  dd-MMM-YYYY"];
-    
-    NSArray *array = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:rootUrl
-                                                   includingPropertiesForKeys:properties
-                                                                      options:0//(NSDirectoryEnumerationSkipsHiddenFiles)
-                                                                        error:&error];
-    NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:array.count];
-    for(NSURL * url in array)
-    {
-        NSString *localizedName = nil;
-        [url getResourceValue:&localizedName forKey:NSURLLocalizedNameKey error:NULL];
+    for (int i = 0; i < nCeng; i++) {
         
-        NSNumber *isPackage = nil;
-        [url getResourceValue:&isPackage forKey:NSURLIsPackageKey error:NULL];
+        NSMutableArray *arrTemp2 = [[NSMutableArray alloc]init];
         
-        NSNumber *isDirectory = nil;
-        [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
-        
-        NSNumber *isHidden = nil;
-        [url getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:NULL];
-        
-        NSNumber *isSymbolic = nil;
-        [url getResourceValue:&isSymbolic forKey:NSURLIsSymbolicLinkKey error:NULL];
-        
-        TSCell *cellFilename = [TSCell cellWithValue:localizedName];
-        cellFilename.textAlignment = NSTextAlignmentLeft;
-        NSArray *subrows = @[];
-        if([isDirectory boolValue])
-        {
-            subrows = [self rowsForDirectory:url];
-            cellFilename.icon = [UIImage imageNamed:@"TableViewFolderIcon"];
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
+        NSString * strI = [[NSString alloc]initWithFormat:@"%2d",i];
+        NSDictionary *cellCengInfo = @{
+                                   @"value" : strI
+                                   };
+        [arrTemp2 addObject:cellCengInfo];
+        for (int j = 0 ; j < [arrTemp count]; j++) {
             
+            NSString * strRoomName = [[[[arrTemp objectAtIndex:j] objectForKey:@"danyuan_arr"] objectAtIndex:i] objectForKey:@"roomname"];
+            NSString * strRoomState = [[[[arrTemp objectAtIndex:j] objectForKey:@"danyuan_arr"] objectAtIndex:i] objectForKey:@"roomstatus"];
+            
+            TSCell *cellFilename = [TSCell cellWithValue:strRoomName];
+            if ([@"1" isEqualToString:strRoomState]) {
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"2" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"3" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"4" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"5" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"6" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"7" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }else if ([@"8" isEqualToString:strRoomState]){
+                cellFilename.icon = [UIImage imageNamed:@""];
+            }
+            cellFilename.textColor = [UIColor grayColor];
+            [arrTemp2 addObject:cellFilename];
         }
-        else
-        {
-            cellFilename.icon = [UIImage imageNamed:@"TableViewFileIcon"];
-            cellFilename.textColor = [UIColor colorWithRed:0.5 green:0.4 blue:0 alpha:1];
-        }
+        [tempDic setObject:arrTemp2 forKey:@"cells"];
         
-        if([isHidden boolValue])
-        {
-            cellFilename.textColor = [UIColor colorWithRed:0.5 green:0.1 blue:0.1 alpha:1];
-        }
-        
-        if([isPackage boolValue])
-        {
-            cellFilename.icon = [UIImage imageNamed:@"TableViewPackageIcon"];
-        }
-        
-        NSNumber *fileSize = nil;
-        [url getResourceValue:&fileSize forKey:NSURLFileSizeKey error:NULL];
-        NSString *fileSizeStr = @"";
-        if(fileSize)
-            fileSizeStr = [NSString stringWithFormat:@"%.2f kb",[fileSize floatValue]/1024];
-        
-        NSDate *creationDate = nil;
-        [url getResourceValue:&creationDate forKey:NSURLCreationDateKey error:NULL];
-        
-        NSDate *modificationDate = nil;
-        [url getResourceValue:&modificationDate forKey:NSURLContentModificationDateKey error:NULL];
-        
-        TSRow *row = [TSRow rowWithDictionary:@{
-                                                @"cells" : @[
-                                                        cellFilename,
-                                                        @{@"value" : fileSizeStr},
-                                                        @{@"value" : [dateFormatter stringFromDate:modificationDate]},
-                                                        @{@"value" : [dateFormatter stringFromDate:creationDate]}
-                                                        
-                                                        ],
-                                                @"subrows" : subrows
-                                                }];
+        TSRow *row = [TSRow rowWithDictionary:tempDic];
         [rows addObject:row];
-    }
-    return [NSArray arrayWithArray:rows];
-}
 
-- (TSRow *)rowForDummyFile
-{
-    TSRow *row = [TSRow rowWithDictionary:@{
-                                            @"cells" : @[
-                                                    @{@"value" : @"New File"},
-                                                    @{@"value" : @"-"},
-                                                    @{@"value" : @"-"},
-                                                    @{@"value" : @"-"}
-                                                    ],
-                                            }];
-    return row;
+    }
+    
+    return [rows copy];
     
 }
-
 
 
 @end

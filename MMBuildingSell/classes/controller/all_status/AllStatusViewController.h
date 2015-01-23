@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AllStatusViewController : UIViewController
-
+@interface AllStatusViewController : UIViewController<UIWebViewDelegate>
+{
+    UIWebView *myWebView;
+}
+@property (nonatomic, retain) NSMutableArray *dataList;
 @end

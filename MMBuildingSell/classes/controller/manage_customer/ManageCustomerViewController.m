@@ -102,12 +102,21 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+    
     [self getHttpInfo];
     [self getXuQiuFangXing];
     [self getLaiFangQuDao];
     [self getJuZhuYeTai];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
 }
 
 
@@ -326,8 +335,6 @@
     self.laifangqudaoList = [[NSMutableArray alloc]init];
     self.xuqiufangxingList = [[NSMutableArray alloc]init];
     self.juzhuyetaiList = [[NSMutableArray alloc]init];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     

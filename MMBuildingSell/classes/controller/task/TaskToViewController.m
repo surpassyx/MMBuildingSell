@@ -120,8 +120,8 @@
             notion:(NSString *)strNotion
 {
     //http://www.gytaobao.cn:9006/FC/Action?action=9&taskid=311203608859&result=2&upexecute=203101844937&followMan=2&notion=请尽快完成该任务内容1
-    
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=9&taskid=%@&result=%@&upexecute=%@&followMan=%@&notion=%@",taskId,strResult,strUpexecute,strFollowMan,strNotion];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=9&taskid=%@&result=%@&firstrelease=%@&upexecute=%@&followMan=%@&notion=%@",taskId,strResult,[userDefaults objectForKey:@"usercode"],strUpexecute,strFollowMan,strNotion];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     NSLog(@"taskToUrl=%@",API_BASE_URL(strUrl));
     

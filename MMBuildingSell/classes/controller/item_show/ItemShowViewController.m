@@ -41,8 +41,6 @@ static NSMutableArray *colors;
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
-    
     SegmentView *segmentView = [[SegmentView alloc] init];
     segmentView.titles = @[@"项目展示", @"剖面图", @"房型展示", @"物业展示",@"周边配套", @"视频展示"];
     segmentView.delegate = self;
@@ -145,9 +143,17 @@ static NSMutableArray *colors;
 
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [imageShowView beginSlideShow];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
 }
 
 #pragma mark - Actions
