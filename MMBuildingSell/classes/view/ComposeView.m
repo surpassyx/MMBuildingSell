@@ -46,7 +46,7 @@
     _dockItems = @[
        [DockItem itemWithIcon:@"tabbar_tasksend.png" className:@"TaskSendViewController" modal:YES],
        [DockItem itemWithIcon:@"tabbar_tasklist.png" className:@"TaskListViewController" modal:YES],
-       [DockItem itemWithIcon:@"tabbar_ring.png" className:@"TaskListViewController" modal:YES]
+       [DockItem itemWithIcon:@"tabbar_ring.png" className:@"MessageListViewController" modal:YES]
                    ];
 }
 

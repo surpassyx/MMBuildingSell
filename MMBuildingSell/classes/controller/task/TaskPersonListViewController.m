@@ -122,7 +122,7 @@
 {
     //http://218.24.45.194:9001/Action?action=5&enterisecode=SYHDMD&installment=02
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=5&enterisecode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],@"02"];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=5&enterisecode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
     NSLog(@"taskpersonUrl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     NSLog(@"taskpersonUrl=%@",API_BASE_URL(hexUrl));

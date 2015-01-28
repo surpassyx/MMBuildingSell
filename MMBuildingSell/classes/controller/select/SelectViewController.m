@@ -216,19 +216,24 @@
         for (int i = 0; i < arrInfo.count ; i++) {
             NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
             
-            NSString * strLoudongName = [dicInfo objectForKey:@"loudong_name"];
-            NSString * strCengNum = [dicInfo objectForKey:@"ceng_num"];
-            NSMutableArray *arrLou = [dicInfo objectForKey:@"louarr"];
+            NSString * strLoudongName = [dicInfo objectForKey:@"floorName"];
+            NSString * strCengNum = [dicInfo objectForKey:@"floorLayers"];
+            NSMutableArray *arrLou = [dicInfo objectForKey:@"floorArr"];
              NSMutableArray *arrTemp2 = [[NSMutableArray alloc]init];
             
             for (int i = 0; i < arrLou.count ; i++) {
-                NSString * strDanyuanName = [dicInfo objectForKey:@"danyuan_name"];
-                NSString * strDanyuanNum = [dicInfo objectForKey:@"danyuan_num"];
-                NSMutableArray *arrDanyuan = [dicInfo objectForKey:@"danyuan_arr"];
+                
+                NSDictionary *louInfo = [arrLou objectAtIndex:i];
+                
+                NSString * strDanyuanName = [louInfo objectForKey:@"unitName"];
+               
+                NSMutableArray *arrDanyuan = [louInfo objectForKey:@"unitArr"];
+                
+                 NSString * strDanyuanNum = [[NSString alloc]initWithFormat:@"%d",[arrDanyuan count]/[strCengNum intValue]];
                 
                 NSMutableDictionary *danyuanArrData = [[NSMutableDictionary alloc]init];
                 [danyuanArrData setValue:strDanyuanNum forKey:@"danyuan_num"];
-                [danyuanArrData setValue:strDanyuanName forKey:@"danyuan_name"];
+                [danyuanArrData setValue:strDanyuanName forKey:@"unitName"];
                 NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
                 for (int i = 0; i < arrDanyuan.count ; i++) {
                     NSDictionary *dicInfo = [arrDanyuan objectAtIndex:i];
@@ -239,6 +244,7 @@
                     NSString * strRoomStatus =[dicInfo objectForKey:@"roomstatus"];
                     NSString * strAllAres =[dicInfo objectForKey:@"allares"];
                     NSString * strRealAres =[dicInfo objectForKey:@"realares"];
+                    NSString * strAllPrice =[dicInfo objectForKey:@"allprice"];
                     NSString * strRealPrice =[dicInfo objectForKey:@"realprice"];
                     NSString * strTotal =[dicInfo objectForKey:@"total"];
                     
@@ -250,6 +256,7 @@
                     [roomArrData setValue:strRoomStatus forKey:@"roomstatus"];
                     [roomArrData setValue:strAllAres forKey:@"allares"];
                     [roomArrData setValue:strRealAres forKey:@"realares"];
+                    [roomArrData setValue:strAllPrice forKey:@"allprice"];
                     [roomArrData setValue:strRealPrice forKey:@"realprice"];
                     [roomArrData setValue:strTotal forKey:@"total"];
                     
@@ -257,13 +264,13 @@
                     [arrTemp addObject:roomArrData];
                 }
                 
-                [danyuanArrData setValue:arrTemp forKey:@"danyuan_arr"];
+                [danyuanArrData setValue:arrTemp forKey:@"unitArr"];
                 [arrTemp2 addObject:danyuanArrData];
             }
             NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-            [rowData setValue:strLoudongName forKey:@"loudong_name"];
-            [rowData setValue:strCengNum forKey:@"ceng_num"];
-            [rowData setValue:arrTemp2 forKey:@"louarr"];
+            [rowData setValue:strLoudongName forKey:@"floorName"];
+            [rowData setValue:strCengNum forKey:@"floorLayers"];
+            [rowData setValue:arrTemp2 forKey:@"floorArr"];
             [self.dataList addObject:rowData];
         }
         
@@ -272,42 +279,42 @@
     }
 }
 
--(void)analysisJson:(NSDictionary *)jsonDic
-{
-    NSString * strSign = [jsonDic objectForKey:@"sign"];
-    int intString = [strSign intValue];
-    if (intString == 1) {
-        NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
-        for (int i = 0; i < arrInfo.count ; i++) {
-            NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-            NSString * strRoomCode = [dicInfo objectForKey:@"roomcode"];
-            NSString * strRoomName =[dicInfo objectForKey:@"roomname"];
-            NSString * strRoomStatus =[dicInfo objectForKey:@"roomstatus"];
-            NSString * strRoomType =[dicInfo objectForKey:@"roomtype"];
-            NSString * strAllAres =[dicInfo objectForKey:@"allares"];
-            NSString * strRealAres =[dicInfo objectForKey:@"realares"];
-            NSString * strRealPrice =[dicInfo objectForKey:@"realprice"];
-            NSString * strTotal =[dicInfo objectForKey:@"total"];
-            NSString * strId =[dicInfo objectForKey:@"id"];
-            
-            NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-            [rowData setValue:strRoomCode forKey:@"roomcode"];
-            [rowData setValue:strRoomName forKey:@"roomname"];
-            [rowData setValue:strRoomStatus forKey:@"roomstatus"];
-            [rowData setValue:strRoomType forKey:@"roomtype"];
-            [rowData setValue:strAllAres forKey:@"allares"];
-            [rowData setValue:strRealAres forKey:@"realares"];
-            [rowData setValue:strRealPrice forKey:@"realprice"];
-            [rowData setValue:strTotal forKey:@"total"];
-            [rowData setValue:strId forKey:@"id"];
-
-            [self.dataList addObject:rowData];
-        }
-    }else{
-        NSLog(@"服务端返回错误");
-    }
-    
-}
+//-(void)analysisJson:(NSDictionary *)jsonDic
+//{
+//    NSString * strSign = [jsonDic objectForKey:@"sign"];
+//    int intString = [strSign intValue];
+//    if (intString == 1) {
+//        NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
+//        for (int i = 0; i < arrInfo.count ; i++) {
+//            NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+//            NSString * strRoomCode = [dicInfo objectForKey:@"roomcode"];
+//            NSString * strRoomName =[dicInfo objectForKey:@"roomname"];
+//            NSString * strRoomStatus =[dicInfo objectForKey:@"roomstatus"];
+//            NSString * strRoomType =[dicInfo objectForKey:@"roomtype"];
+//            NSString * strAllAres =[dicInfo objectForKey:@"allares"];
+//            NSString * strRealAres =[dicInfo objectForKey:@"realares"];
+//            NSString * strRealPrice =[dicInfo objectForKey:@"realprice"];
+//            NSString * strTotal =[dicInfo objectForKey:@"total"];
+//            NSString * strId =[dicInfo objectForKey:@"id"];
+//            
+//            NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+//            [rowData setValue:strRoomCode forKey:@"roomcode"];
+//            [rowData setValue:strRoomName forKey:@"roomname"];
+//            [rowData setValue:strRoomStatus forKey:@"roomstatus"];
+//            [rowData setValue:strRoomType forKey:@"roomtype"];
+//            [rowData setValue:strAllAres forKey:@"allares"];
+//            [rowData setValue:strRealAres forKey:@"realares"];
+//            [rowData setValue:strRealPrice forKey:@"realprice"];
+//            [rowData setValue:strTotal forKey:@"total"];
+//            [rowData setValue:strId forKey:@"id"];
+//
+//            [self.dataList addObject:rowData];
+//        }
+//    }else{
+//        NSLog(@"服务端返回错误");
+//    }
+//    
+//}
 
 
 
@@ -322,7 +329,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"selectedß---JSON: %@", responseObject);
-//        [self analysisHouseJson:(NSDictionary *)responseObject];
+        [self analysisHouseJson:(NSDictionary *)responseObject];
         [self initAllView];
 //        [self.myTableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -335,7 +342,7 @@
 {
     NSMutableArray * nameArr = [[NSMutableArray alloc]init];
     for (NSMutableDictionary *rowData in self.dataList) {
-        NSString * strName = [rowData objectForKey:@"loudong_name"];
+        NSString * strName = [rowData objectForKey:@"floorName"];
         [nameArr addObject:strName];
     }
     SegmentView *segmentView = [[SegmentView alloc] init];
@@ -366,6 +373,9 @@
     //    NSArray *columns2 = [self columnsInfo2];
     //    NSArray *rows2 = [self rowsInfo2];
     //    [_model2 setColumns:columns2 andRows:rows2];
+    if ([self.dataList count] > 0) {
+       louData = [self.dataList objectAtIndex:0];
+    }
     
     NSArray *columns2 = [self columnsForBuild];
     NSArray *rows2 = [self rowsForBuild];
@@ -399,7 +409,7 @@
     [self getHttpInfo];
     
     
-    [self initAllView];
+//    [self initAllView];
     
 }
 
@@ -419,8 +429,10 @@
 
 - (void)segmentView:(SegmentView *)segmentView didSelectedSegmentAtIndex:(int)index
 {
-    NSLog(@"点击了哪个位置---%d", index);
     louData = [self.dataList objectAtIndex:index];
+    NSArray *columns2 = [self columnsForBuild];
+    NSArray *rows2 = [self rowsForBuild];
+    [_model1 setColumns:columns2 andRows:rows2];
 }
 
 
@@ -525,14 +537,14 @@
 {
     NSMutableArray *myMutableArray = [[NSMutableArray alloc]init];
      NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
-    arrTemp = [louData objectForKey:@"louarr"];
-    TSColumn * tsRow = [TSColumn columnWithDictionary:@{ @"title" : @"楼层名称", @"subtitle" : @"", @"minWidth" : @80, @"defWidth" : @80 }];
+    arrTemp = [louData objectForKey:@"floorArr"];
+    TSColumn * tsRow = [TSColumn columnWithDictionary:@{ @"title" : @"楼层名称", @"subtitle" : @"", @"minWidth" : @70, @"defWidth" : @70 }];
     [myMutableArray addObject:tsRow];
     for (NSMutableDictionary *danyuanArrData in arrTemp) {
         
         NSString * strNum = [danyuanArrData objectForKey:@"danyuan_num"];
         NSInteger num = [strNum integerValue];
-        NSString * strName = [danyuanArrData objectForKey:@"danyuan_name"];
+        NSString * strName = [danyuanArrData objectForKey:@"unitName"];
         NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
         [tempDic setObject:strName forKey:@"title"];
         NSMutableArray *arrTemp2 = [[NSMutableArray alloc]init];
@@ -542,8 +554,8 @@
             [tempDic2 setObject:strNnnn forKey:@"title"];
             [tempDic2 setObject:@12 forKey:@"titleFontSize"];
             [tempDic2 setObject:@"FF006F00" forKey:@"titleColor"];
-            [tempDic2 setObject:@50 forKey:@"defWidth"];
-            [tempDic2 setObject:@50 forKey:@"minWidth"];
+            [tempDic2 setObject:@60 forKey:@"defWidth"];
+            [tempDic2 setObject:@60 forKey:@"minWidth"];
             
             [arrTemp2 addObject:tempDic2];
         }
@@ -560,43 +572,43 @@
 {
     
     NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
-    arrTemp = [louData objectForKey:@"louarr"];
-    NSString * strCeng = [louData objectForKey:@"ceng_num"];
+    arrTemp = [louData objectForKey:@"floorArr"];
+    NSString * strCeng = [louData objectForKey:@"floorLayers"];
     int nCeng = [strCeng intValue];
     NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:nCeng];
     
-    for (int i = 0; i < nCeng; i++) {
+    for (int i = nCeng; i > 0; i--) {
         
         NSMutableArray *arrTemp2 = [[NSMutableArray alloc]init];
         
         NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
-        NSString * strI = [[NSString alloc]initWithFormat:@"%2d",i];
+        NSString * strI = [[NSString alloc]initWithFormat:@"%02d",i];
         NSDictionary *cellCengInfo = @{
                                    @"value" : strI
                                    };
         [arrTemp2 addObject:cellCengInfo];
         for (int j = 0 ; j < [arrTemp count]; j++) {
             
-            NSString * strRoomName = [[[[arrTemp objectAtIndex:j] objectForKey:@"danyuan_arr"] objectAtIndex:i] objectForKey:@"roomname"];
-            NSString * strRoomState = [[[[arrTemp objectAtIndex:j] objectForKey:@"danyuan_arr"] objectAtIndex:i] objectForKey:@"roomstatus"];
+            NSString * strRoomName = [[[[arrTemp objectAtIndex:j] objectForKey:@"unitArr"] objectAtIndex:(nCeng - i)] objectForKey:@"roomname"];
+            NSString * strRoomState = [[[[arrTemp objectAtIndex:j] objectForKey:@"unitArr"] objectAtIndex:(nCeng - i)] objectForKey:@"roomstatus"];
             
             TSCell *cellFilename = [TSCell cellWithValue:strRoomName];
             if ([@"1" isEqualToString:strRoomState]) {
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"1"];
             }else if ([@"2" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"2"];
             }else if ([@"3" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"3"];
             }else if ([@"4" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"4"];
             }else if ([@"5" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"5"];
             }else if ([@"6" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"6"];
             }else if ([@"7" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"7"];
             }else if ([@"8" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@""];
+                cellFilename.icon = [UIImage imageNamed:@"8"];
             }
             cellFilename.textColor = [UIColor grayColor];
             [arrTemp2 addObject:cellFilename];

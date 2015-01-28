@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -164,6 +164,52 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-mz-hkD">
+                    <rect key="frame" x="8" y="397" width="138" height="30"/>
+                    <state key="normal" title="点击设置来访日期" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="setDateAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="Ujv-mS-gU6"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="说明：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbX-cb-O8r">
+                    <rect key="frame" x="8" y="439" width="51" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-dh-6in">
+                    <rect key="frame" x="53" y="435" width="589" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-p9-pwO">
+                    <rect key="frame" x="539" y="397" width="103" height="30"/>
+                    <state key="normal" title="添加追踪信息" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addZhuiZongAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="YVF-8W-1oC"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2V1-g6-4dl">
+                    <rect key="frame" x="8" y="473" width="634" height="219"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="eP6-Nl-2pl"/>
+                        <outlet property="delegate" destination="-1" id="Byd-Ce-0DF"/>
+                    </connections>
+                </tableView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="G8v-0D-dKw">
+                    <rect key="frame" x="198" y="397" width="294" height="29"/>
+                    <segments>
+                        <segment title="来电"/>
+                        <segment title="来访"/>
+                        <segment title="电转访"/>
+                        <segment title="回访"/>
+                    </segments>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -172,14 +218,18 @@
             <connections>
                 <outlet property="bugdetLabel" destination="Nga-ZB-bFi" id="Rd5-Si-BXD"/>
                 <outlet property="callvisitLabel" destination="JdR-ik-MOY" id="4jN-lm-Qor"/>
+                <outlet property="callvisitSeg" destination="G8v-0D-dKw" id="mfq-kt-a1k"/>
                 <outlet property="getwayLabel" destination="Osb-lN-qO7" id="Nvr-Oh-xy9"/>
                 <outlet property="intentionLabel" destination="kvO-WZ-xLy" id="49e-eX-Vmn"/>
                 <outlet property="livingspaceLabel" destination="9zr-zo-C09" id="Mv7-t7-FIK"/>
+                <outlet property="myTable" destination="2V1-g6-4dl" id="6V2-3g-cfN"/>
                 <outlet property="nameLabel" destination="seG-Pg-kRp" id="M5x-Km-pbi"/>
                 <outlet property="noLabel" destination="PpY-VV-D0d" id="zBC-y1-RJp"/>
                 <outlet property="ownerLabel" destination="dLA-Q7-KWy" id="oWL-iQ-2t6"/>
                 <outlet property="producttypeLabel" destination="mpq-al-Zrm" id="Z5J-k4-ch7"/>
+                <outlet property="remarkTextField" destination="4PK-dh-6in" id="y8l-aA-7DA"/>
                 <outlet property="roomtypeLabel" destination="bbc-6c-4ps" id="ZwX-zd-kGU"/>
+                <outlet property="setDateBtn" destination="GAi-mz-hkD" id="EC1-wM-mb7"/>
                 <outlet property="sexLabel" destination="9xR-Va-O5v" id="zUi-VQ-koX"/>
                 <outlet property="statusLabel" destination="y49-Ik-Nbx" id="PCS-CG-6D2"/>
                 <outlet property="telLabel" destination="skv-41-4lR" id="Qyj-GK-h4l"/>
@@ -189,6 +239,7 @@
     </objects>
     <resources>
         <image name="detail_up_bk.png" width="714" height="318"/>
+        <image name="task_send_normal_btn.png" width="245" height="31"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

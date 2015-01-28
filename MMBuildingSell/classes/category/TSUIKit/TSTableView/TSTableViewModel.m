@@ -558,8 +558,13 @@
 {
     VerboseLog();
     TSRow *row = [self rowAtPath:rowPath];
-    TSCell *cell = row.cells[index];
-    return cell;
+    if (index < [row.cells count]) {
+        TSCell *cell = row.cells[index];
+        return cell;
+    }else{
+        return nil;
+    }
+    
 }
 
 - (TSColumn *)columnAtIndex:(NSInteger)index

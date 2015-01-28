@@ -378,6 +378,7 @@
     myView.usernameLabel.text = username;
     myView.bugdetLabel.text = bugdet;
     myView.intentionLabel.text = intention;
+    [myView initCustomNo:no];
     
     [self.view addSubview:myView];
 }
@@ -577,6 +578,27 @@
 -(void)moveDownView:(UITextField *)textField
 {
     addView.frame =CGRectMake(AddBtnWIDTH, 0, addView.frame.size.width, addView.frame.size.height);
+}
+
+-(void)moveUpCustomerDetailView:(UITextField *)textField
+{
+    CGRect frame = textField.frame;
+    int offset = frame.origin.y + 32 - (myView.frame.size.height - 352);//键盘高度216
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
+    if(offset > 0)
+        myView.frame = CGRectMake(AddBtnWIDTH, -offset, myView.frame.size.width, myView.frame.size.height);
+    
+    [UIView commitAnimations];
+
+}
+-(void)moveDownCustomerDetailView:(UITextField *)textField
+{
+    myView.frame =CGRectMake(AddBtnWIDTH, 2, myView.frame.size.width, myView.frame.size.height);
 }
 
 

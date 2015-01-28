@@ -11,7 +11,7 @@
 #import "AddCustomerView.h"
 #import "CustomerBean.h"
 
-@interface ManageCustomerViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,AddCustomerDelegate>{
+@interface ManageCustomerViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,AddCustomerDelegate,CustomerDetailDelegate>{
     
     CustomerDetailView *myView;
     AddCustomerView *addView;

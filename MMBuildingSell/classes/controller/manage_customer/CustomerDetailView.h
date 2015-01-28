@@ -7,12 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AMRatingControl.h"
 
-@interface CustomerDetailView : UIView{
-//    UIView *view;
-    AMRatingControl *simpleRatingControl;
+@protocol CustomerDetailDelegate
+
+@optional
+
+-(void)moveUpCustomerDetailView:(UITextField *)textField;
+-(void)moveDownCustomerDetailView:(UITextField *)textField;
+
+@end
+
+@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate>{
+    id<CustomerDetailDelegate> delegate;
+    NSString * strCustomNo;
 }
+
+@property(retain,nonatomic)id<CustomerDetailDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UILabel *noLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -28,5 +38,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bugdetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *intentionLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *setDateBtn;
+@property (strong, nonatomic) IBOutlet UITextField *remarkTextField;
+@property (strong, nonatomic) IBOutlet UITableView *myTable;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *callvisitSeg;
+
+@property (nonatomic, retain) NSMutableArray *dataList;
+
+- (IBAction)setDateAction:(id)sender;
+
+- (IBAction)addZhuiZongAction:(id)sender;
+
+-(void)initCustomNo:(NSString *)strNo;
 
 @end

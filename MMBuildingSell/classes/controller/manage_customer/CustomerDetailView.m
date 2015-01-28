@@ -7,12 +7,14 @@
 //
 
 #import "CustomerDetailView.h"
+#import "AFNetworking.h"
 
 
 @implementation CustomerDetailView
 
 @synthesize noLabel,nameLabel,sexLabel,statusLabel,telLabel,roomtypeLabel,livingspaceLabel,ownerLabel,producttypeLabel;
 @synthesize callvisitLabel,getwayLabel,usernameLabel,bugdetLabel,intentionLabel;
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -23,6 +25,16 @@
     return self;
 }
 
+
+-(void)initCustomNo:(NSString *)strNo
+{
+    strCustomNo = strNo;
+    self.myTable.dataSource = self;
+    self.myTable.delegate = self;
+    self.dataList = [[NSMutableArray alloc]init];
+    [self getHttpInfo];
+}
+
 //- (void) awakeFromNib
 //{
 //    [super awakeFromNib];
@@ -31,6 +43,24 @@
 //    [self addSubview:self.view];
 //}
 
+//开始编辑输入框的时候，软键盘出现，执行此事件
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [delegate moveUpCustomerDetailView:textField];
+}
+
+//当用户按下return键或者按回车键，keyboard消失
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+//输入框编辑完成以后，将视图恢复到原始状态
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [delegate moveDownCustomerDetailView:textField];
+}
 
 
 /*
@@ -48,4 +78,122 @@
 //        [tableJIlu reloadData];
 //    }
 //}
+- (IBAction)setDateAction:(id)sender {
+    
+}
+
+- (IBAction)addZhuiZongAction:(id)sender {
+    NSString * callvisitStr =[self.callvisitSeg titleForSegmentAtIndex:[self.callvisitSeg selectedSegmentIndex]];
+    NSString * callDateStr = self.setDateBtn.titleLabel.text;
+    NSString * callNoteStr = self.remarkTextField.text;
+    
+    if ([callvisitStr length] > 0 &&  [callDateStr length] > 0 &&  [callNoteStr length] > 0 && [callDateStr isEqualToString:@"点击设置来访日期"] == NO ) {
+        
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=19&customNo=%@&callvisit=%@&callDate=%@&callNote=%@",strCustomNo,callvisitStr,callDateStr,callNoteStr];
+        NSLog(@"url: %@", strUrl);
+        
+        NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            NSString * strSign = [responseObject objectForKey:@"sign"];
+            int intString = [strSign intValue];
+            if (intString == 1) {
+                NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+                [rowData setValue:callvisitStr forKey:@"callvisit"];
+                [rowData setValue:callDateStr forKey:@"callDate"];
+                [rowData setValue:callNoteStr forKey:@"callNote"];
+                
+                [self.dataList addObject:rowData];
+                
+                [self.myTable reloadData];
+            }
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+        
+    }else{
+        [XWAlterview showmessage:@"提示" subtitle:@"数据填写不全" cancelbutton:@"确定"];
+    }
+
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.dataList count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableDictionary *rowData = [self.dataList objectAtIndex:indexPath.row];
+    static NSString *cellIdentifier = @"cellIdentifier";
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
+    //config the cell
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSString * strTemp = [[NSString alloc]initWithFormat:@"客户来源：%@  日期：%@  说明：%@",[rowData objectForKey:@"callvisit"],[rowData objectForKey:@"callDate"],[rowData objectForKey:@"callNote"]];
+    cell.textLabel.text = strTemp;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+-(void)analysisJson:(NSDictionary *)jsonDic
+{
+    NSString * strSign = [jsonDic objectForKey:@"sign"];
+    int intString = [strSign intValue];
+    if (intString == 1) {
+        [self.dataList removeAllObjects];
+        NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
+        for (int i = 0; i < arrInfo.count ; i++) {
+            NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+            NSString * strCallvisit = [dicInfo objectForKey:@"callvisit"];
+            NSString * strCallDate =[dicInfo objectForKey:@"callDate"];
+            NSString * strCallNote =[dicInfo objectForKey:@"callNote"];
+            
+            NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
+            [rowData setValue:strCallvisit forKey:@"callvisit"];
+            [rowData setValue:strCallDate forKey:@"callDate"];
+            [rowData setValue:strCallNote forKey:@"callNote"];
+            
+            [self.dataList addObject:rowData];
+        }
+    }else{
+        NSLog(@"服务端返回错误");
+    }
+    
+}
+
+-(void)getHttpInfo
+{
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=18&customNo=%@",strCustomNo];
+    NSLog(@"genzongUrl=%@",strUrl);
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"genzongUrl=%@",API_BASE_URL(hexUrl));
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        [self analysisJson:(NSDictionary *)responseObject];
+        [self.myTable reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
 @end

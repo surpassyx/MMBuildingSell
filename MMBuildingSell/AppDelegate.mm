@@ -61,6 +61,23 @@
     NSLog(@"test:%@",deviceToken);
     [BPush registerDeviceToken: deviceToken];
     
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    //获取终端设备标识，这个标识需要通过接口发送到服务器端，服务器端推送消息到APNS时需要知道终端的标识，APNS通过注册的终端标识找到终端设备。
+    
+    NSString *b = [token substringFromIndex:1];
+    NSString *a = [b substringToIndex:(b.length - 1)];
+    NSString *cleanString = [a stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSString* devices_token = [NSString stringWithFormat:@"%@",cleanString];
+    
+    //    DLog(@"My token is:%@", devices_token);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:devices_token forKey:@"deviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    //    NSString* devices_name = [[UIDevice currentDevice] name];
+    //    NSString* devices_version = [[UIDevice currentDevice] systemVersion];
+    
+    
 //    self.viewController.textView.text = [self.viewController.textView.text stringByAppendingFormat: @"Register device token: %@\n openudid: %@", deviceToken, [OpenUDID value]];
 }
 
@@ -174,6 +191,17 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSString *error_str = [NSString stringWithFormat: @"%@", error];
+    NSLog(@"Failed to get token, error:%@", error_str);
+    
+    NSString *devices_token = @"";
+    
+    [[NSUserDefaults standardUserDefaults] setObject:devices_token forKey:@"deviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 

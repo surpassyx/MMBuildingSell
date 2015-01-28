@@ -413,7 +413,7 @@
 //    NSString * jieguo  = [Utility hexStringFromString:parms];
 //    NSLog(@"hex=%@",jieguo);
     
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=1&loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=1&loginname=%@&loginpassword=%@&enterpriseCode=%@&installment=%@&imei=%@",_qq.text,_pwd.text,[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"],[myDefaults objectForKey:@"deviceToken"]];
 //    NSLog(@"loginUrl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
 //   strUrl = @"http://www.ykhome.cn/myhome/getsysimage.php?&fenterisecode=P0001&finstallment=01&fflag=all";
