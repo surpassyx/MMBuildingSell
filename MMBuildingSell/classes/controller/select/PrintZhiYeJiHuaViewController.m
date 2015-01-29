@@ -7,8 +7,9 @@
 //
 
 #import "PrintZhiYeJiHuaViewController.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface PrintZhiYeJiHuaViewController (){
+@interface PrintZhiYeJiHuaViewController ()<MFMailComposeViewControllerDelegate>{
     NSString * roomNo;
     NSString * discount;
     NSString * remark;
@@ -17,6 +18,11 @@
     NSString * mortgagePrecent;
     NSString * fundFee;
     NSString * fundPrecent;
+    
+    
+    UIImage * curSaveImage;
+    
+    MBProgressHUD *waitHUD;
     
 }
 
@@ -41,11 +47,23 @@
     mortgagePrecent = mortPre;
     fundFee = fundFe;
     fundPrecent = fundPre;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:waitHUD];
+    waitHUD.dimBackground = YES;
+    waitHUD.labelText = @"正在制定置业计划书，请稍后";
+    [waitHUD show:YES];
+
+    [self getHttpInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -169,22 +187,83 @@
             
             
             
-            NSArray *arry=[roomcode componentsSeparatedByString:@"-"];
-            NSString * titleStr = [arry objectAtIndex:0];
-            
+            NSString * titleStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"enterpriseNameinstallmentName"];
+            titleStr = [titleStr stringByAppendingString:@"置业计划书"];
             self.titleLabel.text = titleStr;
             
         }else{
             NSLog(@"服务端返回错误");
         }
-        
+        [waitHUD removeFromSuperview];
+        waitHUD = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [waitHUD removeFromSuperview];
+        waitHUD = nil;
     }];
     
 }
 
+-(void)saveImageFormView
+{
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, 1);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    curSaveImage = img;
+}
+-(void)sendEmail
+{
+    Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
+    if (mailClass != nil)
+    {
+        // We must always check whether the current device is configured for sending emails
+        if ([mailClass canSendMail])
+        {
+            [self displayMailPicker];//调用发送邮件的方法
+        }  
+    }
+}
+
+//调出邮件发送窗口
+- (void)displayMailPicker
+{
+    MFMailComposeViewController *mailPicker = [[MFMailComposeViewController alloc] init];
+    mailPicker.mailComposeDelegate = self;
+    
+    //设置主题
+    [mailPicker setSubject: @"eMail主题"];
+    //添加收件人
+    NSArray *toRecipients = [NSArray arrayWithObject: @"first@example.com"];
+    [mailPicker setToRecipients: toRecipients];
+    //添加抄送
+    NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
+    [mailPicker setCcRecipients:ccRecipients];
+    //添加密送
+    NSArray *bccRecipients = [NSArray arrayWithObjects:@"fourth@example.com", nil];
+    [mailPicker setBccRecipients:bccRecipients];
+    
+    // 添加一张图片
+    UIImage *addPic = curSaveImage;
+    NSData *imageData = UIImagePNGRepresentation(addPic);            // png
+    //关于mimeType：http://www.iana.org/assignments/media-types/index.html
+    [mailPicker addAttachmentData: imageData mimeType: @"image/png" fileName: @"plan.png"];
+    
+//    //添加一个pdf附件
+//    NSString *file = [self fullBundlePathFromRelativePath:@"高质量C++编程指南.pdf"];
+//    NSData *pdf = [NSData dataWithContentsOfFile:file];
+//    [mailPicker addAttachmentData: pdf mimeType: @"" fileName: @"高质量C++编程指南.pdf"];
+    
+    NSString *emailBody = @"<font color='red'>eMail</font> 正文";
+    [mailPicker setMessageBody:emailBody isHTML:YES];
+    [self presentViewController:mailPicker animated:YES completion:nil];
+}
+
 - (IBAction)printAction:(id)sender {
+    
+    [self saveImageFormView];
+    [self sendEmail];
+    return;
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=17&roomNo=%@&discount=%@&remark=%@&totalFee=%@&mortgageFee=%@&mortgagePrecent=%@&fundFee=%@&fundPrecent=%@",roomNo,discount,remark,totalFee,mortgageFee,mortgagePrecent,fundFee,fundPrecent];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     NSLog(@"dayin=%@",API_BASE_URL(hexUrl));
@@ -205,5 +284,31 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+#pragma mark - 实现 MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    //关闭邮件发送窗口
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSString *msg;
+    switch (result) {
+        case MFMailComposeResultCancelled:
+            msg = @"用户取消编辑邮件";
+            break;
+        case MFMailComposeResultSaved:
+            msg = @"用户成功保存邮件";
+            break;
+        case MFMailComposeResultSent:
+            msg = @"用户点击发送，将邮件放到队列中，还没发送";
+            break;
+        case MFMailComposeResultFailed:
+            msg = @"用户试图保存或者发送邮件失败";
+            break;
+        default:
+            msg = @"";
+            break;
+    }
+//    [self alertWithMessage:msg];
 }
 @end

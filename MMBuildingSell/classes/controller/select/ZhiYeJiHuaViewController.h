@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZhiYeJiHuaViewController : UIViewController
+@interface ZhiYeJiHuaViewController : UIViewController<UITextFieldDelegate>
 {
     NSMutableDictionary *rowHouseData;
 }

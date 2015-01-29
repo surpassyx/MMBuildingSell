@@ -250,7 +250,7 @@
                     
                     NSMutableDictionary *roomArrData = [[NSMutableDictionary alloc]init];
                     [roomArrData setValue:strId forKey:@"id"];
-                    [roomArrData setValue:strRoomCode forKey:@"roomcode"];
+                    [roomArrData setValue:[NSNumber numberWithInt: [strRoomCode intValue]] forKey:@"roomcode"];
                     [roomArrData setValue:strRoomName forKey:@"roomname"];
                     [roomArrData setValue:strRoomType forKey:@"roomtype"];
                     [roomArrData setValue:strRoomStatus forKey:@"roomstatus"];
@@ -263,7 +263,7 @@
                     
                     [arrTemp addObject:roomArrData];
                 }
-                
+                arrTemp = [self sortArray:arrTemp key:@"roomcode" isAscending:YES];
                 [danyuanArrData setValue:arrTemp forKey:@"unitArr"];
                 [arrTemp2 addObject:danyuanArrData];
             }
@@ -279,44 +279,13 @@
     }
 }
 
-//-(void)analysisJson:(NSDictionary *)jsonDic
-//{
-//    NSString * strSign = [jsonDic objectForKey:@"sign"];
-//    int intString = [strSign intValue];
-//    if (intString == 1) {
-//        NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
-//        for (int i = 0; i < arrInfo.count ; i++) {
-//            NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-//            NSString * strRoomCode = [dicInfo objectForKey:@"roomcode"];
-//            NSString * strRoomName =[dicInfo objectForKey:@"roomname"];
-//            NSString * strRoomStatus =[dicInfo objectForKey:@"roomstatus"];
-//            NSString * strRoomType =[dicInfo objectForKey:@"roomtype"];
-//            NSString * strAllAres =[dicInfo objectForKey:@"allares"];
-//            NSString * strRealAres =[dicInfo objectForKey:@"realares"];
-//            NSString * strRealPrice =[dicInfo objectForKey:@"realprice"];
-//            NSString * strTotal =[dicInfo objectForKey:@"total"];
-//            NSString * strId =[dicInfo objectForKey:@"id"];
-//            
-//            NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-//            [rowData setValue:strRoomCode forKey:@"roomcode"];
-//            [rowData setValue:strRoomName forKey:@"roomname"];
-//            [rowData setValue:strRoomStatus forKey:@"roomstatus"];
-//            [rowData setValue:strRoomType forKey:@"roomtype"];
-//            [rowData setValue:strAllAres forKey:@"allares"];
-//            [rowData setValue:strRealAres forKey:@"realares"];
-//            [rowData setValue:strRealPrice forKey:@"realprice"];
-//            [rowData setValue:strTotal forKey:@"total"];
-//            [rowData setValue:strId forKey:@"id"];
-//
-//            [self.dataList addObject:rowData];
-//        }
-//    }else{
-//        NSLog(@"服务端返回错误");
-//    }
-//    
-//}
-
-
+#pragma mark数组排序 第一个变量为排序数组 第二个变量为要排序的关键字 第三个变量为是否是升序
+-(NSMutableArray *)sortArray:(NSMutableArray *)arr key:(NSString *)keystring isAscending:(BOOL)isAscending
+{
+    NSSortDescriptor* sortByA = [NSSortDescriptor sortDescriptorWithKey:keystring ascending:isAscending];
+    arr = [[NSMutableArray alloc]initWithArray:[arr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByA]]];
+    return arr;
+}
 
 -(void)getHttpInfo
 {
@@ -415,6 +384,7 @@
 
 -(void)nextBtnAction:(id)sender {
     ZhiYeJiHuaViewController * zhiye = [[ZhiYeJiHuaViewController alloc]init];
+    [zhiye initHouseData:rowHouseData];
     [self.navigationController pushViewController:zhiye animated:NO];
     
 //    PrintPurchasingViewController *print = [[PrintPurchasingViewController alloc]init];
@@ -509,6 +479,105 @@
 - (void)tableView:(TSTableView *)tableView didSelectRowAtPath:(NSIndexPath *)rowPath selectedCell:(NSInteger)cellIndex
 {
     VerboseLog();
+//    NSLog(@"postion:%d",[rowPath indexAtPosition:0]);
+//    NSLog(@"---cellIndex:%d",cellIndex);
+    
+    int nSelectedRow = [rowPath indexAtPosition:0];
+    
+    NSMutableArray * floorArr = [[NSMutableArray alloc]init];
+    floorArr = [louData objectForKey:@"floorArr"];
+    NSString * strCeng = [louData objectForKey:@"floorLayers"];
+    int nCeng = [strCeng intValue];
+    
+    int i = nCeng - nSelectedRow;
+    int danyuan_no = 0;
+    int nTotalNum = 0;
+    for (int q = 0 ; q < [floorArr count]; q++) {
+        NSString *danyuan_num = [[floorArr objectAtIndex:q] objectForKey:@"danyuan_num"];
+        int nDanyuan_num = [danyuan_num intValue];
+        
+        if (nTotalNum + nDanyuan_num  >= cellIndex) {
+            danyuan_no = q;
+            break;
+        }
+        nTotalNum = nDanyuan_num + nTotalNum;
+    }
+    
+    NSString * danyuan_numStr = [[floorArr objectAtIndex:danyuan_no] objectForKey:@"danyuan_num"];
+    int danyuan_num = [danyuan_numStr intValue];
+    
+    NSMutableArray *unitArr = [[floorArr objectAtIndex:danyuan_no] objectForKey:@"unitArr"];
+    
+    int k = cellIndex - nTotalNum;
+    if (k==0) {
+        k = danyuan_num;
+    }
+    int nn = danyuan_num*(i-1)+k - 1;
+    NSMutableDictionary *roomArrData = [[NSMutableDictionary alloc]init];
+    roomArrData = [unitArr objectAtIndex:nn];
+    
+    rowHouseData = roomArrData;
+    
+//    NSString * strId = [roomArrData objectForKey:@"id"];
+//    NSNumber * nRoomCode = [roomArrData objectForKey:@"roomcode"];
+    NSString * strRoomName = [roomArrData objectForKey:@"roomname"];
+    NSString * strRoomType = [roomArrData objectForKey:@"roomtype"];
+    NSString * strRoomStatus = [roomArrData objectForKey:@"roomstatus"];
+    NSString * strAllAres = [roomArrData objectForKey:@"allares"];
+    NSString * strRealAres = [roomArrData objectForKey:@"realares"];
+    NSString * strAllPrice = [roomArrData objectForKey:@"allprice"];
+    NSString * strRealPrice = [roomArrData objectForKey:@"realprice"];
+    NSString * strTotal = [roomArrData objectForKey:@"total"];
+    
+    roomNameLabel.text = strRoomName;
+    if ([strRoomStatus isEqualToString:@"1"]) {
+        strRoomStatus = @"销售状态：销控";
+    }else if ([strRoomStatus isEqualToString:@"2"]){
+        strRoomStatus = @"销售状态：待售";
+    }else if ([strRoomStatus isEqualToString:@"3"]){
+        strRoomStatus = @"销售状态：预约";
+    }else if ([strRoomStatus isEqualToString:@"4"]){
+        strRoomStatus = @"销售状态：预留";
+    }else if ([strRoomStatus isEqualToString:@"5"]){
+        strRoomStatus = @"销售状态：小订";
+    }else if ([strRoomStatus isEqualToString:@"6"]){
+        strRoomStatus = @"销售状态：认购";
+    }else if ([strRoomStatus isEqualToString:@"7"]){
+        strRoomStatus = @"销售状态：签约";
+    }else if ([strRoomStatus isEqualToString:@"8"]){
+        strRoomStatus = @"销售状态：非售";
+    }
+    roomSatausLabel.text = strRoomStatus;
+    
+    strRoomType = [@"房间类型：" stringByAppendingString:strRoomType];
+    roomTypeLabel.text = strRoomType;
+    
+    strAllAres = [@"建筑面积：" stringByAppendingString:strAllAres];
+    strAllAres = [strAllAres stringByAppendingString:@" ㎡"];
+    allAresLabel.text = strAllAres;
+    
+    strRealAres = [@"室内面积：" stringByAppendingString:strRealAres];
+    strRealAres = [strRealAres stringByAppendingString:@" ㎡"];
+    realAresLabel.text = strRealAres;
+    
+    strRealPrice = [@"建筑单价：" stringByAppendingString:strRealPrice];
+    strRealPrice = [strRealPrice stringByAppendingString:@" 万元/㎡"];
+    realPriceLabel.text = strRealPrice;
+
+    strAllPrice = [@"套内单价：" stringByAppendingString:strAllPrice];
+    strAllPrice = [strAllPrice stringByAppendingString:@" 万元"];
+    danjiaLabel.text = strAllPrice;
+    
+    strTotal = [@"标准总价：" stringByAppendingString:strTotal];
+    strTotal = [strTotal stringByAppendingString:@" 万元"];
+    totalLabel.text = strTotal;
+
+    
+    
+    
+//    NSLog(@"---k:%d",k);
+//    NSLog(@"---nTotalNum:%d",nTotalNum);
+//    NSLog(@"---strRoomName:%@",strRoomName);
 }
 
 - (void)tableView:(TSTableView *)tableView willSelectColumnAtPath:(NSIndexPath *)columnPath animated:(BOOL)animated
@@ -554,8 +623,8 @@
             [tempDic2 setObject:strNnnn forKey:@"title"];
             [tempDic2 setObject:@12 forKey:@"titleFontSize"];
             [tempDic2 setObject:@"FF006F00" forKey:@"titleColor"];
-            [tempDic2 setObject:@60 forKey:@"defWidth"];
-            [tempDic2 setObject:@60 forKey:@"minWidth"];
+            [tempDic2 setObject:@70 forKey:@"defWidth"];
+            [tempDic2 setObject:@70 forKey:@"minWidth"];
             
             [arrTemp2 addObject:tempDic2];
         }
@@ -567,14 +636,15 @@
     
     return [myMutableArray copy];
 }
-
+#pragma mark 每一行构建
 - (NSArray *)rowsForBuild
 {
     
-    NSMutableArray *arrTemp = [[NSMutableArray alloc]init];
-    arrTemp = [louData objectForKey:@"floorArr"];
+    NSMutableArray * floorArr = [[NSMutableArray alloc]init];
+    floorArr = [louData objectForKey:@"floorArr"];
     NSString * strCeng = [louData objectForKey:@"floorLayers"];
     int nCeng = [strCeng intValue];
+//    danyuan_num
     NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:nCeng];
     
     for (int i = nCeng; i > 0; i--) {
@@ -587,31 +657,38 @@
                                    @"value" : strI
                                    };
         [arrTemp2 addObject:cellCengInfo];
-        for (int j = 0 ; j < [arrTemp count]; j++) {
+        
+        for (int j = 0 ; j < [floorArr count]; j++) {
             
-            NSString * strRoomName = [[[[arrTemp objectAtIndex:j] objectForKey:@"unitArr"] objectAtIndex:(nCeng - i)] objectForKey:@"roomname"];
-            NSString * strRoomState = [[[[arrTemp objectAtIndex:j] objectForKey:@"unitArr"] objectAtIndex:(nCeng - i)] objectForKey:@"roomstatus"];
-            
-            TSCell *cellFilename = [TSCell cellWithValue:strRoomName];
-            if ([@"1" isEqualToString:strRoomState]) {
-                cellFilename.icon = [UIImage imageNamed:@"1"];
-            }else if ([@"2" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"2"];
-            }else if ([@"3" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"3"];
-            }else if ([@"4" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"4"];
-            }else if ([@"5" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"5"];
-            }else if ([@"6" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"6"];
-            }else if ([@"7" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"7"];
-            }else if ([@"8" isEqualToString:strRoomState]){
-                cellFilename.icon = [UIImage imageNamed:@"8"];
+            NSString * danyuan_numStr = [[floorArr objectAtIndex:j] objectForKey:@"danyuan_num"];
+            int danyuan_num = [danyuan_numStr intValue];
+            for (int k = 0; k < danyuan_num; k++) {
+                NSMutableArray *unitArr = [[floorArr objectAtIndex:j] objectForKey:@"unitArr"];
+                int nn = danyuan_num*(i-1)+k;
+                NSString * strRoomName = [[unitArr objectAtIndex:nn] objectForKey:@"roomname"];
+                NSString * strRoomState = [[unitArr objectAtIndex:nn] objectForKey:@"roomstatus"];
+                TSCell *cellFilename = [TSCell cellWithValue:strRoomName];
+                if ([@"1" isEqualToString:strRoomState]) {
+                    cellFilename.icon = [UIImage imageNamed:@"1"];
+                }else if ([@"2" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"2"];
+                }else if ([@"3" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"3"];
+                }else if ([@"4" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"4"];
+                }else if ([@"5" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"5"];
+                }else if ([@"6" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"6"];
+                }else if ([@"7" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"7"];
+                }else if ([@"8" isEqualToString:strRoomState]){
+                    cellFilename.icon = [UIImage imageNamed:@"8"];
+                }
+                cellFilename.textColor = [UIColor grayColor];
+                [arrTemp2 addObject:cellFilename];
             }
-            cellFilename.textColor = [UIColor grayColor];
-            [arrTemp2 addObject:cellFilename];
+            
         }
         [tempDic setObject:arrTemp2 forKey:@"cells"];
         

@@ -60,7 +60,7 @@
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYa-yh-fQC">
                     <rect key="frame" x="335" y="643" width="150" height="30"/>
-                    <state key="normal" title="打印置业计划" backgroundImage="task_send_normal_btn.png">
+                    <state key="normal" title="发送置业计划" backgroundImage="task_send_normal_btn.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>

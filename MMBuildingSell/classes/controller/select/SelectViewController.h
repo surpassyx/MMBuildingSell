@@ -56,7 +56,6 @@
     UIImageView  *imageViewLeftBk;
     UIImageView  *imageViewRightBk;
     
-    int nCurSelected;
     NSMutableDictionary *rowHouseData;
 }
 

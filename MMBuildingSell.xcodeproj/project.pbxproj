@@ -547,6 +547,7 @@
 		AB69CD671A676BA400853C7F /* TaskYiJianListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD651A676BA400853C7F /* TaskYiJianListViewController.xib */; };
 		AB69CD6B1A678B1700853C7F /* TaskYiJianCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD691A678B1700853C7F /* TaskYiJianCell.m */; };
 		AB69CD6C1A678B1700853C7F /* TaskYiJianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */; };
+		AB7E01571A7A35ED004800A3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7E01561A7A35ED004800A3 /* MessageUI.framework */; };
 		AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */; };
 		AB83BF4C1A49528A007667C9 /* TaskPersonListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */; };
 		AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8499F61A4CF7DE00F22804 /* HouseCell.m */; };
@@ -1362,6 +1363,7 @@
 		AB69CD681A678B1700853C7F /* TaskYiJianCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskYiJianCell.h; sourceTree = "<group>"; };
 		AB69CD691A678B1700853C7F /* TaskYiJianCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskYiJianCell.m; sourceTree = "<group>"; };
 		AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskYiJianCell.xib; sourceTree = "<group>"; };
+		AB7E01561A7A35ED004800A3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AB83BF481A49528A007667C9 /* TaskPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskPersonListViewController.h; sourceTree = "<group>"; };
 		AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskPersonListViewController.m; sourceTree = "<group>"; };
 		AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskPersonListViewController.xib; sourceTree = "<group>"; };
@@ -1451,6 +1453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB7E01571A7A35ED004800A3 /* MessageUI.framework in Frameworks */,
 				AB69191B1A5EB32000C4886F /* libz.dylib in Frameworks */,
 				AB6919201A5F7DA400C4886F /* libBPush.a in Frameworks */,
 				AB6919191A5EB31800C4886F /* CoreTelephony.framework in Frameworks */,
@@ -1682,6 +1685,7 @@
 		3D84C1101808E16900B2311E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB7E01561A7A35ED004800A3 /* MessageUI.framework */,
 				AB69191A1A5EB32000C4886F /* libz.dylib */,
 				AB6919181A5EB31800C4886F /* CoreTelephony.framework */,
 				531CC9781931B807004E91B8 /* MobileCoreServices.framework */,

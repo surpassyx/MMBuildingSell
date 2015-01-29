@@ -536,9 +536,11 @@
         temp = [noEnterpriseArray objectAtIndex:nPos];
         NSString *temp1 = [[NSString alloc]init];
         temp1 = [noInstallmentArray objectAtIndex:nPos];
+        NSString * strName = [nameArray objectAtIndex:nPos];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:temp forKey:@"enterpriseCode"];
         [defaults setObject:temp1 forKey:@"installment"];
+        [defaults setObject:strName forKey:@"enterpriseNameinstallmentName"];
         [defaults synchronize];
     }
     
