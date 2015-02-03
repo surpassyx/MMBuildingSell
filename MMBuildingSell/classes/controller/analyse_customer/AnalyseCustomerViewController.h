@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "XYPieChart.h"
 //#import "XCMultiSortTableView.h"
+#import "HTHorizontalSelectionList.h"
 
 @interface AnalyseCustomerViewController : UIViewController<UIWebViewDelegate>
 {
@@ -24,5 +25,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *dataList;
+
+@property (nonatomic, strong) HTHorizontalSelectionList *selectionList;
 
 @end

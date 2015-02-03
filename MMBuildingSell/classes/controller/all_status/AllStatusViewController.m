@@ -8,14 +8,14 @@
 
 #import "AllStatusViewController.h"
 #import "AFNetworking.h"
-#import "SegmentView.h"
+//#import "SegmentView.h"
 
 //#define LEFTUPDOWN 18
 //#define LEFTLEFTRIGHT 17
 //#define UPDOWN 12
 //#define LEFTRIGHT 5
 
-@interface AllStatusViewController () <SegmentViewDelegate>{
+@interface AllStatusViewController () <HTHorizontalSelectionListDelegate, HTHorizontalSelectionListDataSource>{
 //    CGFloat widthView;
 //    CGFloat heightView;
 }
@@ -82,10 +82,15 @@
         [nameArr addObject:strName];
     }
     
-    SegmentView *segmentView = [[SegmentView alloc] init];
-    segmentView.titles = nameArr;
-    segmentView.delegate = self;
-    self.navigationItem.titleView = segmentView;
+    self.selectionList = [[HTHorizontalSelectionList alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    self.selectionList.delegate = self;
+    self.selectionList.dataSource = self;
+    self.navigationItem.titleView = self.selectionList;
+    
+//    SegmentView *segmentView = [[SegmentView alloc] init];
+//    segmentView.titles = nameArr;
+//    segmentView.delegate = self;
+//    self.navigationItem.titleView = segmentView;
     
     if ([self.dataList count] > 0) {
         NSMutableDictionary *rowData = [self.dataList objectAtIndex:0];
@@ -111,8 +116,36 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
 }
 
-- (void)segmentView:(SegmentView *)segmentView didSelectedSegmentAtIndex:(int)index
-{
+//- (void)segmentView:(SegmentView *)segmentView didSelectedSegmentAtIndex:(int)index
+//{
+//    
+//    NSMutableDictionary *rowData = [self.dataList objectAtIndex:index];
+//    NSString * strUrl = [rowData objectForKey:@"menuUrl"];
+//    
+//    NSURL *url =[NSURL URLWithString:HTTP_BASE_URL(strUrl)];
+//    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+//    [myWebView loadRequest:request];
+//    
+//}
+
+#pragma mark - HTHorizontalSelectionListDataSource Protocol Methods
+
+- (NSInteger)numberOfItemsInSelectionList:(HTHorizontalSelectionList *)selectionList {
+    return self.dataList.count;
+}
+
+- (NSString *)selectionList:(HTHorizontalSelectionList *)selectionList titleForItemWithIndex:(NSInteger)index {
+//    return self.dataList[index];
+    NSMutableDictionary *rowData = [self.dataList objectAtIndex:index];
+    NSString * strMenuName = [rowData objectForKey:@"menuName"];
+    return strMenuName;
+}
+
+#pragma mark - HTHorizontalSelectionListDelegate Protocol Methods
+
+- (void)selectionList:(HTHorizontalSelectionList *)selectionList didSelectButtonWithIndex:(NSInteger)index {
+    // update the view for the corresponding index
+//    self.selectedItemLabel.text = self.carMakes[index];
     
     NSMutableDictionary *rowData = [self.dataList objectAtIndex:index];
     NSString * strUrl = [rowData objectForKey:@"menuUrl"];
@@ -120,7 +153,6 @@
     NSURL *url =[NSURL URLWithString:HTTP_BASE_URL(strUrl)];
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [myWebView loadRequest:request];
-    
 }
 
 

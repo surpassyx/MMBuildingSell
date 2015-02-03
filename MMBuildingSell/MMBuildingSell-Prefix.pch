@@ -72,6 +72,8 @@
 #define kWidth 80
 #define kHeight 40
 
+#define AddBtnWIDTH 161
+
 
 #import "Utility.h"
 

@@ -17,7 +17,7 @@
 
 @end
 
-@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate>{
+@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     id<CustomerDetailDelegate> delegate;
     NSString * strCustomNo;
 }

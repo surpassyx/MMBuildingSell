@@ -271,6 +271,16 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * strSelectInstallmentName = [userDefaults objectForKey:@"enterpriseNameinstallmentName"];
+    if ([strSelectInstallmentName length] > 0 && [[userDefaults objectForKey:@"enterpriseCode"] length] > 0) {
+        [self.qibieBtn setTitle:strSelectInstallmentName forState:UIControlStateNormal];
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

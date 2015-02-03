@@ -23,7 +23,8 @@
         
         [self setImage:[UIImage imageNamed:@"head_icon.jpg"] forState:UIControlStateNormal];
         
-        [self setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"] forState:UIControlStateNormal];
+        NSString * strTemp =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+        [self setTitle:strTemp forState:UIControlStateNormal];
         
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -42,8 +43,15 @@
     self.frame = CGRectMake(0, 0, width, width);
     
     // 2.根据方向隐藏文字
-    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+    NSString * strTemp =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+    
+    NSString *title = UIInterfaceOrientationIsPortrait(orientation)?nil:strTemp;
     [self setTitle:title forState:UIControlStateNormal];
+    
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(self.titleLabel.frame.origin.x, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height, self.titleLabel.frame.size.width, self.titleLabel.frame.size.height)];
+    [label setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"enterpriseNameinstallmentName"]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:label];
 }
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect

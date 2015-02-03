@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTHorizontalSelectionList.h"
 
 @interface AllStatusViewController : UIViewController<UIWebViewDelegate>
 {
     UIWebView *myWebView;
 }
 @property (nonatomic, retain) NSMutableArray *dataList;
+
+@property (nonatomic, strong) HTHorizontalSelectionList *selectionList;
+
 @end

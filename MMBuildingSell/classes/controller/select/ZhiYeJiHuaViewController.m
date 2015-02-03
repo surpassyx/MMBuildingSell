@@ -151,13 +151,51 @@
 -(void)addZheKou:(NSMutableArray *)zhekouList
 {
     NSString * strTemp = @"";
+    NSString * strTotal =  self.fangkuanzongeTextField.text;
+    float fTotal = 0;
+    if ([strTotal length] > 0) {
+        fTotal = [strTotal floatValue];
+    }
     for (NSMutableDictionary *rowData in zhekouList) {
         strTemp = [strTemp stringByAppendingString:[rowData objectForKey:@"name"]];
         strTemp = [strTemp stringByAppendingString:@";"];
+        NSString * calculatMethod = [rowData objectForKey:@"calculatMethod"];
+        NSString * discount = [rowData objectForKey:@"discount"];
+        NSString * fee = [rowData objectForKey:@"fee"];
+        
+        float fdiscount = [discount floatValue];
+        float ffee = [fee floatValue];
+        
+        if ([calculatMethod isEqualToString:@"1"]) {
+            //减点
+            fTotal = fTotal - (fTotal * ffee);
+        }else if ([calculatMethod isEqualToString:@"2"]) {
+            //打折
+            fTotal = fTotal - (fTotal * ffee);
+        }else if ([calculatMethod isEqualToString:@"3"]) {
+            //总价优惠
+            fTotal = fTotal - fdiscount;
+        }else if ([calculatMethod isEqualToString:@"4"]) {
+            //单价优惠
+            NSString * strAre = [rowHouseData objectForKey:@"allares"];
+            if ([strAre length] > 0) {
+                fTotal = fTotal - fdiscount * [strAre floatValue];
+            }
+            
+        }
+        
     }
     if ([strTemp length] == 0) {
         strTemp = @"无优惠";
     }
+    
+    if ([strTotal length] > 0) {
+        float zhekouF = fTotal / [strTotal floatValue];
+        [self.zhekouBtn setTitle:[[NSString alloc]initWithFormat:@"%f",zhekouF] forState:UIControlStateNormal];
+    }
+    
+    
+    self.fangkuanzongeTextField.text = [[NSString alloc]initWithFormat:@"%f",fTotal];
     
     [self.zhekoushuomingTextField setText:strTemp];
     NSLog(@"优惠政策:%@",strTemp);
@@ -172,9 +210,13 @@
         }
     }
     NSString * roomCodeStr = [rowHouseData objectForKey:@"roomcode"];
+    NSString *strDiscount = self.zhekouBtn.titleLabel.text;
+    if ([strDiscount isEqualToString:@"点击设置折扣方案"]) {
+        strDiscount = @"0";
+    }
     
     PrintZhiYeJiHuaViewController * zhiye = [[PrintZhiYeJiHuaViewController alloc]init];
-    [zhiye initDataRoomNo:roomCodeStr discount:@"" remark:strTemp totalFee:@"" mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
+    [zhiye initDataRoomNo:roomCodeStr discount:strDiscount remark:strTemp totalFee:self.fangkuanzongeTextField.text mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
     [self.navigationController pushViewController:zhiye animated:YES];
 }
 

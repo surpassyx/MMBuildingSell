@@ -246,6 +246,9 @@
     // 添加一张图片
     UIImage *addPic = curSaveImage;
     NSData *imageData = UIImagePNGRepresentation(addPic);            // png
+    
+    [self saveImageToPhotos:addPic];
+    
     //关于mimeType：http://www.iana.org/assignments/media-types/index.html
     [mailPicker addAttachmentData: imageData mimeType: @"image/png" fileName: @"plan.png"];
     
@@ -257,6 +260,31 @@
     NSString *emailBody = @"<font color='red'>eMail</font> 正文";
     [mailPicker setMessageBody:emailBody isHTML:YES];
     [self presentViewController:mailPicker animated:YES completion:nil];
+}
+
+- (void)saveImageToPhotos:(UIImage*)savedImage
+{
+    UIImageWriteToSavedPhotosAlbum(savedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+}
+// 指定回调方法
+- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo
+{
+//    NSString *msg = nil ;
+//    if(error != NULL){
+//        msg = @"保存图片失败" ;
+//    }else{
+//        msg = @"保存图片成功" ;
+//    }
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"保存图片结果提示"
+//                         
+//                                                    message:msg
+//                         
+//                                                   delegate:self
+//                         
+//                                          cancelButtonTitle:@"确定"
+//                          
+//                                          otherButtonTitles:nil];
+//    [alert show];
 }
 
 - (IBAction)printAction:(id)sender {

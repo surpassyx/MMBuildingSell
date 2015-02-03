@@ -23,7 +23,7 @@
 #define FrameWIDTH 812.0
 #define FrameHEIGHT 748.0
 
-#define AddBtnWIDTH 161
+
 
 
 -(void)analysisJson:(NSDictionary *)jsonDic
@@ -364,6 +364,7 @@
     NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"CustomerDetailView" owner:self options:nil];
     myView = [array objectAtIndex:0];
     myView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
+    myView.delegate = self;
     myView.noLabel.text = no;
     myView.nameLabel.text = name;
     myView.sexLabel.text = sex;
@@ -379,6 +380,7 @@
     myView.bugdetLabel.text = bugdet;
     myView.intentionLabel.text = intention;
     [myView initCustomNo:no];
+    
     
     [self.view addSubview:myView];
 }

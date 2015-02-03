@@ -548,6 +548,8 @@
 		AB69CD6B1A678B1700853C7F /* TaskYiJianCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB69CD691A678B1700853C7F /* TaskYiJianCell.m */; };
 		AB69CD6C1A678B1700853C7F /* TaskYiJianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */; };
 		AB7E01571A7A35ED004800A3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7E01561A7A35ED004800A3 /* MessageUI.framework */; };
+		AB7E019F1A7F6F15004800A3 /* HTHorizontalSelectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7E019C1A7F6F15004800A3 /* HTHorizontalSelectionList.m */; };
+		AB7E01A01A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7E019E1A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.m */; };
 		AB83BF4B1A49528A007667C9 /* TaskPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */; };
 		AB83BF4C1A49528A007667C9 /* TaskPersonListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */; };
 		AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8499F61A4CF7DE00F22804 /* HouseCell.m */; };
@@ -1364,6 +1366,10 @@
 		AB69CD691A678B1700853C7F /* TaskYiJianCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskYiJianCell.m; sourceTree = "<group>"; };
 		AB69CD6A1A678B1700853C7F /* TaskYiJianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskYiJianCell.xib; sourceTree = "<group>"; };
 		AB7E01561A7A35ED004800A3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		AB7E019B1A7F6F15004800A3 /* HTHorizontalSelectionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTHorizontalSelectionList.h; sourceTree = "<group>"; };
+		AB7E019C1A7F6F15004800A3 /* HTHorizontalSelectionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTHorizontalSelectionList.m; sourceTree = "<group>"; };
+		AB7E019D1A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTHorizontalSelectionListScrollView.h; sourceTree = "<group>"; };
+		AB7E019E1A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTHorizontalSelectionListScrollView.m; sourceTree = "<group>"; };
 		AB83BF481A49528A007667C9 /* TaskPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskPersonListViewController.h; sourceTree = "<group>"; };
 		AB83BF491A49528A007667C9 /* TaskPersonListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskPersonListViewController.m; sourceTree = "<group>"; };
 		AB83BF4A1A49528A007667C9 /* TaskPersonListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskPersonListViewController.xib; sourceTree = "<group>"; };
@@ -2021,6 +2027,7 @@
 		3D84C3F8180C1C8700B2311E /* category */ = {
 			isa = PBXGroup;
 			children = (
+				AB7E019A1A7F6F15004800A3 /* HTHorizontalSelectionList */,
 				ABCF99B81A6C996200135245 /* TSUIKit */,
 				AB69CD561A674CC000853C7F /* XWAlterview */,
 				53FA82DE1973763900FDF7AB /* ZDProgressView */,
@@ -2875,6 +2882,17 @@
 			path = XWAlterview;
 			sourceTree = "<group>";
 		};
+		AB7E019A1A7F6F15004800A3 /* HTHorizontalSelectionList */ = {
+			isa = PBXGroup;
+			children = (
+				AB7E019B1A7F6F15004800A3 /* HTHorizontalSelectionList.h */,
+				AB7E019C1A7F6F15004800A3 /* HTHorizontalSelectionList.m */,
+				AB7E019D1A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.h */,
+				AB7E019E1A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.m */,
+			);
+			path = HTHorizontalSelectionList;
+			sourceTree = "<group>";
+		};
 		ABCF99B81A6C996200135245 /* TSUIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -3503,6 +3521,7 @@
 				3D2B0DB71816568F008BEAA6 /* UIGridView.m in Sources */,
 				3D2B0DB91816568F008BEAA6 /* UIGridViewRow.m in Sources */,
 				AB69192C1A5F7E0C00C4886F /* Reachability.m in Sources */,
+				AB7E01A01A7F6F15004800A3 /* HTHorizontalSelectionListScrollView.m in Sources */,
 				AB8499F81A4CF7DE00F22804 /* HouseCell.m in Sources */,
 				3DB0EB6C18239B7E00BB9161 /* PLObject.m in Sources */,
 				3D283219181F807200CDF5F3 /* PSStackedViewController.m in Sources */,
@@ -3622,6 +3641,7 @@
 				530CBD39193D96C500B56AF6 /* UIWebView+AFNetworking.m in Sources */,
 				3D416F6818B44D8800106DE4 /* FangDaiViewController.m in Sources */,
 				ABCF99EF1A6C996200135245 /* TSNavigationStripView.m in Sources */,
+				AB7E019F1A7F6F15004800A3 /* HTHorizontalSelectionList.m in Sources */,
 				3DACC1AB1835109000658976 /* SJAvatarBrowser.m in Sources */,
 				530CBD33193D96C500B56AF6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				530CBD37193D96C500B56AF6 /* UIProgressView+AFNetworking.m in Sources */,
