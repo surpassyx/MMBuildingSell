@@ -36,6 +36,11 @@
     self.juzhuyetaiList = juzhuyetai;
 }
 
+-(void)initType:(int)type
+{
+    nType = type;
+}
+
 
 -(void)awakeFromNib
 {
@@ -131,16 +136,16 @@
     NSString * livingspaceStr =self.livingspaceTextField.text;
     NSString * ownerStr =[self.ownerSeg titleForSegmentAtIndex:[self.ownerSeg selectedSegmentIndex]];
     NSString * producttypeStr =strSelectIdJuZhu;
-    NSString * callvisitStr =[self.callvisitSeg titleForSegmentAtIndex:[self.callvisitSeg selectedSegmentIndex]];
+//    NSString * callvisitStr =[self.callvisitSeg titleForSegmentAtIndex:[self.callvisitSeg selectedSegmentIndex]];
     NSString * getwayStr =strSelectIdLaiFang;
     NSString * bugdetStr =self.bugdetTextField.text;
     NSString * intentionStr = [self.intentionSeg titleForSegmentAtIndex:[self.intentionSeg selectedSegmentIndex]];
     
-    if ([nameStr length] > 0 &&  [sexStr length] > 0 &&  [statusStr length] > 0 &&  [telStr length] > 0 &&  [roomtypeStr length] > 0 &&  [livingspaceStr length] > 0 &&  [ownerStr length] > 0 &&  [producttypeStr length] > 0 &&  [callvisitStr length] > 0&&  [getwayStr length] > 0&&  [bugdetStr length] > 0&&  [intentionStr length] > 0) {
+    if ([nameStr length] > 0 &&  [sexStr length] > 0 &&  [statusStr length] > 0 &&  [telStr length] > 0 &&  [roomtypeStr length] > 0 &&  [livingspaceStr length] > 0 &&  [ownerStr length] > 0 &&  [producttypeStr length] > 0 &&  [getwayStr length] > 0&&  [bugdetStr length] > 0&&  [intentionStr length] > 0) {
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
-        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&callvisit=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,callvisitStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
         NSLog(@"url: %@", strUrl);
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];

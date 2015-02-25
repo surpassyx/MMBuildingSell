@@ -135,7 +135,24 @@
 
 - (IBAction)updateResources
 {
-    
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    if ([myDefaults objectForKey:@"enterpriseCode"] == nil && [myDefaults objectForKey:@"installment"]) {
+        XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"请选择期别后更新资源" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+        alter.rightBlock=^()
+        {
+            //        NSLog(@"右边按钮被点击");
+        };
+        alter.leftBlock=^()
+        {
+            //        NSLog(@"左边按钮被点击");
+        };
+        alter.dismissBlock=^()
+        {
+            //        NSLog(@"窗口即将消失");
+        };
+        [alter show];
+        return;
+    }
     XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"是否更新系统资源?" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
     alter.rightBlock=^()
     {

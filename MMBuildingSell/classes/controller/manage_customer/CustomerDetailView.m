@@ -112,10 +112,9 @@
     if ([callvisitStr length] > 0 &&  [callDateStr length] > 0 &&  [callNoteStr length] > 0 && [callDateStr isEqualToString:@"点击设置来访日期"] == NO ) {
         
         NSString * strUrl = [[NSString alloc]initWithFormat:@"action=19&customno=%@&callvisit=%@&calldate=%@&callnote=%@",strCustomNo,callvisitStr,callDateStr,callNoteStr];
-        NSLog(@"url: %@", strUrl);
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-        
+        NSLog(@"hexurl: %@", API_BASE_URL(hexUrl));
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);
@@ -124,8 +123,8 @@
             if (intString == 1) {
                 NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
                 [rowData setValue:callvisitStr forKey:@"callvisit"];
-                [rowData setValue:callDateStr forKey:@"callDate"];
-                [rowData setValue:callNoteStr forKey:@"callNote"];
+                [rowData setValue:callDateStr forKey:@"calldate"];
+                [rowData setValue:callNoteStr forKey:@"callnote"];
                 
                 [self.dataList addObject:rowData];
                 
@@ -183,12 +182,12 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         NSMutableDictionary *rowData = [self.dataList objectAtIndex:indexPath.row];
-        
+        NSLog(@"---%@",[rowData objectForKey:@"customsubno"]);
         NSString * strUrl = [[NSString alloc]initWithFormat:@"action=20&customsubno=%@",[rowData objectForKey:@"customsubno"]];
-        NSLog(@"url: %@", strUrl);
+        
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-        
+        NSLog(@"url: %@", API_BASE_URL(hexUrl));
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);
@@ -198,6 +197,22 @@
                 [self.dataList removeObjectAtIndex:indexPath.row];
                 // Delete the row from the data source.
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }else{
+                XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:[responseObject objectForKey:@"error"] leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+                alter.rightBlock=^()
+                {
+                    //        NSLog(@"右边按钮被点击");
+                };
+                alter.leftBlock=^()
+                {
+                    //        NSLog(@"左边按钮被点击");
+                };
+                alter.dismissBlock=^()
+                {
+                    //        NSLog(@"窗口即将消失");
+                };
+                [alter show];
+                return;
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -232,7 +247,7 @@
             [rowData setValue:strCustomsubno forKey:@"customsubno"];
             [rowData setValue:strCallvisit forKey:@"callvisit"];
             [rowData setValue:strCallDate forKey:@"calldate"];
-            [rowData setValue:strCallNote forKey:@"callNote"];
+            [rowData setValue:strCallNote forKey:@"callnote"];
             
             [self.dataList addObject:rowData];
         }

@@ -22,6 +22,8 @@
 
 #import "ZhiYeJiHuaViewController.h"
 
+#import "UIImageView+WebCache.h"
+
 @interface SelectViewController () <SegmentViewDelegate,QCheckBoxDelegate,TSTableViewDelegate>
 {
     TSTableView *_tableView1;
@@ -247,6 +249,7 @@
                     NSString * strAllPrice =[dicInfo objectForKey:@"allprice"];
                     NSString * strRealPrice =[dicInfo objectForKey:@"realprice"];
                     NSString * strTotal =[dicInfo objectForKey:@"total"];
+                    NSString * strDocname =[dicInfo objectForKey:@"docname"];
                     
                     NSMutableDictionary *roomArrData = [[NSMutableDictionary alloc]init];
                     [roomArrData setValue:strId forKey:@"id"];
@@ -259,7 +262,7 @@
                     [roomArrData setValue:strAllPrice forKey:@"allprice"];
                     [roomArrData setValue:strRealPrice forKey:@"realprice"];
                     [roomArrData setValue:strTotal forKey:@"total"];
-                    
+                    [roomArrData setValue:strDocname forKey:@"docname"];
                     
                     [arrTemp addObject:roomArrData];
                 }
@@ -528,6 +531,7 @@
     NSString * strAllPrice = [roomArrData objectForKey:@"allprice"];
     NSString * strRealPrice = [roomArrData objectForKey:@"realprice"];
     NSString * strTotal = [roomArrData objectForKey:@"total"];
+    NSString * strDocname =[roomArrData objectForKey:@"docname"];
     
     roomNameLabel.text = strRoomName;
     if ([strRoomStatus isEqualToString:@"1"]) {
@@ -572,7 +576,7 @@
     strTotal = [strTotal stringByAppendingString:@" 万元"];
     totalLabel.text = strTotal;
 
-    
+    [imageView sd_setImageWithURL:[NSURL URLWithString:PIC_BASE_URL(strDocname)] placeholderImage:[UIImage imageNamed:@"huxingtu.jpg"]];
     
     
 //    NSLog(@"---k:%d",k);

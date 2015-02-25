@@ -37,6 +37,8 @@
     NSString * strSelectIdXuQiu;
     NSString * strSelectIdJuZhu;
     
+    int nType; //0 添加  1  编辑
+    
 }
 @property(retain,nonatomic)id<AddCustomerDelegate> delegate;
 
@@ -48,7 +50,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sexSeg;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *statusSeg;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *ownerSeg;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *callvisitSeg;
+//@property (weak, nonatomic) IBOutlet UISegmentedControl *callvisitSeg;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *intentionSeg;
 
 
@@ -67,7 +69,7 @@
 
 - (IBAction)dddddAction:(id)sender;
 
-
+-(void)initType:(int)type;
 
 -(void)initDataLaifangqudao:(NSMutableArray *)laifangqudao
               xuqiufangxing:(NSMutableArray *)xuqiufangxing
