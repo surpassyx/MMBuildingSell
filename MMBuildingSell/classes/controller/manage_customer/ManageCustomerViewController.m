@@ -33,6 +33,8 @@
     if (intString == 1) {
         [self.personList removeAllObjects];
         [self.arrPersonInfo removeAllObjects];
+        [self.dataList removeAllObjects];
+        [self.personShowList removeAllObjects];
         NSMutableArray *arrInfo = [jsonDic objectForKey:@"arr"];
         for (int i = 0; i < arrInfo.count ; i++) {
             NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
@@ -70,8 +72,9 @@
             [rowData setValue:strIntention forKey:@"intention"];
             
             [self.personList addObject:strName];
-            
+            [self.dataList addObject:strName];
             [self.arrPersonInfo addObject:rowData];
+            [self.personShowList addObject:rowData];
         }
         
     }else{
@@ -79,6 +82,7 @@
     }
     NSString * strNum = [[NSString alloc]initWithFormat:@"共计%lu人",(unsigned long)[self.personList count]];
     [totalPersonLabel setText:strNum];
+    
     
     [self.myTableView reloadData];
     if ([self.arrPersonInfo count] > 0) {
@@ -273,10 +277,7 @@
    
     
     // 初始化tableView的数据
-    self.personList = [NSMutableArray arrayWithObjects:@"李先生",@"刘先生",@"赵先生",@"杨先生", nil];
-    self.arrPersonInfo = [[NSMutableArray alloc]init];
     
-    self.dataList = self.personList;
     
     
     
@@ -300,26 +301,29 @@
     self.myTableView.tableFooterView = totalPersonLabel;
     
     //增加搜索框
-    searchBar = [[UISearchBar alloc] init];
-    searchBar.frame = CGRectMake(0, 0, self.myTableView.bounds.size.width, 0);
-    searchBar.delegate = self;
-    searchBar.keyboardType = UIKeyboardTypeDefault;
-    searchBar.showsCancelButton = NO;
-    searchBar.showsBookmarkButton = NO;
-    searchBar.placeholder = @"请输入";
+    mySearchBar = [[UISearchBar alloc] init];
+    mySearchBar.frame = CGRectMake(0, 0, self.myTableView.bounds.size.width, 0);
+    mySearchBar.delegate = self;
+    mySearchBar.keyboardType = UIKeyboardTypeDefault;
+    mySearchBar.showsCancelButton = NO;
+    mySearchBar.showsBookmarkButton = NO;
+    mySearchBar.placeholder = @"请输入";
     //    searchBar.barStyle = UIBarStyleBlack;
-    searchBar.translucent = YES;
-    searchBar.barStyle = UIBarStyleBlackTranslucent;
+    mySearchBar.translucent = YES;
+    mySearchBar.barStyle = UIBarStyleBlackTranslucent;
     //    searchBar.tintColor = [UIColor redColor];
-    searchBar.prompt = @"搜索";
-    [searchBar sizeToFit];
-    self.myTableView.tableHeaderView = searchBar;
+    mySearchBar.prompt = @"搜索";
+    [mySearchBar sizeToFit];
+    self.myTableView.tableHeaderView = mySearchBar;
     
     [self.view addSubview:myTableView];
     
     //默认选中第一行
-    NSIndexPath *firstPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [myTableView selectRowAtIndexPath:firstPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+    if([self.dataList count]>0){
+        NSIndexPath *firstPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [myTableView selectRowAtIndexPath:firstPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+    }
+    
     
 }
 -(void)initView
@@ -342,6 +346,11 @@
     self.laifangqudaoList = [[NSMutableArray alloc]init];
     self.xuqiufangxingList = [[NSMutableArray alloc]init];
     self.juzhuyetaiList = [[NSMutableArray alloc]init];
+    
+    self.personList = [NSMutableArray arrayWithObjects:@"李先生",@"刘先生",@"赵先生",@"杨先生", nil];
+    self.arrPersonInfo = [[NSMutableArray alloc]init];
+    self.personShowList = [[NSMutableArray alloc]init];
+    self.dataList = [[NSMutableArray alloc]init];
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -488,7 +497,7 @@
 {
     //    [self showDeatilCustomer];
     NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-    rowData = [self.arrPersonInfo objectAtIndex:indexPath.row];
+    rowData = [self.personShowList objectAtIndex:indexPath.row];
     
     
     [self showDeatilCustomer:[rowData objectForKey:@"no"]
@@ -510,13 +519,21 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.dataList removeAllObjects];
-    for(NSString * data in self.personList)
+    [self.personShowList removeAllObjects];
+    
+    for(NSString * str in self.personList)
     {
-        if([data hasPrefix:searchBar.text])
+        
+        if([str hasPrefix:searchBar.text])
+            
         {
-            [self.dataList  addObject: data];
+            
+            [self.dataList addObject:str];
+            
+            [self.personShowList addObject:[self.arrPersonInfo objectAtIndex:[self.personList indexOfObject:str]]];
         }
     }
+
     [self.myTableView reloadData];
     [searchBar resignFirstResponder];
 }
@@ -532,12 +549,17 @@
     if(0 == searchText.length)
         
     {
-        self.dataList = self.personList;
+        [self.dataList removeAllObjects];
+        [self.personShowList removeAllObjects];
+        
+        self.dataList = [self.personList mutableCopy];
+        self.personShowList = [self.arrPersonInfo mutableCopy];
         [self.myTableView reloadData];
         return ;
     }
     
     [self.dataList removeAllObjects];
+    [self.personShowList removeAllObjects];
     
     for(NSString * str in self.personList)
     {
@@ -548,6 +570,7 @@
             
             [self.dataList addObject:str];
             
+            [self.personShowList addObject:[self.arrPersonInfo objectAtIndex:[self.personList indexOfObject:str]]];
         }
     }
     

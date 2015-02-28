@@ -17,9 +17,10 @@
     AddCustomerView *addView;
     
     UILabel * totalPersonLabel;
-    UISearchBar * searchBar;
+    UISearchBar * mySearchBar;
 }
 @property (nonatomic, retain) NSMutableArray *personList;
+@property (nonatomic, retain) NSMutableArray *personShowList;
 @property (nonatomic, retain) NSMutableArray *dataList;
 @property (nonatomic, retain) UITableView *myTableView;
 @property (nonatomic, retain) NSMutableArray *arrPersonInfo;
