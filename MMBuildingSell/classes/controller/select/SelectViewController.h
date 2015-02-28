@@ -57,6 +57,8 @@
     UIImageView  *imageViewRightBk;
     
     NSMutableDictionary *rowHouseData;
+    
+    NSString * strLouDongName;
 }
 
 @property (nonatomic, retain) NSMutableArray *dataList;

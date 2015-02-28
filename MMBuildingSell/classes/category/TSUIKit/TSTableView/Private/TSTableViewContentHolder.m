@@ -170,6 +170,7 @@
 
 - (TSTableViewSelection *)rowSelectionView
 {
+    return nil;
     if(!_rowSelectionView)
     {
         _rowSelectionView = [[TSTableViewSelection alloc] init];
@@ -183,6 +184,7 @@
 
 - (TSTableViewSelection *)columnSelectionView
 {
+    return nil;
     if(!_columnSelectionView)
     {
         _columnSelectionView = [[TSTableViewSelection alloc] init];

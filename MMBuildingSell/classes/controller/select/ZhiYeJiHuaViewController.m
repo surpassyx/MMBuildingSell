@@ -26,9 +26,9 @@
     [self.zhekoushuomingTextField addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
     [self.zhekoushuomingTextField addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
     
-    self.fangkuanzongeTextField.delegate = self;
-    [self.fangkuanzongeTextField addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
-    [self.fangkuanzongeTextField addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
+//    self.fangkuanzongeTextField.delegate = self;
+//    [self.fangkuanzongeTextField addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
+//    [self.fangkuanzongeTextField addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
     
     self.anjiezongeTextField.delegate = self;
     [self.anjiezongeTextField addTarget:self action:@selector(textFieldDidBeginEditing:) forControlEvents:UIControlEventEditingDidBegin];
@@ -112,6 +112,7 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+    self.fangkuanzongeLabel.text = strTotalFangKuan;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -133,8 +134,8 @@
 -(void)initHouseData:(NSMutableDictionary *)dic
 {
     rowHouseData = dic;
-    NSString * strTotal = [rowHouseData objectForKey:@"total"];
-    [self.fangkuanzongeTextField setText:strTotal];
+    strTotalFangKuan = [rowHouseData objectForKey:@"total"];
+//    [self.fangkuanzongeLabel setText:strTotal];
     
 }
 
@@ -151,7 +152,7 @@
 -(void)addZheKou:(NSMutableArray *)zhekouList
 {
     NSString * strTemp = @"";
-    NSString * strTotal =  self.fangkuanzongeTextField.text;
+    NSString * strTotal =  self.fangkuanzongeLabel.text;
     float fTotal = 0;
     if ([strTotal length] > 0) {
         fTotal = [strTotal floatValue];
@@ -168,18 +169,18 @@
         
         if ([calculatMethod isEqualToString:@"1"]) {
             //减点
-            fTotal = fTotal - (fTotal * ffee);
+            fTotal = fTotal - (fTotal * fdiscount);
         }else if ([calculatMethod isEqualToString:@"2"]) {
             //打折
-            fTotal = fTotal - (fTotal * ffee);
+            fTotal = fTotal - (fTotal * fdiscount);
         }else if ([calculatMethod isEqualToString:@"3"]) {
             //总价优惠
-            fTotal = fTotal - fdiscount;
+            fTotal = fTotal - ffee;
         }else if ([calculatMethod isEqualToString:@"4"]) {
             //单价优惠
             NSString * strAre = [rowHouseData objectForKey:@"allares"];
             if ([strAre length] > 0) {
-                fTotal = fTotal - fdiscount * [strAre floatValue];
+                fTotal = fTotal - ffee * [strAre floatValue];
             }
             
         }
@@ -195,7 +196,7 @@
     }
     
     
-    self.fangkuanzongeTextField.text = [[NSString alloc]initWithFormat:@"%f",fTotal];
+    strTotalFangKuan = [[NSString alloc]initWithFormat:@"%f",fTotal];
     
     [self.zhekoushuomingTextField setText:strTemp];
     NSLog(@"优惠政策:%@",strTemp);
@@ -216,7 +217,7 @@
     }
     
     PrintZhiYeJiHuaViewController * zhiye = [[PrintZhiYeJiHuaViewController alloc]init];
-    [zhiye initDataRoomNo:roomCodeStr discount:strDiscount remark:strTemp totalFee:self.fangkuanzongeTextField.text mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
+    [zhiye initDataRoomNo:roomCodeStr discount:strDiscount remark:strTemp totalFee:self.fangkuanzongeLabel.text mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
     [self.navigationController pushViewController:zhiye animated:YES];
 }
 

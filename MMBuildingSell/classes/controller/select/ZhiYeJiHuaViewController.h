@@ -11,11 +11,12 @@
 @interface ZhiYeJiHuaViewController : UIViewController<UITextFieldDelegate>
 {
     NSMutableDictionary *rowHouseData;
+    NSString * strTotalFangKuan;
 }
 
 
 @property (strong, nonatomic) IBOutlet UITextField *zhekoushuomingTextField;
-@property (strong, nonatomic) IBOutlet UITextField *fangkuanzongeTextField;
+@property (strong, nonatomic) IBOutlet UILabel *fangkuanzongeLabel;
 @property (strong, nonatomic) IBOutlet UITextField *anjiezongeTextField;
 @property (strong, nonatomic) IBOutlet UITextField *gongjijindaikuanTextField;
 @property (strong, nonatomic) IBOutlet UITextField *anjiebiliTextField;

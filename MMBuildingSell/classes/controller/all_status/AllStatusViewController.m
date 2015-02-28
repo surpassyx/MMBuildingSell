@@ -150,7 +150,7 @@
     NSMutableDictionary *rowData = [self.dataList objectAtIndex:index];
     NSString * strUrl = [rowData objectForKey:@"menuUrl"];
     
-    NSURL *url =[NSURL URLWithString:HTTP_BASE_URL(strUrl)];
+    NSURL *url =[NSURL URLWithString:MENU_BASE_URL(strUrl)];
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [myWebView loadRequest:request];
 }

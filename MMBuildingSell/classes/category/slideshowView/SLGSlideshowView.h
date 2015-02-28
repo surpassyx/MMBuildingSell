@@ -40,8 +40,8 @@
 -(void)beginSlideShow;
 -(void)stopSlideShow;
 -(void)pauseResumeSlideShow;
--(void)previousImage; 
--(void)nextImage;
+-(BOOL)previousImage;
+-(BOOL)nextImage;
 
 
 

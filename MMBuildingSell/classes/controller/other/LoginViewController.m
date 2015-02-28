@@ -307,7 +307,7 @@
     noInstallmentArray = [[NSMutableArray alloc]init];
     
     // ftitle和目录文件夹名称的对照
-    self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"4", @"shipinzhanshi", @"6", @"poumiantu", @"2", @"fangxingzhanshi", @"3", @"xiangmuzhanshi", @"1", @"zhoubianpeitao", @"5", nil];
+    self.dicDirectoryKey = [NSDictionary dictionaryWithObjectsAndKeys:@"wuyezhanshi",@"4", @"shipinzhanshi", @"6", @"poumiantu", @"2", @"fangxingzhanshi", @"3", @"xiangmuzhanshi", @"1", @"zhoubianpeitao", @"5",@"shipintupian", @"7",@"panorama", @"8",@"xiangmulogo", @"9", nil];
     
     [self getQibieInfo];
 

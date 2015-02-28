@@ -77,6 +77,8 @@
     }else{
         NSLog(@"服务端返回错误");
     }
+    NSString * strNum = [[NSString alloc]initWithFormat:@"共计%lu人",(unsigned long)[self.personList count]];
+    [totalPersonLabel setText:strNum];
     
     [self.myTableView reloadData];
     if ([self.arrPersonInfo count] > 0) {
@@ -268,12 +270,7 @@
     
     [self.view addSubview:addPersonBtn];
     
-    NSString * strNum = [[NSString alloc]initWithFormat:@"共计%d人",4];
-    //显示人数标签
-    UILabel * totalPersonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 45, AddBtnWIDTH, 40)];
-    [totalPersonLabel setText:strNum];
-    [totalPersonLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:totalPersonLabel];
+   
     
     // 初始化tableView的数据
     self.personList = [NSMutableArray arrayWithObjects:@"李先生",@"刘先生",@"赵先生",@"杨先生", nil];
@@ -281,7 +278,9 @@
     
     self.dataList = self.personList;
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 85, AddBtnWIDTH, FrameHEIGHT-46 - 10 - 45) style:UITableViewStylePlain];
+    
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, AddBtnWIDTH, FrameHEIGHT - 54) style:UITableViewStylePlain];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 设置tableView的数据源
     tableView.dataSource = self;
@@ -292,8 +291,16 @@
     
     self.myTableView = tableView;
     
+    NSString * strNum = [[NSString alloc]initWithFormat:@"共计%lu人",(unsigned long)[self.personList count]];
+    //显示人数标签
+    totalPersonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, AddBtnWIDTH, 40)];
+    [totalPersonLabel setText:strNum];
+    [totalPersonLabel setTextAlignment:NSTextAlignmentCenter];
+    //    [self.view addSubview:totalPersonLabel];
+    self.myTableView.tableFooterView = totalPersonLabel;
+    
     //增加搜索框
-    UISearchBar * searchBar = [[UISearchBar alloc] init];
+    searchBar = [[UISearchBar alloc] init];
     searchBar.frame = CGRectMake(0, 0, self.myTableView.bounds.size.width, 0);
     searchBar.delegate = self;
     searchBar.keyboardType = UIKeyboardTypeDefault;
@@ -553,7 +560,11 @@
 -(void)addPerson:(CustomerBean *)customer
 {
     [self removeAddPersonView];
-    [self.myTableView reloadData];
+//    [self.myTableView reloadData];
+    [self getHttpInfo];
+    [self getXuQiuFangXing];
+    [self getLaiFangQuDao];
+    [self getJuZhuYeTai];
 }
 
 -(void)removeAddPersonView

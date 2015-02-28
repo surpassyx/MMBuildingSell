@@ -154,13 +154,17 @@ static NSMutableArray *colors;
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
+    
 }
 
 #pragma mark - Actions
 -(void)previousButtonAction:(id)sender{
     
-    [imageShowView previousImage];
-    NSLog(@"上一张图片");
+    BOOL isHavePre = [imageShowView previousImage];
+    if (isHavePre == NO) {
+        [XWAlterview showmessage:@"提示" subtitle:@"前面没有了" cancelbutton:@"确定"];
+    }
+//    NSLog(@"上一张图片");
 }
 -(void)playButtonAction:(id)sender{
     
@@ -168,8 +172,12 @@ static NSMutableArray *colors;
 }
 -(void)nextButtonAction:(id)sender{
     
-    [imageShowView nextImage];
-    NSLog(@"下一张图片");
+    BOOL isHaveNext = [imageShowView nextImage];
+//    NSLog(@"下一张图片");
+    if (isHaveNext == NO) {
+        [XWAlterview showmessage:@"提示" subtitle:@"已经是最后一张了" cancelbutton:@"确定"];
+    }
+
 }
 
 
@@ -326,7 +334,23 @@ static NSMutableArray *colors;
 //            [playButton setHidden:NO];
             [playButton removeFromSuperview];
             [self initPlay:NO];
-            imageBk = [UIImage imageNamed:@"item_show_demo"];
+            
+            NSString *saveFilePath = [LocalFilePath getSessionPath:@"shipintupian/"]; //保存文件的路径
+            NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+            NSString *path1 = @"";
+            if (arrTemp != nil && [arrTemp count] > 0) {
+
+                for (NSString *path in arrTemp) {
+                    if([[path pathExtension] isEqualToString:@"jpg"] || [[path pathExtension] isEqualToString:@"png"] || [[path pathExtension] isEqualToString:@"jpeg"]){
+                        path1 = [[NSString alloc]initWithString:path];
+                    }
+                }
+            }
+            if ([path1 length] > 0) {
+                imageBk=[[UIImage alloc]initWithContentsOfFile:path1];
+            }else
+                imageBk = [UIImage imageNamed:@"item_show_demo"];
+            
             [imageView setImage:imageBk];
             [self setDrawButtonShow:NO];
             
@@ -398,8 +422,14 @@ static NSMutableArray *colors;
     
     NSString *saveFilePath = [LocalFilePath getSessionPath:@"shipinzhanshi/"]; //保存文件的路径
     NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+    NSString *path = @"";
     if (arrTemp != nil && [arrTemp count] > 0) {
-        NSString *path = [arrTemp objectAtIndex:0];
+        for (NSString *path1 in arrTemp) {
+            if([[path1 pathExtension] isEqualToString:@"mp4"]){
+                path = [[NSString alloc]initWithString:path1];
+            }
+    }
+//        NSString *path = [arrTemp objectAtIndex:0];
         
 //        NSString *path = [[NSBundle mainBundle] pathForResource:@"Movie" ofType:@"m4v"];
         //视频URL
@@ -407,7 +437,7 @@ static NSMutableArray *colors;
         //视频播放对象
         movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
         movie.controlStyle = MPMovieControlStyleFullscreen;
-        [movie.view setFrame:self.view.bounds];
+        [movie.view setFrame:CGRectMake(18, 20, 776, 661)];
         movie.initialPlaybackTime = -1;
         [self.view addSubview:movie.view];
         
@@ -465,13 +495,15 @@ static NSMutableArray *colors;
 -(NSTimeInterval)slideDurationForSlideShow:(SLGSlideshowView*)slideShowView atIndexPath:(NSIndexPath*)indexPath{
     
     // random time
-    return arc4random()%4;
+//    return arc4random()%4;
+    return 1;
     
 }
 -(NSTimeInterval)transitionDurationForSlideShow:(SLGSlideshowView*)slideShowView atIndexPath:(NSIndexPath*)indexPath{
     // random time
-    return (arc4random()%(4-1))+1;
+//    return (arc4random()%(4-1))+1;
     
+    return 1;
 }
 -(NSUInteger)transitionStyleForSlideShow:(SLGSlideshowView*)slideShowView atIndexPath:(NSIndexPath*)indexPath{
     
@@ -484,26 +516,26 @@ static NSMutableArray *colors;
 
 #pragma mark - SlideShowDelegate
 -(void)slideShowViewDidEnd:(SLGSlideshowView*)slideShowView willRepeat:(BOOL)willRepeat{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 -(void)slideShowView:(SLGSlideshowView*)slideShowView willDisplaySlideAtIndexPath:(NSIndexPath*)indexPath{
-    NSLog(@"%s: %i : %i",__PRETTY_FUNCTION__,indexPath.section,indexPath.row);
+//    NSLog(@"%s: %i : %i",__PRETTY_FUNCTION__,indexPath.section,indexPath.row);
 }
 -(void)slideShowView:(SLGSlideshowView*)slideShowView didDisplaySlideAtIndexPath:(NSIndexPath*)indexPath{
-    NSLog(@"%s: %i : %i",__PRETTY_FUNCTION__,indexPath.section,indexPath.row);
+//    NSLog(@"%s: %i : %i",__PRETTY_FUNCTION__,indexPath.section,indexPath.row);
 }
 -(void)slideShowView:(SLGSlideshowView*)slideShowView willBeginSection:(NSUInteger)section{
-    NSLog(@"%s:%i",__PRETTY_FUNCTION__,section);
+//    NSLog(@"%s:%i",__PRETTY_FUNCTION__,section);
 }
 -(void)slideShowView:(SLGSlideshowView*)slideShowView didBeginSection:(NSUInteger)section{
-    NSLog(@"%s:%i",__PRETTY_FUNCTION__,section);
+//    NSLog(@"%s:%i",__PRETTY_FUNCTION__,section);
     
 }
 -(void)slideShowViewDidPause:(SLGSlideshowView*)slideShowView{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 -(void)slideShowViewDidResume:(SLGSlideshowView*)slideShowView{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 
 

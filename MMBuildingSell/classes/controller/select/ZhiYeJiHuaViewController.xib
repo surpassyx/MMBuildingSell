@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -19,7 +19,7 @@
                 <outlet property="anjienianxian4TextField" destination="8Hw-Ua-o3K" id="nxC-Uz-4s0"/>
                 <outlet property="anjienianxian5TextField" destination="Jgo-bQ-49K" id="pTf-2J-IOf"/>
                 <outlet property="anjiezongeTextField" destination="uJN-1C-XcE" id="1RS-Mg-T65"/>
-                <outlet property="fangkuanzongeTextField" destination="sZk-08-lZ3" id="MLW-yg-SQl"/>
+                <outlet property="fangkuanzongeLabel" destination="CLx-3T-GJT" id="31d-fL-APy"/>
                 <outlet property="gongjijinbiliTextField" destination="zJJ-0R-yqS" id="TtN-Uz-xdV"/>
                 <outlet property="gongjijindaikuanTextField" destination="2SY-s5-PGc" id="Zew-xf-vK8"/>
                 <outlet property="gongjijinlilv1TextField" destination="nRT-rV-G0c" id="I9P-go-YSI"/>
@@ -63,11 +63,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sZk-08-lZ3">
-                    <rect key="frame" x="175" y="152" width="235" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="按揭总额（元）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgd-pZ-ckt">
                     <rect key="frame" x="37" y="201" width="119" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -310,6 +305,12 @@
                         <action selector="zhekouBtnAction:" destination="-1" eventType="touchUpInside" id="OtV-C8-je1"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLx-3T-GJT">
+                    <rect key="frame" x="175" y="156" width="235" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

@@ -167,17 +167,17 @@
     [self.view addSubview:realAresLabel];
     
     realPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 405, 220, 30)];
-    realPriceLabel.text = @"单价：1万";
+    realPriceLabel.text = @"单价：10000";
     [self.view addSubview:realPriceLabel];
     
     
     
     danjiaLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 435, 220, 30)];
-    danjiaLabel.text = @"单价：1万";
+    danjiaLabel.text = @"单价：10000";
     [self.view addSubview:danjiaLabel];
     
     totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(545, 465, 220, 30)];
-    totalLabel.text = @"总价：65万";
+    totalLabel.text = @"总价：6500000";
     [self.view addSubview:totalLabel];
     
     
@@ -324,6 +324,10 @@
     
     self.view.backgroundColor = kAllStatusBg;
     
+    if([self.dataList count] > 0)
+        strLouDongName = [[self.dataList objectAtIndex:0] objectForKey:@"floorName"];
+
+    
     imageViewLeftBk = [[UIImageView alloc] initWithFrame:CGRectMake(0 , 0, 516, 704)];
     [imageViewLeftBk setImage:[UIImage imageNamed:@"select_left_bk"]];
     [self.view addSubview:imageViewLeftBk];
@@ -337,7 +341,7 @@
     _tableView1 = [[TSTableView alloc] initWithFrame:CGRectMake(23, 35, 516 - 31, 704 - 66)];
     _tableView1.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView1.delegate = self;
-    
+    _tableView1.lineNumbersHidden = YES;
     [self.view addSubview:_tableView1];
     
     _model1 = [[TSTableViewModel alloc] initWithTableView:_tableView1 andStyle:kTSTableViewStyleLight];
@@ -402,6 +406,8 @@
 
 - (void)segmentView:(SegmentView *)segmentView didSelectedSegmentAtIndex:(int)index
 {
+    
+    strLouDongName = [[self.dataList objectAtIndex:index] objectForKey:@"floorName"];
     louData = [self.dataList objectAtIndex:index];
     NSArray *columns2 = [self columnsForBuild];
     NSArray *rows2 = [self rowsForBuild];
@@ -511,6 +517,8 @@
     
     NSMutableArray *unitArr = [[floorArr objectAtIndex:danyuan_no] objectForKey:@"unitArr"];
     
+    NSString * strUnitName = [[floorArr objectAtIndex:danyuan_no] objectForKey:@"unitName"];
+    
     int k = cellIndex - nTotalNum;
     if (k==0) {
         k = danyuan_num;
@@ -533,7 +541,7 @@
     NSString * strTotal = [roomArrData objectForKey:@"total"];
     NSString * strDocname =[roomArrData objectForKey:@"docname"];
     
-    roomNameLabel.text = strRoomName;
+    roomNameLabel.text = [[NSString alloc]initWithFormat:@"%@-%@-%@",strLouDongName,strUnitName,strRoomName];
     if ([strRoomStatus isEqualToString:@"1"]) {
         strRoomStatus = @"销售状态：销控";
     }else if ([strRoomStatus isEqualToString:@"2"]){
@@ -565,15 +573,15 @@
     realAresLabel.text = strRealAres;
     
     strRealPrice = [@"建筑单价：" stringByAppendingString:strRealPrice];
-    strRealPrice = [strRealPrice stringByAppendingString:@" 万元/㎡"];
+    strRealPrice = [strRealPrice stringByAppendingString:@" 元/㎡"];
     realPriceLabel.text = strRealPrice;
 
     strAllPrice = [@"套内单价：" stringByAppendingString:strAllPrice];
-    strAllPrice = [strAllPrice stringByAppendingString:@" 万元"];
+    strAllPrice = [strAllPrice stringByAppendingString:@" 元"];
     danjiaLabel.text = strAllPrice;
     
     strTotal = [@"标准总价：" stringByAppendingString:strTotal];
-    strTotal = [strTotal stringByAppendingString:@" 万元"];
+    strTotal = [strTotal stringByAppendingString:@" 元"];
     totalLabel.text = strTotal;
 
     [imageView sd_setImageWithURL:[NSURL URLWithString:PIC_BASE_URL(strDocname)] placeholderImage:[UIImage imageNamed:@"huxingtu.jpg"]];

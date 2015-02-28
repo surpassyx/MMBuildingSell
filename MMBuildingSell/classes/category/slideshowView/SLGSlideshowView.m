@@ -29,9 +29,9 @@
 //
 -(void)_initVars{
 
-    _transitionDuration = 2;
+    _transitionDuration = 1;
     _transitionOption = UIViewAnimationOptionTransitionCrossDissolve;
-    _slideDuration = 4;
+    _slideDuration = 1;
     _autoRepeat = YES;
     _counter = 0;
 }
@@ -134,30 +134,31 @@
 //
 //
 //
--(void)previousImage{
+-(BOOL)previousImage{
     
     if(_counter<=1)
-        return; // still on the first slide
+        return NO; // still on the first slide
 
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     _counter = _counter-2;// the counter has already been incremented for the next slide...so subtract 2
     
     [self _transitionToNextSlide];
-    
+    return YES;
 }
 //
 //
 //
--(void)nextImage{
+-(BOOL)nextImage{
     
     if(_counter==[_indexPaths count])
-        return;
+        return NO;
     
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     _counter++;
     [self _transitionToNextSlide];
+    return YES;
 }
 #pragma mark - Internal
 //
@@ -329,8 +330,7 @@
     
 //    view.frame = self.bounds;
     
-    NSLog(@"%f,%f,%f,%f",view.frame.origin.x,view.frame.origin.y
-          ,view.frame.size.width,view.frame.size.height);
+//    NSLog(@"%f,%f,%f,%f",view.frame.origin.x,view.frame.origin.y,view.frame.size.width,view.frame.size.height);
     
     return view;
     
@@ -375,7 +375,7 @@
     [super layoutSubviews];
     _currentView.frame = CGRectMake(kItemShowImageX, kItemShowImageY, kItemShowImageW, kItemShowImageH);
 //    _currentView.frame = self.bounds;
-    NSLog(@"%f,%f,%f,%f",_currentView.frame.origin.x,_currentView.frame.origin.y
-          ,_currentView.frame.size.width,_currentView.frame.size.height);
+//    NSLog(@"%f,%f,%f,%f",_currentView.frame.origin.x,_currentView.frame.origin.y
+//          ,_currentView.frame.size.width,_currentView.frame.size.height);
 }
 @end
