@@ -39,11 +39,25 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    dataList = [[NSMutableArray  alloc]init];
+    NSString *saveFilePath = [LocalFilePath getSessionPath:@"panorama/"]; //保存文件的路径
+    dataList = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+    
+    NSMutableArray * nameArr = [[NSMutableArray alloc]init];
+    for (int i = 0; i<[dataList count]; i++) {
+        NSString * strName = [[NSString alloc]initWithFormat:@"全景%d",i+1];
+        [nameArr addObject:strName];
+    }
     
     SegmentView *segmentView = [[SegmentView alloc] init];
-    segmentView.titles = @[@"全景1", @"全景2", @"全景3"];
+    segmentView.titles = nameArr;
     segmentView.delegate = self;
     self.navigationItem.titleView = segmentView;
+    
+//    SegmentView *segmentView = [[SegmentView alloc] init];
+//    segmentView.titles = @[@"全景1", @"全景2", @"全景3"];
+//    segmentView.delegate = self;
+//    self.navigationItem.titleView = segmentView;
 
     
     CGFloat width = 814.0;
@@ -74,36 +88,44 @@
 {
     NSObject<PLIPanorama> *panorama = nil;
     //Spherical2 panorama example (supports up 2048x1024 texture)
-    if(index == 0)
-    {
-        panorama = [PLSpherical2Panorama panorama];
-        [(PLSpherical2Panorama *)panorama setImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere2" ofType:@"jpg"]]];
-    }
-    //Spherical panorama example (supports up 1024x512 texture)
-    else if(index == 1)
-    {
-        panorama = [PLSphericalPanorama panorama];
-        [(PLSphericalPanorama *)panorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere" ofType:@"jpg"]]]];
-    }
-    //Cubic panorama example (supports up 1024x1024 texture per face)
-    else if(index == 2)
-    {
-        PLCubicPanorama *cubicPanorama = [PLCubicPanorama panorama];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_f" ofType:@"jpg"]]] face:PLCubeFaceOrientationFront];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_b" ofType:@"jpg"]]] face:PLCubeFaceOrientationBack];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_l" ofType:@"jpg"]]] face:PLCubeFaceOrientationLeft];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_r" ofType:@"jpg"]]] face:PLCubeFaceOrientationRight];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_u" ofType:@"jpg"]]] face:PLCubeFaceOrientationUp];
-        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_d" ofType:@"jpg"]]] face:PLCubeFaceOrientationDown];
-        panorama = cubicPanorama;
-    }
-    //Cylindrical panorama example (supports up 1024x1024 texture)
-    else if(index == 3)
-    {
-        panorama = [PLCylindricalPanorama panorama];
-        ((PLCylindricalPanorama *)panorama).isHeightCalculated = NO;
-        [(PLCylindricalPanorama *)panorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere" ofType:@"jpg"]]]];
-    }
+    
+    NSString * strPicPath = [dataList objectAtIndex:index];
+    NSLog(@"全景图片地址:%@",strPicPath);
+    
+//    panorama = [PLSpherical2Panorama panorama];
+    panorama = [PLCylindricalPanorama panorama];
+    [(PLSpherical2Panorama *)panorama setImage:[PLImage imageWithPath:strPicPath]];
+    
+//    if(index == 0)
+//    {
+//        panorama = [PLSpherical2Panorama panorama];
+//        [(PLSpherical2Panorama *)panorama setImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere2" ofType:@"jpg"]]];
+//    }
+//    //Spherical panorama example (supports up 1024x512 texture)
+//    else if(index == 1)
+//    {
+//        panorama = [PLSphericalPanorama panorama];
+//        [(PLSphericalPanorama *)panorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere" ofType:@"jpg"]]]];
+//    }
+//    //Cubic panorama example (supports up 1024x1024 texture per face)
+//    else if(index == 2)
+//    {
+//        PLCubicPanorama *cubicPanorama = [PLCubicPanorama panorama];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_f" ofType:@"jpg"]]] face:PLCubeFaceOrientationFront];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_b" ofType:@"jpg"]]] face:PLCubeFaceOrientationBack];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_l" ofType:@"jpg"]]] face:PLCubeFaceOrientationLeft];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_r" ofType:@"jpg"]]] face:PLCubeFaceOrientationRight];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_u" ofType:@"jpg"]]] face:PLCubeFaceOrientationUp];
+//        [cubicPanorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_d" ofType:@"jpg"]]] face:PLCubeFaceOrientationDown];
+//        panorama = cubicPanorama;
+//    }
+//    //Cylindrical panorama example (supports up 1024x1024 texture)
+//    else if(index == 3)
+//    {
+//        panorama = [PLCylindricalPanorama panorama];
+//        ((PLCylindricalPanorama *)panorama).isHeightCalculated = NO;
+//        [(PLCylindricalPanorama *)panorama setTexture:[PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"pano_sphere" ofType:@"jpg"]]]];
+//    }
     //Add a hotspot
     PLTexture *hotspotTexture = [PLTexture textureWithImage:[PLImage imageWithPath:[[NSBundle mainBundle] pathForResource:@"hotspot" ofType:@"png"]]];
     PLHotspot *hotspot = [PLHotspot hotspotWithId:(kIdMin + random() % ((kIdMax + 1) - kIdMin)) texture:hotspotTexture atv:0.0f ath:0.0f width:0.08f height:0.08f];

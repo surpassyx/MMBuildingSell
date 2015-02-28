@@ -12,6 +12,7 @@
 
 @interface PanoramaViewController : UIViewController <PLViewDelegate>
 {
+    NSMutableArray * dataList;
 @private
     PLView *plView;
 }

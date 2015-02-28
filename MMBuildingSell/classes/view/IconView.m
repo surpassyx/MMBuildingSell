@@ -21,7 +21,23 @@
         self.imageView.layer.cornerRadius = 5;
         self.imageView.layer.masksToBounds = YES;
         
-        [self setImage:[UIImage imageNamed:@"head_icon.jpg"] forState:UIControlStateNormal];
+        NSString *saveFilePath = [LocalFilePath getSessionPath:@"xiangmulogo/"]; //保存文件的路径
+        NSMutableArray * arrTemp = [LocalFilePath searchFileInDocumentDirctory:saveFilePath];
+        NSString *path1 = @"";
+        UIImage * imageBK;
+        if (arrTemp != nil && [arrTemp count] > 0) {
+            
+            for (NSString *path in arrTemp) {
+                if([[path pathExtension] isEqualToString:@"jpg"] || [[path pathExtension] isEqualToString:@"png"] || [[path pathExtension] isEqualToString:@"jpeg"]){
+                    path1 = [[NSString alloc]initWithString:path];
+                }
+            }
+        }
+        if ([path1 length] > 0) {
+            imageBK=[[UIImage alloc]initWithContentsOfFile:path1];
+        }else
+            imageBK = [UIImage imageNamed:@"head_icon.jpg"];
+        [self setImage:imageBK forState:UIControlStateNormal];
         
         NSString * strTemp =[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
         [self setTitle:strTemp forState:UIControlStateNormal];
