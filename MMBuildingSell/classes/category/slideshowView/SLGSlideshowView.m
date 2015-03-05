@@ -32,7 +32,7 @@
     _transitionDuration = 1;
     _transitionOption = UIViewAnimationOptionTransitionCrossDissolve;
     _slideDuration = 1;
-    _autoRepeat = YES;
+    _autoRepeat = NO;
     _counter = 0;
 }
 //
@@ -135,13 +135,14 @@
 //
 //
 -(BOOL)previousImage{
-    
+    NSLog(@"向上翻前:%lu",(unsigned long)_counter);
     if(_counter<=1)
         return NO; // still on the first slide
-
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
-    _counter = _counter-2;// the counter has already been incremented for the next slide...so subtract 2
+//    if (_counter == 1) {
+//        _counter = 0;
+//    }else
+        _counter = _counter-2;// the counter has already been incremented for the next slide...so subtract 2
     
     [self _transitionToNextSlide];
     return YES;
@@ -150,14 +151,15 @@
 //
 //
 -(BOOL)nextImage{
-    
+    NSLog(@"向下翻前:%lu",(unsigned long)_counter);
     if(_counter==[_indexPaths count])
         return NO;
     
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    _counter++;
     [self _transitionToNextSlide];
+//    _counter++;
+    
     return YES;
 }
 #pragma mark - Internal
@@ -221,6 +223,7 @@
     nextView.frame = CGRectMake(kItemShowImageX, kItemShowImageY, kItemShowImageW, kItemShowImageH);
     
     _counter++;
+    NSLog(@"操作完:%lu",(unsigned long)_counter);
     
     
     if(_currentSection != nextIndexPath.section){

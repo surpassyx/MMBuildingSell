@@ -136,7 +136,7 @@
 - (IBAction)updateResources
 {
     NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
-    if ([myDefaults objectForKey:@"enterpriseCode"] == nil && [myDefaults objectForKey:@"installment"]) {
+    if ([myDefaults objectForKey:@"enterpriseCode"] == nil || [myDefaults objectForKey:@"installment"] == nil) {
         XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"请选择期别后更新资源" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
         alter.rightBlock=^()
         {
