@@ -39,6 +39,12 @@
             [rowData setValue:strSortNo forKey:@"sortNo"];
             [self.dataList addObject:rowData];
         }
+        [self.dataList sortUsingComparator:^NSComparisonResult(__strong id obj1,__strong id obj2){
+            NSMutableDictionary *rowData1 = (NSMutableDictionary *)obj1;
+            NSMutableDictionary *rowData2 = (NSMutableDictionary *)obj2;
+            return [[rowData1 objectForKey:@"sortNo"] intValue] > [[rowData2 objectForKey:@"sortNo"] intValue];
+        }];
+//        NSLog(@"%@", [self.dataList debugDescription]);
     }else{
         NSLog(@"服务端返回错误");
     }
