@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    rowHouseData = [[NSMutableDictionary alloc]init];
+    
     
     //添加事件处理方法
     self.zhekoushuomingTextField.delegate = self;
@@ -133,8 +133,15 @@
 
 -(void)initHouseData:(NSMutableDictionary *)dic
 {
-    rowHouseData = dic;
+    rowHouseData = [[NSMutableDictionary alloc]init];
+    rowHouseData = [dic copy];
+    roomcode = [rowHouseData objectForKey:@"id"];
+    NSLog(@"rowHouseData=%@", [rowHouseData debugDescription]);
     strTotalFangKuan = [rowHouseData objectForKey:@"total"];
+    
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    [myDefaults setObject:[rowHouseData objectForKey:@"allares"] forKey:@"allares"];
+    [myDefaults synchronize];
 //    [self.fangkuanzongeLabel setText:strTotal];
     
 }
@@ -164,7 +171,7 @@
         NSString * discount = [rowData objectForKey:@"discount"];
         NSString * fee = [rowData objectForKey:@"fee"];
         
-        float fdiscount = [discount floatValue];
+        float fdiscount = [discount floatValue]/100;
         float ffee = [fee floatValue];
         
         if ([calculatMethod isEqualToString:@"1"]) {
@@ -172,13 +179,14 @@
             fTotal = fTotal - (fTotal * fdiscount);
         }else if ([calculatMethod isEqualToString:@"2"]) {
             //打折
-            fTotal = fTotal - (fTotal * fdiscount);
+            fTotal = fTotal * fdiscount;
         }else if ([calculatMethod isEqualToString:@"3"]) {
             //总价优惠
             fTotal = fTotal - ffee;
         }else if ([calculatMethod isEqualToString:@"4"]) {
             //单价优惠
-            NSString * strAre = [rowHouseData objectForKey:@"allares"];
+            
+            NSString * strAre = [[NSUserDefaults standardUserDefaults] objectForKey:@"allares"];
             if ([strAre length] > 0) {
                 fTotal = fTotal - ffee * [strAre floatValue];
             }
@@ -191,12 +199,12 @@
     }
     
     if ([strTotal length] > 0) {
-        float zhekouF = fTotal / [strTotal floatValue];
-        [self.zhekouBtn setTitle:[[NSString alloc]initWithFormat:@"%f",zhekouF] forState:UIControlStateNormal];
+        float zhekouF = fTotal / [strTotal floatValue] * 100;
+        [self.zhekouBtn setTitle:[[NSString alloc]initWithFormat:@"%2.0f%%",zhekouF] forState:UIControlStateNormal];
     }
     
     
-    strTotalFangKuan = [[NSString alloc]initWithFormat:@"%f",fTotal];
+    strTotalFangKuan = [[NSString alloc]initWithFormat:@"%.0f",fTotal];
     
     [self.zhekoushuomingTextField setText:strTemp];
     NSLog(@"优惠政策:%@",strTemp);
@@ -210,15 +218,39 @@
             strTemp = [strTemp substringToIndex:(strTemp.length -1)];
         }
     }
-    NSString * roomCodeStr = [rowHouseData objectForKey:@"roomcode"];
+//    NSString * roomCodeStr = [rowHouseData objectForKey:@"roomcode"];
     NSString *strDiscount = self.zhekouBtn.titleLabel.text;
     if ([strDiscount isEqualToString:@"点击设置折扣方案"]) {
         strDiscount = @"0";
     }
+    NSRange foundObj=[strDiscount rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+    if(foundObj.length>0) {
+        strDiscount = [strDiscount substringToIndex:foundObj.location];
+    }
     
-    PrintZhiYeJiHuaViewController * zhiye = [[PrintZhiYeJiHuaViewController alloc]init];
-    [zhiye initDataRoomNo:roomCodeStr discount:strDiscount remark:strTemp totalFee:self.fangkuanzongeLabel.text mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
-    [self.navigationController pushViewController:zhiye animated:YES];
+    if ([self.anjiebiliTextField.text length] > 0 && [self.anjiezongeTextField.text length] > 0 && [self.gongjijindaikuanTextField.text length] > 0 && [self.gongjijinbiliTextField.text length]) {
+        PrintZhiYeJiHuaViewController * zhiye = [[PrintZhiYeJiHuaViewController alloc]init];
+        [zhiye initDataRoomNo:roomcode discount:strDiscount remark:strTemp totalFee:strTotalFangKuan mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
+        [self.navigationController pushViewController:zhiye animated:YES];
+    }else{
+        XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"数据填写不全" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+        alter.rightBlock=^()
+        {
+            //        NSLog(@"右边按钮被点击");
+        };
+        alter.leftBlock=^()
+        {
+            //        NSLog(@"左边按钮被点击");
+        };
+        alter.dismissBlock=^()
+        {
+            //        NSLog(@"窗口即将消失");
+        };
+        [alter show];
+
+    }
+    
+    
 }
 
 - (IBAction)quxiaoAction:(id)sender {
@@ -238,6 +270,25 @@
     [textField resignFirstResponder];
 
     self.view.frame =CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height);
+    //strTotalFangKuan
+    float fTotalFangKuan = [strTotalFangKuan floatValue];
+    if (textField == self.anjiebiliTextField) {
+        float fAnjieBili = [self.anjiebiliTextField.text floatValue] /100;
+        float fAnJieZongE = fTotalFangKuan * fAnjieBili;
+        self.anjiezongeTextField.text = [[NSString alloc]initWithFormat:@"%.2f",fAnJieZongE];
+    }else if (textField == self.anjiezongeTextField){
+        float fAnJieZongE = [self.anjiezongeTextField.text floatValue];
+        float fAnjieBili =  fAnJieZongE / fTotalFangKuan * 100;
+        self.anjiebiliTextField.text = [[NSString alloc]initWithFormat:@"%.2f",fAnjieBili];
+    }else if (textField == self.gongjijinbiliTextField){
+        float fGongJiJinBili = [self.gongjijinbiliTextField.text floatValue] /100;
+        float fGongJiJinZongE = fTotalFangKuan * fGongJiJinBili;
+        self.gongjijindaikuanTextField.text = [[NSString alloc]initWithFormat:@"%.2f",fGongJiJinZongE];
+    }else if (textField == self.gongjijindaikuanTextField){
+        float fGongJiJinZongE = [self.gongjijindaikuanTextField.text floatValue];
+        float fGongJiJinBili =  fGongJiJinZongE / fTotalFangKuan * 100;
+        self.gongjijinbiliTextField.text = [[NSString alloc]initWithFormat:@"%.2f",fGongJiJinBili];
+    }
     
 }
 

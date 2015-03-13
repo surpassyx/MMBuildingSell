@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D87h" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -159,7 +159,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-dh-6in">
-                    <rect key="frame" x="79" y="435" width="549" height="30"/>
+                    <rect key="frame" x="79" y="436" width="549" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -173,7 +173,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2V1-g6-4dl">
-                    <rect key="frame" x="23" y="473" width="605" height="227"/>
+                    <rect key="frame" x="23" y="508" width="605" height="192"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="eP6-Nl-2pl"/>
@@ -181,7 +181,7 @@
                     </connections>
                 </tableView>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="G8v-0D-dKw">
-                    <rect key="frame" x="198" y="397" width="294" height="29"/>
+                    <rect key="frame" x="16" y="398" width="294" height="29"/>
                     <segments>
                         <segment title="来电"/>
                         <segment title="来访"/>
@@ -195,21 +195,57 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提醒内容：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oq6-3K-Lvh">
+                    <rect key="frame" x="23" y="479" width="85" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I2L-mp-yly">
                     <rect key="frame" x="0.0" y="0.0" width="650" height="44"/>
                     <items>
-                        <navigationItem title="客户管理" id="cy7-MC-I7m"/>
+                        <navigationItem title="客户管理" id="cy7-MC-I7m">
+                            <barButtonItem key="leftBarButtonItem" style="plain" id="RqJ-Tw-Iew">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8k2-G5-XEj">
+                                    <rect key="frame" x="-23" y="-15" width="144" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="删除">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="deleteAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="l2Y-tV-OVc"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" style="plain" id="lVD-Ee-rU9">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wzc-bL-JZZ">
+                                    <rect key="frame" x="-23" y="-15" width="144" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="编辑">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="xiugaiAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="Qsz-cl-5sf"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </navigationItem>
                     </items>
                 </navigationBar>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-mz-hkD">
-                    <rect key="frame" x="19" y="397" width="138" height="30"/>
-                    <state key="normal" title="编辑客户信息" backgroundImage="task_send_normal_btn.png">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-mz-hkD">
+                    <rect key="frame" x="326" y="396" width="205" height="31"/>
+                    <state key="normal" title="设置提醒时间" backgroundImage="task_send_normal_btn.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="setDateAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="Ujv-mS-gU6"/>
                     </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-it-vSg">
+                    <rect key="frame" x="116" y="474" width="512" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -233,6 +269,7 @@
                 <outlet property="sexLabel" destination="9xR-Va-O5v" id="zUi-VQ-koX"/>
                 <outlet property="statusLabel" destination="y49-Ik-Nbx" id="PCS-CG-6D2"/>
                 <outlet property="telLabel" destination="skv-41-4lR" id="Qyj-GK-h4l"/>
+                <outlet property="tixingTextField" destination="4PK-dh-6in" id="O1J-Zt-EaX"/>
                 <outlet property="usernameLabel" destination="2Bn-bB-HCk" id="X3l-od-ckD"/>
             </connections>
         </view>

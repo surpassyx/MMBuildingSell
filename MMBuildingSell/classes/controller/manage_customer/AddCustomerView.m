@@ -126,6 +126,42 @@
     
 }
 
+-(void)initCustomerDataWithNo:(NSString *)strNO
+                         name:(NSString *)strName
+                          sex:(NSInteger )nSex
+                       status:(NSInteger )nStatus
+                          tel:(NSString *)strTel
+                     roomtype:(NSString *)strRoomtype
+                  livingspace:(NSString *)strLivingspace
+                        owner:(NSInteger )nOwner
+                  producttype:(NSString *)strProducttype
+                       getway:(NSString *)strGetway
+                       bugdet:(NSString *)strBugdet
+                    intention:(NSInteger )nIntention
+{
+    strCustomerNo = strNO;
+    self.nameTextField.text = strName;
+    [self.sexSeg setSelectedSegmentIndex:nSex];
+    [self.statusSeg setSelectedSegmentIndex:nStatus];
+    self.telTextField.text = strTel;
+
+    strSelectIdXuQiu = strRoomtype;
+    [self.xuqiufangxingBtn setTitle:strRoomtype forState:UIControlStateNormal];
+    
+    self.livingspaceTextField.text = strLivingspace;
+    [self.ownerSeg setSelectedSegmentIndex:nOwner];
+    
+    strSelectIdJuZhu = strProducttype;
+    [self.juzhuyetaiBtn setTitle:strProducttype forState:UIControlStateNormal];
+    
+    strSelectIdLaiFang = strGetway;
+    [self.laifangqudaoBtn setTitle:strGetway forState:UIControlStateNormal];
+    
+    self.bugdetTextField.text = strBugdet;
+    [self.intentionSeg setSelectedSegmentIndex:nIntention];
+}
+
+
 -(void)addCustomerHttp
 {
     NSString * nameStr =self.nameTextField.text;
@@ -145,8 +181,13 @@
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
-        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
-        NSLog(@"url: %@", strUrl);
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=12&enterpriseCode=%@&installment=%@&no=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],strCustomerNo,nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
+        NSLog(@"xiugai url: %@", strUrl);
+        
+        if (nType == 0) {
+            strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
+            NSLog(@"add url: %@", strUrl);
+        }
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
         
@@ -192,6 +233,7 @@
 - (IBAction)okAction:(id)sender {
     
     [self addCustomerHttp];
+    
 }
 
 - (IBAction)dddddAction:(id)sender
@@ -224,7 +266,7 @@
         for (NSMutableDictionary *rowData in self.xuqiufangxingList) {
             [xuqiuArr addObject:[rowData objectForKey:@"name"]];
         }
-        if(dropDownLaiFang == nil) {
+        if(dropDownXuQiu == nil) {
             CGFloat f = 200;
             dropDownXuQiu = [[NIDropDown alloc]showDropDown:sender :&f :xuqiuArr :nil :@"down"];
             dropDownXuQiu.delegate = self;

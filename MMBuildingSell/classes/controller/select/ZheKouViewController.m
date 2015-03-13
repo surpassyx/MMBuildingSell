@@ -18,7 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okAction)];
     [cancelItem setTintColor:[UIColor grayColor]];
     self.navigationItem.rightBarButtonItem = cancelItem;
@@ -33,7 +32,6 @@
     
     [self getHttpInfo];
 }
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

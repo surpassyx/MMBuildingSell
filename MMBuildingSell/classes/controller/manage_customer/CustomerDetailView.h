@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZHPickView.h"
 
 @protocol CustomerDetailDelegate
 
@@ -15,15 +16,22 @@
 -(void)moveUpCustomerDetailView:(UITextField *)textField;
 -(void)moveDownCustomerDetailView:(UITextField *)textField;
 
+-(void)removeCustomer;
+
+-(void)modifyCustomer:(NSString *)strNo;
+
 @end
 
-@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+@interface CustomerDetailView : UIView<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,ZHPickViewDelegate>{
     id<CustomerDetailDelegate> delegate;
     NSString * strCustomNo;
+    UIActionSheet * startsheet;
 }
+
 
 @property(retain,nonatomic)id<CustomerDetailDelegate> delegate;
 
+@property(nonatomic,strong)ZHPickView *pickview;
 @property (strong, nonatomic) IBOutlet UILabel *noLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sexLabel;
@@ -41,6 +49,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *setDateBtn;
 @property (strong, nonatomic) IBOutlet UITextField *remarkTextField;
+@property (strong, nonatomic) IBOutlet UITextField *tixingTextField;
 @property (strong, nonatomic) IBOutlet UITableView *myTable;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *callvisitSeg;
 
@@ -49,6 +58,11 @@
 - (IBAction)setDateAction:(id)sender;
 
 - (IBAction)addZhuiZongAction:(id)sender;
+
+- (IBAction)xiugaiAction:(id)sender;
+
+
+- (IBAction)deleteAction:(id)sender;
 
 -(void)initCustomNo:(NSString *)strNo;
 

@@ -424,6 +424,7 @@
     addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
     addView.delegate = self; // Or do this in the xib file
     [addView initDataLaifangqudao:self.laifangqudaoList xuqiufangxing:self.xuqiufangxingList juzhuyetai:self.juzhuyetaiList];
+    [addView initType:0];
     [self.view addSubview:addView];
     
     NSLog(@"执行添加操作");
@@ -635,6 +636,69 @@
 -(void)moveDownCustomerDetailView:(UITextField *)textField
 {
     myView.frame =CGRectMake(AddBtnWIDTH, 2, myView.frame.size.width, myView.frame.size.height);
+}
+
+-(void)removeCustomer
+{
+    if (myView != nil) {
+        [myView removeFromSuperview];
+    }
+    [self getHttpInfo];
+}
+
+-(void)modifyCustomer:(NSString *)strNo
+{
+    if (myView != nil) {
+        [myView removeFromSuperview];
+    }
+    addView = [self loadNibNamed:@"AddCustomerView" ofClass:[AddCustomerView class] andOwner:self];
+    addView.frame = CGRectMake(AddBtnWIDTH, 2, FrameWIDTH - AddBtnWIDTH, FrameHEIGHT - 10);
+    addView.delegate = self; // Or do this in the xib file
+    [addView initDataLaifangqudao:self.laifangqudaoList xuqiufangxing:self.xuqiufangxingList juzhuyetai:self.juzhuyetaiList];
+    [addView initType:1];
+    
+    for (NSMutableDictionary *rowData in self.personShowList) {
+        if ([strNo isEqualToString:[rowData objectForKey:@"no"]]) {
+            NSString * strName = [rowData objectForKey:@"name"];
+            NSString * strSex = [rowData objectForKey:@"sex"];
+            NSString * strStatus = [rowData objectForKey:@"status"];
+            NSString * strTel = [rowData objectForKey:@"tel"];
+            NSString * strRoomtype = [rowData objectForKey:@"roomtype"];
+            NSString * strLivingspace = [rowData objectForKey:@"livingspace"];
+            NSString * strOwner = [rowData objectForKey:@"owner"];
+            NSString * strProducttype = [rowData objectForKey:@"producttype"];
+            NSString * strGetway = [rowData objectForKey:@"getway"];
+            NSString * strBugdet = [rowData objectForKey:@"bugdet"];
+            NSString * strIntention = [rowData objectForKey:@"intention"];
+
+            NSInteger  nSex = 0;
+            if ([@"女" isEqualToString:strSex]) {
+                nSex = 1;
+            }
+            NSInteger   nStatus = 0;
+            if ([@"来访" isEqualToString:strStatus]) {
+                nStatus = 1;
+            }
+            NSInteger   nOwner = 0;
+            if ([@"否" isEqualToString:strOwner]) {
+                nOwner = 1;
+            }
+            NSInteger    nIntention = 0;
+            if ([@"无" isEqualToString:strIntention]) {
+                nIntention = 1;
+            }else if([@"高" isEqualToString:strIntention]){
+                nIntention = 2;
+            }
+            
+            [addView initCustomerDataWithNo:strNo name:strName sex:nSex status:nStatus tel:strTel roomtype:strRoomtype livingspace:strLivingspace owner:nOwner producttype:strProducttype getway:strGetway bugdet:strBugdet intention:nIntention];
+        }
+    }
+    
+   
+    
+    
+    [self.view addSubview:addView];
+    
 }
 
 

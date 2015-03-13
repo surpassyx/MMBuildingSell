@@ -39,6 +39,8 @@
     
     int nType; //0 添加  1  编辑
     
+    NSString * strCustomerNo;
+    
 }
 @property(retain,nonatomic)id<AddCustomerDelegate> delegate;
 
@@ -75,5 +77,18 @@
               xuqiufangxing:(NSMutableArray *)xuqiufangxing
               juzhuyetai:(NSMutableArray *)juzhuyetai;
 
+
+-(void)initCustomerDataWithNo:(NSString *)strNO
+                         name:(NSString *)strName
+                            sex:(NSInteger)nSex
+                         status:(NSInteger )nStatus
+                            tel:(NSString *)strTel
+                       roomtype:(NSString *)strRoomtype
+                    livingspace:(NSString *)strLivingspace
+                          owner:(NSInteger )nOwner
+                    producttype:(NSString *)strProducttype
+                         getway:(NSString *)strGetway
+                         bugdet:(NSString *)strBugdet
+                      intention:(NSInteger )nIntention;
 
 @end

@@ -94,11 +94,101 @@
 //}
 - (IBAction)setDateAction:(id)sender {
     
+    
+//                                       [self.setDateBtn setTitle:timestamp forState:UIControlStateNormal];
+//    NSDate *date=[NSDate dateWithTimeIntervalSinceNow:9000000];
+    NSDate *myDate = [NSDate date];
+    _pickview=[[ZHPickView alloc] initDatePickWithDate:myDate datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+    _pickview.delegate=self;
+    
+    [_pickview show];
 }
 
-- (IBAction)addZhuiZongAction:(id)sender {
+#pragma mark ZhpickVIewDelegate
+
+-(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
+    NSLog(@"%@",resultString);
+    [self.setDateBtn setTitle:resultString forState:UIControlStateNormal];
+}
+
+
+- (IBAction)deleteAction:(id)sender
+{
+     NSLog(@"删除");
+    
+    XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"确定要删除？" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+    alter.rightBlock=^()
+    {
+        //        NSLog(@"右边按钮被点击");
+    };
+    alter.leftBlock=^()
+    {
+        //        NSLog(@"左边按钮被点击");
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=21&customno=%@",strCustomNo];
+        
+        NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+        NSLog(@"hexurl: %@", API_BASE_URL(hexUrl));
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            NSString * strSign = [responseObject objectForKey:@"sign"];
+            int intString = [strSign intValue];
+            if (intString == 1) {
+                [delegate removeCustomer];
+            }else{
+                XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"删除失败" contentText:[responseObject objectForKey:@"error"] leftButtonTitle:@"确定" rightButtonTitle:nil];
+                alter.rightBlock=^()
+                {
+                    //        NSLog(@"右边按钮被点击");
+                };
+                alter.leftBlock=^()
+                {
+                    //        NSLog(@"左边按钮被点击");
+                };
+                alter.dismissBlock=^()
+                {
+                    //        NSLog(@"窗口即将消失");
+                };
+                [alter show];
+                return;
+                
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"删除失败" contentText:error.description leftButtonTitle:@"确定" rightButtonTitle:nil];
+            alter.rightBlock=^()
+            {
+                //        NSLog(@"右边按钮被点击");
+            };
+            alter.leftBlock=^()
+            {
+                //        NSLog(@"左边按钮被点击");
+            };
+            alter.dismissBlock=^()
+            {
+                //        NSLog(@"窗口即将消失");
+            };
+            [alter show];
+            return;
+            
+        }];
+
+    };
+    alter.dismissBlock=^()
+    {
+        //        NSLog(@"窗口即将消失");
+    };
+    [alter show];
+    
+    
+    
+    
+}
+
+-(void)addZhuiZong{
     NSString * callvisitStr =[self.callvisitSeg titleForSegmentAtIndex:[self.callvisitSeg selectedSegmentIndex]];
-//    NSString * callDateStr = self.setDateBtn.titleLabel.text;
+    //    NSString * callDateStr = self.setDateBtn.titleLabel.text;
     NSString * callNoteStr = self.remarkTextField.text;
     
     NSDate *  senddate=[NSDate date];
@@ -112,6 +202,10 @@
     if ([callvisitStr length] > 0 &&  [callDateStr length] > 0 &&  [callNoteStr length] > 0 && [callDateStr isEqualToString:@"点击设置来访日期"] == NO ) {
         
         NSString * strUrl = [[NSString alloc]initWithFormat:@"action=19&customno=%@&callvisit=%@&calldate=%@&callnote=%@",strCustomNo,callvisitStr,callDateStr,callNoteStr];
+        if ([self.setDateBtn.titleLabel.text isEqualToString:@"设置提醒时间"] == NO && [self.tixingTextField.text length]>0) {
+            NSString * strTemp = [[NSString alloc]initWithFormat:@"&reminddate=%@&remindcontent=%@",self.setDateBtn.titleLabel.text,self.tixingTextField.text];
+            strUrl = [strUrl stringByAppendingString:strTemp];
+        }
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
         NSLog(@"hexurl: %@", API_BASE_URL(hexUrl));
@@ -130,7 +224,7 @@
                 
                 [self.myTable reloadData];
             }
-
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
         }];
@@ -139,6 +233,10 @@
         [XWAlterview showmessage:@"提示" subtitle:@"数据填写不全" cancelbutton:@"确定"];
     }
 
+}
+
+- (IBAction)addZhuiZongAction:(id)sender {
+    [self addZhuiZong];
     
 }
 
@@ -198,7 +296,7 @@
                 // Delete the row from the data source.
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }else{
-                XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:[responseObject objectForKey:@"error"] leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+                XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:[responseObject objectForKey:@"error"] leftButtonTitle:@"确定" rightButtonTitle:nil];
                 alter.rightBlock=^()
                 {
                     //        NSLog(@"右边按钮被点击");
@@ -275,4 +373,13 @@
     }];
     
 }
+
+- (IBAction)xiugaiAction:(id)sender
+{
+    NSLog(@"修改");
+    [delegate modifyCustomer:strCustomNo];
+}
+
+
+
 @end

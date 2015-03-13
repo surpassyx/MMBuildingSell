@@ -615,6 +615,7 @@
 		ABCF9A101A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCF9A0E1A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.m */; };
 		ABCF9A111A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCF9A0F1A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib */; };
 		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
+		ABDEA1BE1AB27DEE004B48EE /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1501,6 +1502,8 @@
 		ABCF9A0F1A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintZhiYeJiHuaViewController.xib; sourceTree = "<group>"; };
 		ABD6482E1A0B7D5C00953419 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		ABDEA1BC1AB27DEE004B48EE /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
+		ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2076,6 +2079,8 @@
 		3D84C3F8180C1C8700B2311E /* category */ = {
 			isa = PBXGroup;
 			children = (
+				ABDEA1BC1AB27DEE004B48EE /* ZHPickView.h */,
+				ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */,
 				AB1FA9B21A81AB6200FD1892 /* SDWebImage */,
 				AB7E019A1A7F6F15004800A3 /* HTHorizontalSelectionList */,
 				ABCF99B81A6C996200135245 /* TSUIKit */,
@@ -3779,6 +3784,7 @@
 				3D0C0E7318852EBC00CAFBF4 /* CustomPickerView.m in Sources */,
 				AB69CD611A67582700853C7F /* TaskToViewController.m in Sources */,
 				3DD505AA1866953A00E25491 /* NIDropDown.m in Sources */,
+				ABDEA1BE1AB27DEE004B48EE /* ZHPickView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
