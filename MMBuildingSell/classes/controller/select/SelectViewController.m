@@ -200,7 +200,7 @@
     
     nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     nextBtn.frame = CGRectMake(545, 550, 220, 40);
-    [nextBtn setTitle:@"置业计划" forState:UIControlStateNormal];
+    [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nextBtn setBackgroundImage:[UIImage imageNamed:@"select_btn_ok"] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -231,7 +231,7 @@
                
                 NSMutableArray *arrDanyuan = [louInfo objectForKey:@"unitArr"];
                 
-                 NSString * strDanyuanNum = [[NSString alloc]initWithFormat:@"%d",[arrDanyuan count]/[strCengNum intValue]];
+                 NSString * strDanyuanNum = [[NSString alloc]initWithFormat:@"%lu",[arrDanyuan count]/[strCengNum intValue]];
                 
                 NSMutableDictionary *danyuanArrData = [[NSMutableDictionary alloc]init];
                 [danyuanArrData setValue:strDanyuanNum forKey:@"danyuan_num"];

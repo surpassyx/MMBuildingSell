@@ -31,6 +31,7 @@
     self.myTable.allowsSelectionDuringEditing = YES;
     
     [self getHttpInfo];
+    self.title = @"折扣计算";
 }
 - (void)viewWillAppear:(BOOL)animated
 {

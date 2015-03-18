@@ -144,17 +144,32 @@
     [self.sexSeg setSelectedSegmentIndex:nSex];
     [self.statusSeg setSelectedSegmentIndex:nStatus];
     self.telTextField.text = strTel;
+    
 
-    strSelectIdXuQiu = strRoomtype;
+    for (NSMutableDictionary *rowData in self.xuqiufangxingList) {
+        if ([[rowData objectForKey:@"name"] isEqualToString:strRoomtype]) {
+            strSelectIdXuQiu = [[self.xuqiufangxingList objectAtIndex:[self.xuqiufangxingList indexOfObject:rowData]] objectForKey:@"id"];
+        }
+    }
     [self.xuqiufangxingBtn setTitle:strRoomtype forState:UIControlStateNormal];
     
     self.livingspaceTextField.text = strLivingspace;
     [self.ownerSeg setSelectedSegmentIndex:nOwner];
     
-    strSelectIdJuZhu = strProducttype;
+//    strSelectIdJuZhu = strProducttype;
+    for (NSMutableDictionary *rowData in self.juzhuyetaiList) {
+        if ([[rowData objectForKey:@"name"] isEqualToString:strProducttype]) {
+            strSelectIdJuZhu = [[self.juzhuyetaiList objectAtIndex:[self.juzhuyetaiList indexOfObject:rowData]] objectForKey:@"id"];
+        }
+    }
     [self.juzhuyetaiBtn setTitle:strProducttype forState:UIControlStateNormal];
     
-    strSelectIdLaiFang = strGetway;
+//    strSelectIdLaiFang = strGetway;
+    for (NSMutableDictionary *rowData in self.laifangqudaoList) {
+        if ([[rowData objectForKey:@"name"] isEqualToString:strGetway]) {
+            strSelectIdLaiFang = [[self.laifangqudaoList objectAtIndex:[self.laifangqudaoList indexOfObject:rowData]] objectForKey:@"id"];
+        }
+    }
     [self.laifangqudaoBtn setTitle:strGetway forState:UIControlStateNormal];
     
     self.bugdetTextField.text = strBugdet;
@@ -182,7 +197,6 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
         NSString * strUrl = [[NSString alloc]initWithFormat:@"action=12&enterpriseCode=%@&installment=%@&no=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],strCustomerNo,nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
-        NSLog(@"xiugai url: %@", strUrl);
         
         if (nType == 0) {
             strUrl = [[NSString alloc]initWithFormat:@"action=11&enterpriseCode=%@&installment=%@&name=%@&sex=%@&status=%@&tel=%@&roomtype=%@&livingspace=%@&owner=%@&producttype=%@&getway=%@&userno=%@&bugdet=%@&intention=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"],nameStr,sexStr,statusStr,telStr,roomtypeStr,livingspaceStr,ownerStr,producttypeStr,getwayStr,[userDefaults objectForKey:@"usercode"],bugdetStr,intentionStr];
@@ -190,6 +204,8 @@
         }
         
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+        
+        NSLog(@"ADD or XIU gai url: %@", API_BASE_URL(hexUrl));
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

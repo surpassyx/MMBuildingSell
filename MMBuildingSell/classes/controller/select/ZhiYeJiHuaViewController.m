@@ -9,6 +9,7 @@
 #import "ZhiYeJiHuaViewController.h"
 #import "ZheKouViewController.h"
 #import "PrintZhiYeJiHuaViewController.h"
+#import "BuyViewController.h"
 
 @interface ZhiYeJiHuaViewController ()<ZheKouDelegate>
 
@@ -228,6 +229,22 @@
         strDiscount = [strDiscount substringToIndex:foundObj.location];
     }
     
+    if ([self.anjiebiliTextField.text length] == 0 ) {
+        self.anjiebiliTextField.text = @"0";
+    }
+    
+    if ([self.anjiezongeTextField.text length] == 0 ) {
+        self.anjiezongeTextField.text = @"0";
+    }
+    
+    if ([self.gongjijindaikuanTextField.text length] == 0 ) {
+        self.gongjijindaikuanTextField.text = @"0";
+    }
+    
+    if ([self.gongjijinbiliTextField.text length] == 0 ) {
+        self.gongjijinbiliTextField.text = @"0";
+    }
+    
     if ([self.anjiebiliTextField.text length] > 0 && [self.anjiezongeTextField.text length] > 0 && [self.gongjijindaikuanTextField.text length] > 0 && [self.gongjijinbiliTextField.text length]) {
         PrintZhiYeJiHuaViewController * zhiye = [[PrintZhiYeJiHuaViewController alloc]init];
         [zhiye initDataRoomNo:roomcode discount:strDiscount remark:strTemp totalFee:strTotalFangKuan mortgageFee:self.anjiezongeTextField.text mortgagePrecent:self.anjiebiliTextField.text fundFee:self.gongjijindaikuanTextField.text fundPrecent:self.gongjijinbiliTextField.text];
@@ -261,6 +278,31 @@
     ZheKouViewController * zhekouView = [[ZheKouViewController alloc]init];
     zhekouView.delegate = self;
     [self.navigationController pushViewController:zhekouView animated:YES];
+}
+
+- (IBAction)rengouAction:(id)sender {
+    
+    NSString * strTemp = self.zhekoushuomingTextField.text;
+    if (strTemp.length > 0) {
+        if ([[strTemp substringFromIndex:(strTemp.length -1)] isEqualToString:@";"]==YES) {
+            strTemp = [strTemp substringToIndex:(strTemp.length -1)];
+        }
+    }
+    
+    NSString *strDiscount = self.zhekouBtn.titleLabel.text;
+    if ([strDiscount isEqualToString:@"点击设置折扣方案"]) {
+        strDiscount = @"0";
+    }
+    NSRange foundObj=[strDiscount rangeOfString:@"%" options:NSCaseInsensitiveSearch];
+    if(foundObj.length>0) {
+        strDiscount = [strDiscount substringToIndex:foundObj.location];
+    }
+
+
+    
+    BuyViewController * buyView = [[BuyViewController alloc]init];
+    [buyView initWithRoomCode:roomcode fangjianjiegou:@"" mianji:@"" danjia:@"" zongjia:strTotalFangKuan zuihouzhekou:strDiscount zhekoushuoming:strTemp chengjiaodanjia:@"" chengjiaozongjia:@""];
+    [self.navigationController pushViewController:buyView animated:YES];
 }
 
 /**

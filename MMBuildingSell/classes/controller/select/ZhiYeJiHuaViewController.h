@@ -42,6 +42,7 @@
 - (IBAction)printAction:(id)sender;
 - (IBAction)quxiaoAction:(id)sender;
 - (IBAction)zhekouBtnAction:(id)sender;
+- (IBAction)rengouAction:(id)sender;
 
 -(void)initHouseData:(NSMutableDictionary *)dic;
 
