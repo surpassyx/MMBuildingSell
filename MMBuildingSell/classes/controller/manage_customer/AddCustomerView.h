@@ -16,7 +16,7 @@
 
 @optional
 
--(void)addPerson:(CustomerBean *)customer;
+-(void)addPerson:(CustomerBean *)customer type:(int)type;
 -(void)removeAddPersonView;
 
 -(void)moveUpView:(UITextField *)textField;

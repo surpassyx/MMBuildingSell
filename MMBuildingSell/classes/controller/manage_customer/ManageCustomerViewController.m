@@ -86,8 +86,17 @@
     
     [self.myTableView reloadData];
     if ([self.arrPersonInfo count] > 0) {
+        NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+        if (nType == 0) {
+            
+            [myDefaults setInteger:([self.arrPersonInfo count]-1) forKey:@"CustomerSelectedNum"];
+            [myDefaults synchronize];
+        }
+        
+        NSInteger nSelected = [myDefaults integerForKey:@"CustomerSelectedNum"];
+        
         NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
-        rowData = [self.arrPersonInfo objectAtIndex:0];
+        rowData = [self.arrPersonInfo objectAtIndex:nSelected];
         
         [self showDeatilCustomer:[rowData objectForKey:@"no"]
                             name:[rowData objectForKey:@"name"]
@@ -343,6 +352,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    nType = 0;
+    
     self.laifangqudaoList = [[NSMutableArray alloc]init];
     self.xuqiufangxingList = [[NSMutableArray alloc]init];
     self.juzhuyetaiList = [[NSMutableArray alloc]init];
@@ -500,6 +511,9 @@
     NSMutableDictionary *rowData = [[NSMutableDictionary alloc]init];
     rowData = [self.personShowList objectAtIndex:indexPath.row];
     
+    NSUserDefaults * myDefaults = [NSUserDefaults standardUserDefaults];
+    [myDefaults setInteger:indexPath.row forKey:@"CustomerSelectedNum"];
+    [myDefaults synchronize];
     
     [self showDeatilCustomer:[rowData objectForKey:@"no"]
                         name:[rowData objectForKey:@"name"]
@@ -581,14 +595,16 @@
 
 
 
--(void)addPerson:(CustomerBean *)customer
+-(void)addPerson:(CustomerBean *)customer type:(int)type
 {
+    nType = type;
     [self removeAddPersonView];
 //    [self.myTableView reloadData];
     [self getHttpInfo];
     [self getXuQiuFangXing];
     [self getLaiFangQuDao];
     [self getJuZhuYeTai];
+    
 }
 
 -(void)removeAddPersonView

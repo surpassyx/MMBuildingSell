@@ -18,6 +18,7 @@
     
     UILabel * totalPersonLabel;
     UISearchBar * mySearchBar;
+    int nType;
 }
 @property (nonatomic, retain) NSMutableArray *personList;
 @property (nonatomic, retain) NSMutableArray *personShowList;

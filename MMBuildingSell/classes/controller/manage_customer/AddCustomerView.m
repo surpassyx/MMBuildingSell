@@ -212,7 +212,7 @@
             NSLog(@"JSON: %@", responseObject);
             [self analysisJson:(NSDictionary *)responseObject];
             CustomerBean * cb = [[CustomerBean alloc]init];
-            [delegate addPerson:cb];
+            [delegate addPerson:cb type:nType];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
         }];
