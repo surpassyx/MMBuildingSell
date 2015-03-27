@@ -20,10 +20,17 @@
     NSString * strChengJiaoDanJia;
     NSString * strChengJiaoZongJia;
     
+    NSMutableArray * arrPayTypeNo;
+    NSMutableArray * arrPayTypeName;
+    
+    NSString * strZhekouNo;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *telTextField;
+@property (strong, nonatomic) IBOutlet UITextField *xieyiTextField;
+@property (strong, nonatomic) IBOutlet UITextField *dingjinTextField;
 @property (strong, nonatomic) IBOutlet UILabel *roomNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fangjianjiegouLabel;
 @property (strong, nonatomic) IBOutlet UILabel *mianjiLabel;
@@ -46,6 +53,7 @@
            zuihouzhekou:(NSString *)zuihouzhekou
          zhekoushuoming:(NSString *)zhekoushuoming
         chengjiaodanjia:(NSString *)chengjiaodanjia
-       chengjiaozongjia:(NSString *)chengjiaozongjia;
+       chengjiaozongjia:(NSString *)chengjiaozongjia
+               zhekouNo:(NSString *)zhekouno;
 
 @end

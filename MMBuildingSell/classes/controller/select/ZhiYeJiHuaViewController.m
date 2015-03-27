@@ -17,10 +17,19 @@
 
 @implementation ZhiYeJiHuaViewController
 
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"房价计算";
     
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    [cancelItem setTintColor:[UIColor grayColor]];
+    self.navigationItem.leftBarButtonItem = cancelItem;
     
     //添加事件处理方法
     self.zhekoushuomingTextField.delegate = self;
@@ -165,13 +174,16 @@
     if ([strTotal length] > 0) {
         fTotal = [strTotal floatValue];
     }
+    strZheKouNo = @"";
     for (NSMutableDictionary *rowData in zhekouList) {
         strTemp = [strTemp stringByAppendingString:[rowData objectForKey:@"name"]];
         strTemp = [strTemp stringByAppendingString:@";"];
         NSString * calculatMethod = [rowData objectForKey:@"calculatMethod"];
         NSString * discount = [rowData objectForKey:@"discount"];
         NSString * fee = [rowData objectForKey:@"fee"];
-        
+        NSString * zhekouno = [rowData objectForKey:@"no"];
+        strZheKouNo = [zhekouno stringByAppendingString:@","];
+        strZheKouNo = [zhekouno stringByAppendingString:zhekouno];
         float fdiscount = [discount floatValue]/100;
         float ffee = [fee floatValue];
         
@@ -301,7 +313,7 @@
 
     
     BuyViewController * buyView = [[BuyViewController alloc]init];
-    [buyView initWithRoomCode:roomcode fangjianjiegou:@"" mianji:@"" danjia:@"" zongjia:strTotalFangKuan zuihouzhekou:strDiscount zhekoushuoming:strTemp chengjiaodanjia:@"" chengjiaozongjia:@""];
+    [buyView initWithRoomCode:roomcode fangjianjiegou:@"" mianji:@"" danjia:@"" zongjia:strTotalFangKuan zuihouzhekou:strDiscount zhekoushuoming:strTemp chengjiaodanjia:@"" chengjiaozongjia:@"" zhekouNo:strZheKouNo];
     [self.navigationController pushViewController:buyView animated:YES];
 }
 

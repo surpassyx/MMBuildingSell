@@ -137,7 +137,9 @@
     UITableViewCell *c = [tableView cellForRowAtIndexPath:indexPath];
     [btnSender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnSender setTitle:c.textLabel.text forState:UIControlStateNormal];
-    [btnSender setBackgroundImage:[UIImage imageNamed:@"select_btn_compute"] forState:UIControlStateNormal];
+    [btnSender setBackgroundImage:[UIImage imageNamed:@"task_send_normal_btn"] forState:UIControlStateNormal];
+    [btnSender setBackgroundImage:[UIImage imageNamed:@"task_send_normal_btn"] forState:UIControlStateHighlighted];
+    [btnSender setBackgroundImage:[UIImage imageNamed:@"task_send_normal_btn"] forState:UIControlStateSelected];
     
     for (UIView *subview in btnSender.subviews) {
         if ([subview isKindOfClass:[UIImageView class]]) {

@@ -304,6 +304,9 @@
     NSString * strNum = [[NSString alloc]initWithFormat:@"共计%lu人",(unsigned long)[self.personList count]];
     //显示人数标签
     totalPersonLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, AddBtnWIDTH, 40)];
+    UIView * tempView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AddBtnWIDTH, 1)];
+    [tempView setBackgroundColor:[UIColor blackColor]];
+    [totalPersonLabel addSubview:tempView];
     [totalPersonLabel setText:strNum];
     [totalPersonLabel setTextAlignment:NSTextAlignmentCenter];
     //    [self.view addSubview:totalPersonLabel];
@@ -475,7 +478,14 @@
     }
     NSUInteger row = [indexPath row];
     if (tableView == myTableView) {
-        cell.textLabel.text = [self.dataList objectAtIndex:row];
+//        cell.textLabel.text = [self.dataList objectAtIndex:row];
+//        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        
+        UILabel * feelable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, AddBtnWIDTH, 40)];
+        feelable.text = [self.dataList objectAtIndex:row];
+        feelable.textAlignment = NSTextAlignmentCenter;
+        [cell.contentView addSubview:feelable];
+        
     }
     cell.backgroundColor = [UIColor clearColor];
     
@@ -483,6 +493,18 @@
     cell.selectedBackgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"name_item_selected_bk"]];
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 40;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    NSString * strNum = [[NSString alloc]initWithFormat:@"共计%lu人",(unsigned long)[self.personShowList count]];
+    [totalPersonLabel setText:strNum];
+    return totalPersonLabel;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -28,8 +28,20 @@
     }
     return self;
 }
+
+#pragma mark ZhpickVIewDelegate
+
+-(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
+    NSLog(@"%@",resultString);
+    [self.taskTimeBtn setTitle:resultString forState:UIControlStateNormal];
+}
+
 - (IBAction)taskTimeBtnAction:(id)sender {
+    NSDate *myDate = [NSDate date];
+    _pickview=[[ZHPickView alloc] initDatePickWithDate:myDate datePickerMode:UIDatePickerModeDateAndTime isHaveNavControler:NO];
+    _pickview.delegate=self;
     
+    [_pickview show];
 }
 - (IBAction)addFollowBtnAction:(id)sender {
     TaskPersonListViewController* listViewController = [[TaskPersonListViewController alloc] initWithNibName:@"TaskPersonListViewController" bundle:nil];

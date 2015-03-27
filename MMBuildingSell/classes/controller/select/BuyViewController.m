@@ -26,6 +26,7 @@
          zhekoushuoming:(NSString *)zhekoushuoming
         chengjiaodanjia:(NSString *)chengjiaodanjia
        chengjiaozongjia:(NSString *)chengjiaozongjia
+               zhekouNo:(NSString *)zhekouno
 {
     strRoomCode = roomCode;
     strFangJianJieGou = fangjianjiegou;
@@ -36,12 +37,36 @@
     strZheKouShuoMing = zhekoushuoming;
     strChengJiaoDanJia = chengjiaodanjia;
     strChengJiaoZongJia = chengjiaozongjia;
+    strZhekouNo = zhekouno;
+}
+
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)okBtnAction{
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"认购签约";
+    
+    arrPayTypeNo = [[NSMutableArray alloc]init];
+    arrPayTypeName = [[NSMutableArray alloc]init];
+    
+    [self getPayTypeHttp];
+    
+    UIBarButtonItem *okItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okBtnAction)];
+    [okItem setTintColor:[UIColor grayColor]];
+    self.navigationItem.rightBarButtonItem = okItem;
+    
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    [cancelItem setTintColor:[UIColor grayColor]];
+    self.navigationItem.leftBarButtonItem = cancelItem;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -49,7 +74,7 @@
     waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:waitHUD];
     waitHUD.dimBackground = YES;
-    waitHUD.labelText = @"正在制定置业计划书，请稍后";
+    waitHUD.labelText = @"请稍后";
     [waitHUD show:YES];
     
     [self getHttpInfo];
@@ -58,6 +83,49 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)getPayTypeHttp{
+    //action=22&enterpriseCode=SYHDMD&installment=02
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=22&enterisecode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
+    NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+    NSLog(@"buyUrl=%@",API_BASE_URL(hexUrl));
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        //{"sign":"1","arr":[{"no":"301307902419","name":"一次性付款"},{"no":"301307935233","name":"七成二十年按揭"}]}
+        
+        NSString * strSign = [responseObject objectForKey:@"sign"];
+        int intString = [strSign intValue];
+        if (intString == 1) {
+            [arrPayTypeNo removeAllObjects];
+            [arrPayTypeName removeAllObjects];
+            NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
+            for (int i = 0; i < arrInfo.count ; i++) {
+                NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                
+                NSString * strPayTypeName = [dicInfo objectForKey:@"name"];
+                NSString * strPayTypeNo = [dicInfo objectForKey:@"no"];
+                
+                [arrPayTypeNo addObject:strPayTypeNo];
+                [arrPayTypeName addObject:strPayTypeName];
+            }
+            
+            for (int j = 0 ; j < [arrPayTypeName count]; j++) {
+//                [self.fukuanfangshiSeg removeSegmentAtIndex:j animated:NO];
+                [self.fukuanfangshiSeg insertSegmentWithTitle:[arrPayTypeName objectAtIndex:j] atIndex:j animated:NO];
+
+            }
+            
+        }else{
+            NSLog(@"服务端返回错误");
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        
+    }];
+
 }
 
 -(void)getHttpInfo
@@ -135,6 +203,87 @@
 */
 
 - (IBAction)okAction:(id)sender {
+    
+    if ([self.nameTextField.text length] > 0 && [self.telTextField.text length] > 0 && [self.dingjinTextField.text length] > 0 && [self.xieyiTextField.text length] > 0) {
+        waitHUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:waitHUD];
+        waitHUD.dimBackground = YES;
+        waitHUD.labelText = @"请稍后";
+        [waitHUD show:YES];
+        
+        NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"YYYY-MM-dd"];
+        
+        NSDate *  senddate=[NSDate date];
+        NSString *  locationString=[dateformatter stringFromDate:senddate];
+        NSLog(@"now:%@",locationString);
+        
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setMonth:1];
+        NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *nextDate = [calender dateByAddingComponents:comps toDate:senddate options:0];
+        NSString *  nextDateString=[dateformatter stringFromDate:nextDate];
+        NSLog(@"next:%@",nextDateString);
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=23&roomNo=%@&name=%@&tel=%@&paymodeno=%@&discountno=%@&discount=%@&remark=%@&protocolcode=%@&receivablefee=%@&signdate=%@&enddate=%@&userno=%@",strRoomCode,self.nameTextField.text,self.telTextField.text,@"",strZhekouNo,strZuiHouZheKou,strZheKouShuoMing,self.xieyiTextField.text,self.dingjinTextField.text,locationString,nextDateString,[userDefaults objectForKey:@"usercode"]];
+        NSString * hexUrl  = [Utility hexStringFromString:strUrl];
+        NSLog(@"buyUrl=%@",API_BASE_URL(hexUrl));
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            //{"sign":"1","arr":[{"no":"301307902419","name":"一次性付款"},{"no":"301307935233","name":"七成二十年按揭"}]}
+            
+            NSString * strSign = [responseObject objectForKey:@"sign"];
+            int intString = [strSign intValue];
+            if (intString == 1) {
+                [arrPayTypeNo removeAllObjects];
+                [arrPayTypeName removeAllObjects];
+                NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
+                for (int i = 0; i < arrInfo.count ; i++) {
+                    NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
+                    
+                    NSString * strPayTypeName = [dicInfo objectForKey:@"name"];
+                    NSString * strPayTypeNo = [dicInfo objectForKey:@"no"];
+                    
+                    [arrPayTypeNo addObject:strPayTypeNo];
+                    [arrPayTypeName addObject:strPayTypeName];
+                }
+                
+                for (int j = 0 ; j < [arrPayTypeName count]; j++) {
+                    //                [self.fukuanfangshiSeg removeSegmentAtIndex:j animated:NO];
+                    [self.fukuanfangshiSeg insertSegmentWithTitle:[arrPayTypeName objectAtIndex:j] atIndex:j animated:NO];
+                    
+                }
+                
+            }else{
+                NSLog(@"服务端返回错误");
+            }
+            [waitHUD removeFromSuperview];
+            waitHUD = nil;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [waitHUD removeFromSuperview];
+            waitHUD = nil;
+        }];
+
+    }else{
+        XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:@"数据填写不全" leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+        alter.rightBlock=^()
+        {
+            //        NSLog(@"右边按钮被点击");
+        };
+        alter.leftBlock=^()
+        {
+            //        NSLog(@"左边按钮被点击");
+        };
+        alter.dismissBlock=^()
+        {
+            //        NSLog(@"窗口即将消失");
+        };
+        [alter show];
+
+    }
     
 }
 

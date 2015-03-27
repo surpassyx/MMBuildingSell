@@ -15,12 +15,22 @@
 @implementation ZheKouViewController
 
 @synthesize dataList,dataZheKouArr;
+
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okAction)];
+    UIBarButtonItem *okItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okAction)];
+    [okItem setTintColor:[UIColor grayColor]];
+    self.navigationItem.rightBarButtonItem = okItem;
+    
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
     [cancelItem setTintColor:[UIColor grayColor]];
-    self.navigationItem.rightBarButtonItem = cancelItem;
+    self.navigationItem.leftBarButtonItem = cancelItem;
     
     self.dataList = [[NSMutableArray alloc]init];
     self.dataZheKouArr = [[NSMutableArray alloc]init];
@@ -152,7 +162,7 @@ sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
+    return 50;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -161,7 +171,7 @@ sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
     [v setBackgroundColor:[UIColor clearColor]];
     
-    UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 29.0f, self.view.frame.size.width, 1.0f)];
+    UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 49.0f, self.view.frame.size.width, 1.0f)];
     [bgview setBackgroundColor:[UIColor blackColor]];
     [v addSubview:bgview];
 
@@ -189,6 +199,7 @@ sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     feelable.textAlignment = NSTextAlignmentCenter;
     feelable.text = @"优惠金额";
     [v addSubview:feelable];
+    
     return v;
 
     

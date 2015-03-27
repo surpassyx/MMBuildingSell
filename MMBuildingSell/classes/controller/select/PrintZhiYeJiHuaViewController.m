@@ -50,9 +50,17 @@
     
 }
 
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    [cancelItem setTintColor:[UIColor grayColor]];
+    self.navigationItem.leftBarButtonItem = cancelItem;
 }
 
 -(void)viewDidAppear:(BOOL)animated

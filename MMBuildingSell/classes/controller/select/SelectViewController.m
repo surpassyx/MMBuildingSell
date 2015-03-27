@@ -201,8 +201,8 @@
     nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     nextBtn.frame = CGRectMake(545, 550, 220, 40);
     [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
-    [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [nextBtn setBackgroundImage:[UIImage imageNamed:@"select_btn_ok"] forState:UIControlStateNormal];
+    [nextBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [nextBtn setBackgroundImage:[UIImage imageNamed:@"task_send_normal_btn"] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
 
@@ -338,7 +338,7 @@
     
     [self initRightView];
     
-    _tableView1 = [[TSTableView alloc] initWithFrame:CGRectMake(23, 35, 516 - 31, 704 - 66)];
+    _tableView1 = [[TSTableView alloc] initWithFrame:CGRectMake(23, 35, 516 - 34, 704 - 60)];
     _tableView1.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView1.delegate = self;
     _tableView1.lineNumbersHidden = YES;

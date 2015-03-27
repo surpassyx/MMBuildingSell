@@ -41,7 +41,7 @@
 {
     self.title = @"设置";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
     
     // 覆盖group样式tableView默认的header
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 10)];
@@ -81,9 +81,28 @@
     [clear setBackgroundImage:[UIImage resizeImage:@"btn_permission.png"] forState:UIControlStateNormal];
     [clear setBackgroundImage:[UIImage resizeImage:@"btn_permission_click.png"] forState:UIControlStateHighlighted];
     [clear setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [clear addTarget:self action:@selector(clearAction) forControlEvents:UIControlEventTouchUpInside];
     [footer addSubview:clear];
-}
+    
+    // 清除缓存
+    NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+    app_Version = [@"当前版本:" stringByAppendingString:app_Version];
+    
+    UIButton *about = [UIButton buttonWithType:UIButtonTypeCustom];
+    [about setTitle:app_Version forState:UIControlStateNormal];
+    CGFloat aboutY = clearY - 5 - btnHeight;
+    about.frame = CGRectMake(btnX, aboutY, btnWidth, btnHeight);
+    about.titleLabel.font = logout.titleLabel.font;
+    [about setBackgroundImage:[UIImage resizeImage:@"btn_permission.png"] forState:UIControlStateNormal];
+    [about setBackgroundImage:[UIImage resizeImage:@"btn_permission_click.png"] forState:UIControlStateHighlighted];
+    [about setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [footer addSubview:about];
 
+}
+- (void)clearAction
+{
+    [LocalFilePath deleteDirectoryPath:@""];
+}
 - (void)logout
 {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -94,7 +113,7 @@
 
 - (void)addCellItems
 {
-    CellItem *note = [CellItem itemWithTitle:@"通知设置" cellItemType:CellItemTypeDisclosureIndicator];
+//    CellItem *note = [CellItem itemWithTitle:@"通知设置" cellItemType:CellItemTypeDisclosureIndicator];
     
 //    CellItem *upload = [CellItem itemWithTitle:@"上传高清图片" cellItemType:CellItemTypeSwitch];
 //    CellItem *photo = [CellItem itemWithTitle:@"照片水印" cellItemType:CellItemTypeSwitch];
@@ -112,7 +131,7 @@
 //    about.className = @"AboutViewController";
     
     NSArray *array = @[
-                    @[note]
+//                    @[note]
                     
                    ];
     _cellItems = [NSMutableArray arrayWithArray:array];

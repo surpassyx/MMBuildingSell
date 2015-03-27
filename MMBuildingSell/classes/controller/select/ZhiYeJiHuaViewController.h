@@ -13,6 +13,7 @@
     NSMutableDictionary *rowHouseData;
     NSString * strTotalFangKuan;
     NSString * roomcode;
+    NSString * strZheKouNo;
 }
 
 

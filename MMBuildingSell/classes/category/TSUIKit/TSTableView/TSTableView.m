@@ -236,7 +236,7 @@
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     [super setBackgroundColor:backgroundColor];
-    _tableContentHolder.backgroundColor = backgroundColor;
+    _tableContentHolder.backgroundColor = UIColorFromRGB(0xDCDCDC);
 }
 
 - (UIImageView *)headerBackgroundImageView

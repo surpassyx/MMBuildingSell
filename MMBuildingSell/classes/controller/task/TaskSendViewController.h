@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZHPickView.h"
 
-@interface TaskSendViewController : UIViewController
+@interface TaskSendViewController : UIViewController<ZHPickViewDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *taskTitle;
 @property (strong, nonatomic) IBOutlet UIButton *taskTimeBtn;
 @property (strong, nonatomic) IBOutlet UITextField *howLong;
@@ -19,5 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *contentTextView;
 @property (strong, nonatomic) IBOutlet UIButton *addFollowManBtn;
 @property (strong, nonatomic) IBOutlet UIButton *subFollowManBtn;
+
+@property(nonatomic,strong)ZHPickView *pickview;
 
 @end
