@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="AVA-jy-RAE" customClass="CustomerDetailView">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="700"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="730"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="detail_up_bk.png" translatesAutoresizingMaskIntoConstraints="NO" id="P9L-DH-8wC">
@@ -163,18 +163,8 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-p9-pwO">
-                    <rect key="frame" x="539" y="397" width="103" height="30"/>
-                    <state key="normal" title="添加追踪信息" backgroundImage="task_send_normal_btn.png">
-                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="addZhuiZongAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="YVF-8W-1oC"/>
-                    </connections>
-                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2V1-g6-4dl">
-                    <rect key="frame" x="23" y="508" width="605" height="192"/>
+                    <rect key="frame" x="23" y="508" width="605" height="222"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="eP6-Nl-2pl"/>
@@ -182,7 +172,7 @@
                     </connections>
                 </tableView>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="G8v-0D-dKw">
-                    <rect key="frame" x="16" y="398" width="294" height="29"/>
+                    <rect key="frame" x="23" y="398" width="287" height="29"/>
                     <segments>
                         <segment title="来电"/>
                         <segment title="来访"/>
@@ -237,7 +227,7 @@
                     </items>
                 </navigationBar>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-mz-hkD">
-                    <rect key="frame" x="326" y="396" width="205" height="31"/>
+                    <rect key="frame" x="326" y="396" width="176" height="31"/>
                     <state key="normal" title="设置提醒时间" backgroundImage="task_send_normal_btn.png">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,6 +241,16 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-p9-pwO">
+                    <rect key="frame" x="525" y="397" width="103" height="30"/>
+                    <state key="normal" title="添加追踪信息" backgroundImage="task_send_normal_btn.png">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addZhuiZongAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="YVF-8W-1oC"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -277,6 +277,7 @@
                 <outlet property="tixingTextField" destination="4PK-dh-6in" id="O1J-Zt-EaX"/>
                 <outlet property="usernameLabel" destination="2Bn-bB-HCk" id="X3l-od-ckD"/>
             </connections>
+            <point key="canvasLocation" x="397" y="365"/>
         </view>
     </objects>
     <resources>

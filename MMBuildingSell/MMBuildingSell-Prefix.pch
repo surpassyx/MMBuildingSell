@@ -39,11 +39,16 @@
 // 获取Dock的高度
 #define kDockHeight(orientation) ((UIInterfaceOrientationIsLandscape(orientation)?[UIScreen mainScreen].bounds.size.width:[UIScreen mainScreen].bounds.size.height) - 20)
 
-//接口的基础地址
+//接口的基础地址  http://124.94.143.26/room/
 #define API_BASE_URL(_URL_) [@"http://www.gytaobao.cn:9006/FC/Action?data=" stringByAppendingString:_URL_]
 #define HTTP_BASE_URL(_URL_) [@"http://www.gytaobao.cn:9012" stringByAppendingString:_URL_]
 #define PIC_BASE_URL(_URL_) [@"http://www.gytaobao.cn:9012/roomtest/" stringByAppendingString:_URL_]
 #define MENU_BASE_URL(_URL_) [@"http://www.gytaobao.cn:9012/roomtest/pages/stat/stat.jsp?url=" stringByAppendingString:_URL_]
+
+//#define API_BASE_URL(_URL_) [@"http://124.94.143.26/room/Action?data=" stringByAppendingString:_URL_]
+//#define HTTP_BASE_URL(_URL_) [@"http://124.94.143.26/room/" stringByAppendingString:_URL_]
+//#define PIC_BASE_URL(_URL_) [@"http://124.94.143.26/room/" stringByAppendingString:_URL_]
+//#define MENU_BASE_URL(_URL_) [@"http://124.94.143.26/room/pages/stat/stat.jsp?url=" stringByAppendingString:_URL_]
 /*
  Compose里面item的宽高
  */

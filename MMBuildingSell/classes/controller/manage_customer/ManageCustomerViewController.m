@@ -322,7 +322,7 @@
     mySearchBar.placeholder = @"请输入";
     //    searchBar.barStyle = UIBarStyleBlack;
     mySearchBar.translucent = YES;
-    mySearchBar.barStyle = UIBarStyleBlackTranslucent;
+    mySearchBar.barStyle = UIBarStyleDefault;
     //    searchBar.tintColor = [UIColor redColor];
     mySearchBar.prompt = @"搜索";
     [mySearchBar sizeToFit];
