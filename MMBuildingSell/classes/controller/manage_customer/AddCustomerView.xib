@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D127a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -164,7 +164,7 @@
                         <segment title="男"/>
                         <segment title="女"/>
                     </segments>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </segmentedControl>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-lZ-Bc3">
                     <rect key="frame" x="209" y="359" width="361" height="29"/>
@@ -172,7 +172,7 @@
                         <segment title="是"/>
                         <segment title="否"/>
                     </segments>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </segmentedControl>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="A7s-vz-xA9">
                     <rect key="frame" x="209" y="191" width="361" height="29"/>
@@ -180,7 +180,7 @@
                         <segment title="来电"/>
                         <segment title="来访"/>
                     </segments>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOt-vD-Xo9">
                     <rect key="frame" x="209" y="274" width="361" height="30"/>
@@ -243,7 +243,7 @@
                         <segment title="无"/>
                         <segment title="高"/>
                     </segments>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6l-nx-Q3E">
                     <rect key="frame" x="209" y="438" width="361" height="30"/>

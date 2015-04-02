@@ -90,10 +90,10 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=22&enterisecode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-    NSLog(@"buyUrl=%@",API_BASE_URL(hexUrl));
+    NSLog(@"PayType=%@",API_BASE_URL(hexUrl));
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"PayType JSON: %@", responseObject);
         //{"sign":"1","arr":[{"no":"301307902419","name":"一次性付款"},{"no":"301307935233","name":"七成二十年按揭"}]}
         
         NSString * strSign = [responseObject objectForKey:@"sign"];

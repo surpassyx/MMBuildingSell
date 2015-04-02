@@ -240,16 +240,16 @@
     mailPicker.mailComposeDelegate = self;
     
     //设置主题
-    [mailPicker setSubject: @"eMail主题"];
-    //添加收件人
-    NSArray *toRecipients = [NSArray arrayWithObject: @"first@example.com"];
-    [mailPicker setToRecipients: toRecipients];
-    //添加抄送
-    NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
-    [mailPicker setCcRecipients:ccRecipients];
-    //添加密送
-    NSArray *bccRecipients = [NSArray arrayWithObjects:@"fourth@example.com", nil];
-    [mailPicker setBccRecipients:bccRecipients];
+    [mailPicker setSubject: self.fangjiandaimaLabel.text];
+//    //添加收件人
+//    NSArray *toRecipients = [NSArray arrayWithObject: @"first@example.com"];
+//    [mailPicker setToRecipients: toRecipients];
+//    //添加抄送
+//    NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
+//    [mailPicker setCcRecipients:ccRecipients];
+//    //添加密送
+//    NSArray *bccRecipients = [NSArray arrayWithObjects:@"fourth@example.com", nil];
+//    [mailPicker setBccRecipients:bccRecipients];
     
     // 添加一张图片
     UIImage *addPic = curSaveImage;

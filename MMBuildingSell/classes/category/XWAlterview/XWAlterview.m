@@ -80,17 +80,17 @@
 {
     if (self = [super init]) {
         self.layer.cornerRadius = 5.0;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor grayColor];
         self.alertTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, XWtitlegap, Alertwidth, XWtitleofheigth)];
-        self.alertTitleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-        self.alertTitleLabel.textColor=[UIColor blackColor];
+        self.alertTitleLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+        self.alertTitleLabel.textColor=[UIColor whiteColor];
         [self addSubview:self.alertTitleLabel];
         
         CGFloat contentLabelWidth = Alertwidth - 16-20;
         self.alertContentLabel = [[UILabel alloc] initWithFrame:CGRectMake((Alertwidth - contentLabelWidth) * 0.5, CGRectGetMaxY(self.alertTitleLabel.frame)-15, contentLabelWidth, 60)];
         self.alertContentLabel.numberOfLines = 0;
-        self.alertContentLabel.textColor = [UIColor blackColor];
-        self.alertContentLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.alertContentLabel.textColor = [UIColor whiteColor];
+        self.alertContentLabel.font = [UIFont systemFontOfSize:18.0f];
         [self addSubview:self.alertContentLabel];
         //        设置对齐方式
         self.alertContentLabel.textAlignment = self.alertTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -117,7 +117,7 @@
         [self.leftbtn setBackgroundImage:[UIImage imageNamed:@"XW"] forState:UIControlStateNormal];
         [self.rightbtn setTitle:rigthTitle forState:UIControlStateNormal];
         [self.leftbtn setTitle:leftTitle forState:UIControlStateNormal];
-        self.leftbtn.titleLabel.font = self.rightbtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        self.leftbtn.titleLabel.font = self.rightbtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
         [self.leftbtn setTitleColor:[UIColor colorWithRed:82/255.0 green:203/255.0 blue:255/255.0 alpha:1] forState:UIControlStateNormal];
         [self.rightbtn setTitleColor:[UIColor colorWithRed:82/255.0 green:203/255.0 blue:255/255.0 alpha:1] forState:UIControlStateNormal];
         [self.leftbtn addTarget:self action:@selector(leftbtnclicked:) forControlEvents:UIControlEventTouchUpInside];

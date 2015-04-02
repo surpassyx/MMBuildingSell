@@ -308,6 +308,8 @@
     [tempView setBackgroundColor:[UIColor blackColor]];
     [totalPersonLabel addSubview:tempView];
     [totalPersonLabel setText:strNum];
+    [totalPersonLabel setTextColor:[UIColor whiteColor]];
+    [totalPersonLabel setBackgroundColor:[UIColor grayColor]];
     [totalPersonLabel setTextAlignment:NSTextAlignmentCenter];
     //    [self.view addSubview:totalPersonLabel];
     self.myTableView.tableFooterView = totalPersonLabel;
