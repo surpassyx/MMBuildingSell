@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "BPush.h"
 #import "JSONKit.h"
 #import "OpenUDID.h"
 
@@ -29,10 +28,21 @@
 //        NSLog(@"manager start failed!");
 //    }
     
-    [BPush setupChannel:launchOptions];
+    // 在 App 启动时注册百度云推送服务，需要提供 Apikey BPushModeProduction  BPushModeDevelopment
+    [BPush registerChannel:launchOptions apiKey:@"pvzkL5EW54gMRi8M5Tlv2sbS" pushMode:BPushModeProduction isDebug:YES];
+//    [BPush setupChannel:launchOptions];
     [BPush setDelegate:self];
     
     [application setApplicationIconBadgeNumber:0];
+    
+    // App 是用户点击推送消息启动
+    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        NSLog(@"从消息启动:%@",userInfo);
+        [BPush handleNotification:userInfo];
+    }
+    
+    
 #if SUPPORT_IOS8
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
@@ -60,6 +70,7 @@
 {
     NSLog(@"test:%@",deviceToken);
     [BPush registerDeviceToken: deviceToken];
+    [BPush bindChannel];
     
     NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
     //获取终端设备标识，这个标识需要通过接口发送到服务器端，服务器端推送消息到APNS时需要知道终端的标识，APNS通过注册的终端标识找到终端设备。
@@ -81,49 +92,63 @@
 //    self.viewController.textView.text = [self.viewController.textView.text stringByAppendingFormat: @"Register device token: %@\n openudid: %@", deviceToken, [OpenUDID value]];
 }
 
-- (void) onMethod:(NSString*)method response:(NSDictionary*)data {
-    NSLog(@"On method:%@", method);
-    NSLog(@"data:%@", [data description]);
-    NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
-    if ([BPushRequestMethod_Bind isEqualToString:method]) {
-//        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
-//        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
-//        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
-//        //NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
-        int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
+- (void) onMethod:(NSString*)method response:(NSDictionary*)data
+{
+    if ([BPushRequestMethodBind isEqualToString:method])
+    {
+        NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
         
-        if (returnCode == BPushErrorCode_Success) {
-//            self.viewController.appidText.text = appid;
-//            self.viewController.useridText.text = userid;
-//            self.viewController.channelidText.text = channelid;
-//            
-//            // 在内存中备份，以便短时间内进入可以看到这些值，而不需要重新bind
-//            self.appId = appid;
-//            self.channelId = channelid;
-//            self.userId = userid;
-        }
-    } else if ([BPushRequestMethod_Unbind isEqualToString:method]) {
+        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
+        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
+        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
         int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
-        if (returnCode == BPushErrorCode_Success) {
-//            self.viewController.appidText.text = nil;
-//            self.viewController.useridText.text = nil;
-//            self.viewController.channelidText.text = nil;
-        }
+        NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
     }
-//    self.viewController.textView.text = [[[NSString alloc] initWithFormat: @"%@ return: \n%@", method, [data description]] autorelease];
 }
+
+//- (void) onMethod:(NSString*)method response:(NSDictionary*)data {
+//    NSLog(@"On method:%@", method);
+//    NSLog(@"data:%@", [data description]);
+//    NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
+//    if ([BPushRequestMethod_Bind isEqualToString:method]) {
+////        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
+////        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
+////        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
+////        //NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
+//        int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
+//        
+//        if (returnCode == BPushErrorCode_Success) {
+////            self.viewController.appidText.text = appid;
+////            self.viewController.useridText.text = userid;
+////            self.viewController.channelidText.text = channelid;
+////            
+////            // 在内存中备份，以便短时间内进入可以看到这些值，而不需要重新bind
+////            self.appId = appid;
+////            self.channelId = channelid;
+////            self.userId = userid;
+//        }
+//    } else if ([BPushRequestMethod_Unbind isEqualToString:method]) {
+//        int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
+//        if (returnCode == BPushErrorCode_Success) {
+////            self.viewController.appidText.text = nil;
+////            self.viewController.useridText.text = nil;
+////            self.viewController.channelidText.text = nil;
+//        }
+//    }
+////    self.viewController.textView.text = [[[NSString alloc] initWithFormat: @"%@ return: \n%@", method, [data description]] autorelease];
+//}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"Receive Notify: %@", [userInfo JSONString]);
     NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     if (application.applicationState == UIApplicationStateActive) {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification"
-                                                            message:[NSString stringWithFormat:@"The application received this remote notification while it was running:\n%@", alert]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification"
+//                                                            message:[NSString stringWithFormat:@"The application received this remote notification while it was running:\n%@", alert]
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PUSHCONTENT" object:alert];
     }
     [application setApplicationIconBadgeNumber:0];

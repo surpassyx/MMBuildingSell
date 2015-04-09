@@ -59,7 +59,7 @@
     
     [self getPayTypeHttp];
     
-    UIBarButtonItem *okItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okBtnAction)];
+    UIBarButtonItem *okItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(okAction:)];
     [okItem setTintColor:[UIColor grayColor]];
     self.navigationItem.rightBarButtonItem = okItem;
     
@@ -88,7 +88,7 @@
 -(void)getPayTypeHttp{
     //action=22&enterpriseCode=SYHDMD&installment=02
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=22&enterisecode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
+    NSString * strUrl = [[NSString alloc]initWithFormat:@"action=22&enterpriseCode=%@&installment=%@",[userDefaults objectForKey:@"enterpriseCode"],[userDefaults objectForKey:@"installment"]];
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     NSLog(@"PayType=%@",API_BASE_URL(hexUrl));
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -113,7 +113,7 @@
             }
             
             for (int j = 0 ; j < [arrPayTypeName count]; j++) {
-//                [self.fukuanfangshiSeg removeSegmentAtIndex:j animated:NO];
+                [self.fukuanfangshiSeg removeSegmentAtIndex:j animated:NO];
                 [self.fukuanfangshiSeg insertSegmentWithTitle:[arrPayTypeName objectAtIndex:j] atIndex:j animated:NO];
 
             }
@@ -211,6 +211,7 @@
         waitHUD.labelText = @"请稍后";
         [waitHUD show:YES];
         
+        
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"YYYY-MM-dd"];
         
@@ -226,7 +227,7 @@
         NSLog(@"next:%@",nextDateString);
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=23&roomNo=%@&name=%@&tel=%@&paymodeno=%@&discountno=%@&discount=%@&remark=%@&protocolcode=%@&receivablefee=%@&signdate=%@&enddate=%@&userno=%@",strRoomCode,self.nameTextField.text,self.telTextField.text,@"",strZhekouNo,strZuiHouZheKou,strZheKouShuoMing,self.xieyiTextField.text,self.dingjinTextField.text,locationString,nextDateString,[userDefaults objectForKey:@"usercode"]];
+        NSString * strUrl = [[NSString alloc]initWithFormat:@"action=23&roomNo=%@&name=%@&tel=%@&paymodeno=%@&paymodename=%@&discountno=%@&discount=%@&remark=%@&protocolcode=%@&receivablefee=%@&signdate=%@&enddate=%@&userno=%@",strRoomCode,self.nameTextField.text,self.telTextField.text,[arrPayTypeNo objectAtIndex:self.fukuanfangshiSeg.selectedSegmentIndex],[arrPayTypeName objectAtIndex:self.fukuanfangshiSeg.selectedSegmentIndex],strZhekouNo,strZuiHouZheKou,strZheKouShuoMing,self.xieyiTextField.text,self.dingjinTextField.text,locationString,nextDateString,[userDefaults objectForKey:@"usercode"]];
         NSString * hexUrl  = [Utility hexStringFromString:strUrl];
         NSLog(@"buyUrl=%@",API_BASE_URL(hexUrl));
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -237,24 +238,23 @@
             NSString * strSign = [responseObject objectForKey:@"sign"];
             int intString = [strSign intValue];
             if (intString == 1) {
-                [arrPayTypeNo removeAllObjects];
-                [arrPayTypeName removeAllObjects];
-                NSMutableArray *arrInfo = [responseObject objectForKey:@"arr"];
-                for (int i = 0; i < arrInfo.count ; i++) {
-                    NSDictionary *dicInfo = [arrInfo objectAtIndex:i];
-                    
-                    NSString * strPayTypeName = [dicInfo objectForKey:@"name"];
-                    NSString * strPayTypeNo = [dicInfo objectForKey:@"no"];
-                    
-                    [arrPayTypeNo addObject:strPayTypeNo];
-                    [arrPayTypeName addObject:strPayTypeName];
-                }
                 
-                for (int j = 0 ; j < [arrPayTypeName count]; j++) {
-                    //                [self.fukuanfangshiSeg removeSegmentAtIndex:j animated:NO];
-                    [self.fukuanfangshiSeg insertSegmentWithTitle:[arrPayTypeName objectAtIndex:j] atIndex:j animated:NO];
-                    
-                }
+                XWAlterview *alter=[[XWAlterview alloc]initWithTitle:@"提示" contentText:[responseObject objectForKey:@"success"] leftButtonTitle:@"确定" rightButtonTitle:@"取消"];
+                alter.rightBlock=^()
+                {
+                    //        NSLog(@"右边按钮被点击");
+                };
+                alter.leftBlock=^()
+                {
+                    //        NSLog(@"左边按钮被点击");
+                    [self.navigationController popViewControllerAnimated:YES];
+                };
+                alter.dismissBlock=^()
+                {
+                    //        NSLog(@"窗口即将消失");
+                };
+                [alter show];
+
                 
             }else{
                 NSLog(@"服务端返回错误");

@@ -163,6 +163,7 @@
 }
 
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -178,7 +179,6 @@
     myWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0,0,width,height)];
     myWebView.delegate = self;
     [self.view addSubview:myWebView];
-
     
     [self getHttpInfo];
     

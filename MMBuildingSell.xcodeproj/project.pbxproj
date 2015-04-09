@@ -550,7 +550,6 @@
 		AB6919171A5EB25700C4886F /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6919161A5EB25700C4886F /* BPushConfig.plist */; };
 		AB6919191A5EB31800C4886F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6919181A5EB31800C4886F /* CoreTelephony.framework */; };
 		AB69191B1A5EB32000C4886F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AB69191A1A5EB32000C4886F /* libz.dylib */; };
-		AB6919201A5F7DA400C4886F /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB69191F1A5F7DA400C4886F /* libBPush.a */; };
 		AB69192A1A5F7E0C00C4886F /* BPushClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6919251A5F7E0C00C4886F /* BPushClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AB69192B1A5F7E0C00C4886F /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6919271A5F7E0C00C4886F /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AB69192C1A5F7E0C00C4886F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6919291A5F7E0C00C4886F /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -618,6 +617,7 @@
 		ABCF9A111A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCF9A0F1A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib */; };
 		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
 		ABDEA1BE1AB27DEE004B48EE /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */; };
+		ABE03F7C1AD54FAB00831CCF /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE03F7B1AD54FAB00831CCF /* libBPush.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1394,8 +1394,6 @@
 		AB6919161A5EB25700C4886F /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
 		AB6919181A5EB31800C4886F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		AB69191A1A5EB32000C4886F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		AB69191E1A5F7DA400C4886F /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
-		AB69191F1A5F7DA400C4886F /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		AB6919241A5F7E0C00C4886F /* BPushClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPushClass.h; sourceTree = "<group>"; };
 		AB6919251A5F7E0C00C4886F /* BPushClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPushClass.m; sourceTree = "<group>"; };
 		AB6919261A5F7E0C00C4886F /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
@@ -1509,6 +1507,8 @@
 		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		ABDEA1BC1AB27DEE004B48EE /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		ABE03F7A1AD54FAB00831CCF /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
+		ABE03F7B1AD54FAB00831CCF /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1518,7 +1518,7 @@
 			files = (
 				AB7E01571A7A35ED004800A3 /* MessageUI.framework in Frameworks */,
 				AB69191B1A5EB32000C4886F /* libz.dylib in Frameworks */,
-				AB6919201A5F7DA400C4886F /* libBPush.a in Frameworks */,
+				ABE03F7C1AD54FAB00831CCF /* libBPush.a in Frameworks */,
 				AB6919191A5EB31800C4886F /* CoreTelephony.framework in Frameworks */,
 				531CC9791931B807004E91B8 /* MobileCoreServices.framework in Frameworks */,
 				3DB0EB8218239DEB00BB9161 /* CoreMotion.framework in Frameworks */,
@@ -1771,6 +1771,8 @@
 		3D84C1171808E16900B2311E /* MMBuildingSell */ = {
 			isa = PBXGroup;
 			children = (
+				ABE03F7A1AD54FAB00831CCF /* BPush.h */,
+				ABE03F7B1AD54FAB00831CCF /* libBPush.a */,
 				AB6919311A5F7F5300C4886F /* GzipCompressor.h */,
 				AB6919321A5F7F5300C4886F /* GzipCompressor.m */,
 				AB69192D1A5F7F4400C4886F /* Base64.h */,
@@ -1782,8 +1784,6 @@
 				AB6919271A5F7E0C00C4886F /* OpenUDID.m */,
 				AB6919281A5F7E0C00C4886F /* Reachability.h */,
 				AB6919291A5F7E0C00C4886F /* Reachability.m */,
-				AB69191E1A5F7DA400C4886F /* BPush.h */,
-				AB69191F1A5F7DA400C4886F /* libBPush.a */,
 				3D5C1C511857FD6B002BB294 /* inc */,
 				3D84C4FC1810D34200B2311E /* Resources */,
 				3D84C3F7180C1C8700B2311E /* classes */,
