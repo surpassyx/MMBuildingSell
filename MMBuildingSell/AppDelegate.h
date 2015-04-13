@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 //#import "BMapKit.h"
-#import "BPush.h"
+//#import "BPush.h"
+#import "LibBPush/BPush.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,BPushDelegate>{

@@ -28,8 +28,19 @@
 //        NSLog(@"manager start failed!");
 //    }
     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    }
+    
+    
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey BPushModeProduction  BPushModeDevelopment
-    [BPush registerChannel:launchOptions apiKey:@"pvzkL5EW54gMRi8M5Tlv2sbS" pushMode:BPushModeProduction isDebug:YES];
+    [BPush registerChannel:launchOptions apiKey:@"pvzkL5EW54gMRi8M5Tlv2sbS" pushMode:BPushModeDevelopment isDebug:YES];
 //    [BPush setupChannel:launchOptions];
     [BPush setDelegate:self];
     
@@ -43,17 +54,17 @@
     }
     
     
-#if SUPPORT_IOS8
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }else
-#endif
-    {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-    }
+//#if SUPPORT_IOS8
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+//        UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//    }else
+//#endif
+//    {
+//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+//    }
     
     return YES;
 }
@@ -68,7 +79,7 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"test:%@",deviceToken);
+//    NSLog(@"test:%@",deviceToken);
     [BPush registerDeviceToken: deviceToken];
     [BPush bindChannel];
     
@@ -103,6 +114,8 @@
         NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
         int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
         NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
+        
+        NSLog(@"%@,%@,%@,%@,%d",appid,userid,channelid,requestid,returnCode);
     }
 }
 

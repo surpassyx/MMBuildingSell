@@ -42,11 +42,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=2"];
-    NSLog(@"qibieurl=%@",strUrl);
+//    NSLog(@"qibieurl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
    
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+//        NSLog(@"JSON: %@", responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         [nameArray removeAllObjects];
         [noEnterpriseArray removeAllObjects];
@@ -194,7 +194,7 @@
     NSLog(@"updateUrl=%@",API_BASE_URL(hexUrl));
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+//        NSLog(@"JSON: %@", responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         NSArray *arr = [dic objectForKey:@"arr"];
         [waitHUD removeFromSuperview];
@@ -449,7 +449,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Login - %@",responseObject);
+//        NSLog(@"Login - %@",responseObject);
         [self analysisJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -667,11 +667,11 @@
 //    [myDefaults synchronize];
     
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=14&enterpriseCode=%@installment=%@",[myDefaults objectForKey:@"enterpriseCode"],[myDefaults objectForKey:@"installment"]];
-    NSLog(@"updateUrl=%@",strUrl);
+//    NSLog(@"updateUrl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Login JSON: %@", responseObject);
+//        NSLog(@"Login JSON: %@", responseObject);
         [self analysisFileJson:(NSDictionary *)responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

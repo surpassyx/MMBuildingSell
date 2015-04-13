@@ -535,6 +535,7 @@
 		AB50C1221ACA76D600CE691B /* item_left_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB50C11E1ACA76D600CE691B /* item_left_btn@2x.png */; };
 		AB50C1231ACA76D600CE691B /* item_right_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = AB50C11F1ACA76D600CE691B /* item_right_btn.png */; };
 		AB50C1241ACA76D600CE691B /* item_right_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB50C1201ACA76D600CE691B /* item_right_btn@2x.png */; };
+		AB5F77B71AD96F9100C0155B /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB5F77B61AD96F9100C0155B /* libBPush.a */; };
 		AB628E6B1A78B61800B3A07B /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB628E691A78B61800B3A07B /* MessageListViewController.m */; };
 		AB628E6C1A78B61800B3A07B /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB628E6A1A78B61800B3A07B /* MessageListViewController.xib */; };
 		AB628E701A78B92100B3A07B /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB628E6E1A78B92100B3A07B /* MessageCell.m */; };
@@ -617,7 +618,6 @@
 		ABCF9A111A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCF9A0F1A6F5A0B00135245 /* PrintZhiYeJiHuaViewController.xib */; };
 		ABD648301A0B7D5C00953419 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD6482F1A0B7D5C00953419 /* Utility.m */; };
 		ABDEA1BE1AB27DEE004B48EE /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */; };
-		ABE03F7C1AD54FAB00831CCF /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE03F7B1AD54FAB00831CCF /* libBPush.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1377,6 +1377,8 @@
 		AB50C11E1ACA76D600CE691B /* item_left_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_left_btn@2x.png"; sourceTree = "<group>"; };
 		AB50C11F1ACA76D600CE691B /* item_right_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_right_btn.png; sourceTree = "<group>"; };
 		AB50C1201ACA76D600CE691B /* item_right_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_right_btn@2x.png"; sourceTree = "<group>"; };
+		AB5F77B51AD96F9100C0155B /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
+		AB5F77B61AD96F9100C0155B /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		AB628E681A78B61800B3A07B /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageListViewController.h; path = Message/MessageListViewController.h; sourceTree = "<group>"; };
 		AB628E691A78B61800B3A07B /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageListViewController.m; path = Message/MessageListViewController.m; sourceTree = "<group>"; };
 		AB628E6A1A78B61800B3A07B /* MessageListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MessageListViewController.xib; path = Message/MessageListViewController.xib; sourceTree = "<group>"; };
@@ -1507,8 +1509,6 @@
 		ABD6482F1A0B7D5C00953419 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		ABDEA1BC1AB27DEE004B48EE /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		ABDEA1BD1AB27DEE004B48EE /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
-		ABE03F7A1AD54FAB00831CCF /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
-		ABE03F7B1AD54FAB00831CCF /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1518,7 +1518,7 @@
 			files = (
 				AB7E01571A7A35ED004800A3 /* MessageUI.framework in Frameworks */,
 				AB69191B1A5EB32000C4886F /* libz.dylib in Frameworks */,
-				ABE03F7C1AD54FAB00831CCF /* libBPush.a in Frameworks */,
+				AB5F77B71AD96F9100C0155B /* libBPush.a in Frameworks */,
 				AB6919191A5EB31800C4886F /* CoreTelephony.framework in Frameworks */,
 				531CC9791931B807004E91B8 /* MobileCoreServices.framework in Frameworks */,
 				3DB0EB8218239DEB00BB9161 /* CoreMotion.framework in Frameworks */,
@@ -1771,8 +1771,7 @@
 		3D84C1171808E16900B2311E /* MMBuildingSell */ = {
 			isa = PBXGroup;
 			children = (
-				ABE03F7A1AD54FAB00831CCF /* BPush.h */,
-				ABE03F7B1AD54FAB00831CCF /* libBPush.a */,
+				AB5F77B41AD96F9100C0155B /* LibBPush */,
 				AB6919311A5F7F5300C4886F /* GzipCompressor.h */,
 				AB6919321A5F7F5300C4886F /* GzipCompressor.m */,
 				AB69192D1A5F7F4400C4886F /* Base64.h */,
@@ -2959,6 +2958,15 @@
 				AB1FA9D31A81AB6200FD1892 /* UIView+WebCacheOperation.m */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		AB5F77B41AD96F9100C0155B /* LibBPush */ = {
+			isa = PBXGroup;
+			children = (
+				AB5F77B51AD96F9100C0155B /* BPush.h */,
+				AB5F77B61AD96F9100C0155B /* libBPush.a */,
+			);
+			path = LibBPush;
 			sourceTree = "<group>";
 		};
 		AB628E671A78B5D600B3A07B /* Message */ = {
