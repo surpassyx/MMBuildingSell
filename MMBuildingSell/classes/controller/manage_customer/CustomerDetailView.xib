@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D127a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7702" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -236,11 +236,6 @@
                         <action selector="setDateAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="Ujv-mS-gU6"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-it-vSg">
-                    <rect key="frame" x="116" y="474" width="512" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-p9-pwO">
                     <rect key="frame" x="525" y="397" width="103" height="30"/>
                     <state key="normal" title="添加追踪信息" backgroundImage="task_send_normal_btn.png">
@@ -251,6 +246,11 @@
                         <action selector="addZhuiZongAction:" destination="AVA-jy-RAE" eventType="touchUpInside" id="YVF-8W-1oC"/>
                     </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gbm-DJ-1Mi">
+                    <rect key="frame" x="116" y="475" width="512" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -274,7 +274,7 @@
                 <outlet property="sexLabel" destination="9xR-Va-O5v" id="zUi-VQ-koX"/>
                 <outlet property="statusLabel" destination="y49-Ik-Nbx" id="PCS-CG-6D2"/>
                 <outlet property="telLabel" destination="skv-41-4lR" id="Qyj-GK-h4l"/>
-                <outlet property="tixingTextField" destination="4PK-dh-6in" id="O1J-Zt-EaX"/>
+                <outlet property="tixingTextField" destination="gbm-DJ-1Mi" id="l60-dS-NG4"/>
                 <outlet property="usernameLabel" destination="2Bn-bB-HCk" id="X3l-od-ckD"/>
             </connections>
             <point key="canvasLocation" x="397" y="365"/>

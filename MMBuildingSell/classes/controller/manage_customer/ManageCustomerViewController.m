@@ -120,7 +120,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
     
     [self getHttpInfo];
     [self getXuQiuFangXing];
@@ -131,7 +131,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
 }
 
 
@@ -347,10 +347,14 @@
     addView = addCustomerView;
 }
 
-- (void)receivedPushContent:(NSNotification*)notification{
-    NSString *content = [notification object];
-    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
-}
+//- (void)receivedPushContent:(NSNotification*)notification{
+//    NSString *content = [notification object];
+//    
+//    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:content delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alter show];
+//
+////    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+//}
 
 - (void)viewDidLoad
 {

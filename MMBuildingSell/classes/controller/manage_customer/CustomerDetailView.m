@@ -20,7 +20,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
     }
     return self;
 }
@@ -34,6 +33,8 @@
     self.dataList = [[NSMutableArray alloc]init];
     [self getHttpInfo];
     self.remarkTextField.delegate = self;
+    _tixingTextField.delegate = self;
+    
 }
 
 //- (void) awakeFromNib

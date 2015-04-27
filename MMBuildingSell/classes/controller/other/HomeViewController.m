@@ -36,22 +36,24 @@
     }
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
-//}
-//
-//- (void)receivedPushContent:(NSNotification*)notification{
-//    NSString *content = [notification object];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
+}
+
+- (void)receivedPushContent:(NSNotification*)notification{
+    NSString *content = [notification object];
 //    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
-//}
+    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:content delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alter show];
+}
 
 
 - (void)viewDidLoad

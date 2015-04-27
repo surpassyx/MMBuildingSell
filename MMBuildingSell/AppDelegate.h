@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "BMapKit.h"
-//#import "BPush.h"
-#import "LibBPush/BPush.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,BPushDelegate>{
-//    BMKMapManager* _mapManager;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+
 }
 
 @property (strong, nonatomic) UIWindow *window;

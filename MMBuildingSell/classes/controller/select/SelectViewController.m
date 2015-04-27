@@ -359,22 +359,22 @@
 
 }
 
-- (void)receivedPushContent:(NSNotification*)notification{
-    NSString *content = [notification object];
-    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
-}
+//- (void)receivedPushContent:(NSNotification*)notification{
+//    NSString *content = [notification object];
+//    [XWAlterview showmessage:@"新消息" subtitle:content cancelbutton:@"确定"];
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PUSHCONTENT" object:nil];
+//}
 
 - (void)viewDidLoad
 {
