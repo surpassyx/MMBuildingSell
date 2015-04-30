@@ -541,6 +541,10 @@
     NSString * strTotal = [roomArrData objectForKey:@"total"];
     NSString * strDocname =[roomArrData objectForKey:@"docname"];
     
+    [[NSUserDefaults standardUserDefaults] setObject:strDocname forKey:@"huxingtu_pic"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
     roomNameLabel.text = [[NSString alloc]initWithFormat:@"%@-%@-%@",strLouDongName,strUnitName,strRoomName];
     if ([strRoomStatus isEqualToString:@"1"]) {
         strRoomStatus = @"销售状态：销控";

@@ -118,12 +118,12 @@
 
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPushContent:) name:@"PUSHCONTENT" object:nil];
-//    self.fangkuanzongeLabel.text = strTotalFangKuan;
-//}
+    self.fangkuanzongeLabel.text = strTotalFangKuan;
+}
 //
 //- (void)viewWillDisappear:(BOOL)animated
 //{

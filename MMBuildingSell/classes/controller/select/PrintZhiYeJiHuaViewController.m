@@ -260,6 +260,20 @@
     //关于mimeType：http://www.iana.org/assignments/media-types/index.html
     [mailPicker addAttachmentData: imageData mimeType: @"image/png" fileName: @"plan.png"];
     
+    NSString * strDocname = [[NSUserDefaults standardUserDefaults] objectForKey:@"huxingtu_pic"];
+    
+    if ([strDocname length] > 0) {
+        NSURL *url = [NSURL URLWithString:PIC_BASE_URL(strDocname)];
+        
+        UIImage *imageHuxingtu = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        NSData *imageDataHuxingtu = UIImagePNGRepresentation(imageHuxingtu);
+        [mailPicker addAttachmentData: imageDataHuxingtu mimeType: @"image/png" fileName: @"huxingtu.png"];
+    }
+    
+    
+    
+    
+    
 //    //添加一个pdf附件
 //    NSString *file = [self fullBundlePathFromRelativePath:@"高质量C++编程指南.pdf"];
 //    NSData *pdf = [NSData dataWithContentsOfFile:file];
