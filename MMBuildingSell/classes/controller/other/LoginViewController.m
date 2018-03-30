@@ -44,9 +44,10 @@
     NSString * strUrl = [[NSString alloc]initWithFormat:@"action=2"];
 //    NSLog(@"qibieurl=%@",strUrl);
     NSString * hexUrl  = [Utility hexStringFromString:strUrl];
-   
+   NSLog(@"qibieurl=%@",strUrl);
+    NSLog(@"qibieurl=%@",API_BASE_URL(hexUrl));
     [manager GET:API_BASE_URL(hexUrl) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"---JSON: %@", responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         [nameArray removeAllObjects];
         [noEnterpriseArray removeAllObjects];
@@ -76,7 +77,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"---Error: %@", error);
     }];
 
 }
